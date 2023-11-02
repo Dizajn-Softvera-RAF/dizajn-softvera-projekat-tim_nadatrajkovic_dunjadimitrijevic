@@ -11,9 +11,15 @@ public class MyMenyBar extends JMenuBar {
     public MyMenyBar(){
         JMenu fileMenu = new JMenu("File");
         fileMenu.setMnemonic(KeyEvent.VK_F);
-        ExitAction ea = new ExitAction();
-        fileMenu.add(ea);
+        fileMenu.add(MainFrame.getInstance().getActionManager().getExitAction());
         add(fileMenu);
+
+        JMenu editMenu = new JMenu("Edit");
+        editMenu.setMnemonic(KeyEvent.VK_E);
+        JMenuItem aboutusItem = new JMenuItem("About Us");
+        editMenu.add(aboutusItem);
+        add(editMenu);
+        // TODO implementirati AboutUs akciju (reagovanje na biranje MenuItema, otvaranje AboutUs prozora sa imenima i slikama)
     }
 
 }

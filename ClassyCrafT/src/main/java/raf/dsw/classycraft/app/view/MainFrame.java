@@ -1,11 +1,14 @@
 package raf.dsw.classycraft.app.view;
 
+import raf.dsw.classycraft.app.controller.ActionManager;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
     private static MainFrame instance;
 
+    private ActionManager actionManager;
     //buduca polja za sve komponente view-a na glavnom prozoru
 
     private MainFrame(){
@@ -22,11 +25,17 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("ClassyCrafT");
 
+        actionManager = new ActionManager();
+
         MyMenyBar menu = new MyMenyBar();
         setJMenuBar(menu);
 
         MyToolBar toolBar = new MyToolBar();
         add(toolBar, BorderLayout.NORTH);
+    }
+
+    public ActionManager getActionManager() {
+        return actionManager;
     }
 
     public static MainFrame getInstance()
