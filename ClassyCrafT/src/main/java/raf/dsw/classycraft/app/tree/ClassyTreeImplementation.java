@@ -12,11 +12,13 @@ public class ClassyTreeImplementation implements ClassyTree{
     private DefaultTreeModel treeModel;
 
 
+
     @Override
     public ClassyTreeView generateTree(ProjectExplorer projectExplorer) {
         ClassyTreeItem root = new ClassyTreeItem(projectExplorer);
         treeModel = new DefaultTreeModel(root);
         treeView = new ClassyTreeView(treeModel);
+        System.out.println("generate tree" + root.toString());
         return treeView;
     }
 

@@ -4,6 +4,11 @@ public abstract class ClassyNode {
     private String name;
     private ClassyNode parent;
 
+    public ClassyNode(String name, ClassyNode parent) {
+        this.name = name;
+        this.parent = parent;
+    }
+
     public String getName() {
         return name;
     }

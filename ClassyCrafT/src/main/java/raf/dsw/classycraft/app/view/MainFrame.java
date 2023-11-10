@@ -15,6 +15,7 @@ public class MainFrame extends JFrame implements ISubscriber {
     private static MainFrame instance;
 
     private ActionManager actionManager;
+    private ClassyTree classyTree;
     //buduca polja za sve komponente view-a na glavnom prozoru
 
     private MainFrame(){
@@ -39,14 +40,17 @@ public class MainFrame extends JFrame implements ISubscriber {
         MyToolBar toolBar = new MyToolBar();
         add(toolBar, BorderLayout.NORTH);
 
-        //ClassyTree classyTree = new ClassyTreeImplementation(); todo preko AppFrameworka jtree, split pane i tree
-        //JTree projectExplorer = classyTree.generateTree((ProjectExplorer) ApplicationFramework.getInstance().getClassyRepositoryImplementation().getRoot());
+         // todo preko AppFrameworka jtree, split pane i tree
+        classyTree = new ClassyTreeImplementation();
 
-        //JPanel desktop = new JPanel();
-
-        //JScrollPane scroll=new JScrollPane(projectExplorer);
-        //scroll.setMinimumSize(new Dimension(200,150));
-//        JSplitPane split=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        System.out.println(ApplicationFramework.getInstance().getClassyRepositoryImplementation());
+        //JTree projectExplorer = classyTree.generateTree(ApplicationFramework.getInstance().getClassyRepositoryImplementation().getRoot());
+//
+//        JPanel desktop = new JPanel();
+//
+//        JScrollPane scroll=new JScrollPane(projectExplorer);
+//        scroll.setMinimumSize(new Dimension(200,150));
+//        JSplitPane split=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scroll,desktop);
 //        getContentPane().add(split,BorderLayout.CENTER);
 //        split.setDividerLocation(250);
 //        split.setOneTouchExpandable(true);

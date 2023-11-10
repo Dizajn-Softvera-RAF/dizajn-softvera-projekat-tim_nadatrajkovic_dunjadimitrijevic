@@ -13,6 +13,26 @@ public class ApplicationFramework {
 
     private static ApplicationFramework instance;
 
+    public void setClassyRepositoryImplementation(ClassyRepositoryImplementation classyRepositoryImplementation) {
+        this.classyRepositoryImplementation = classyRepositoryImplementation;
+    }
+
+    public MessageGenerator getMessageGenerator() {
+        return messageGenerator;
+    }
+
+    public void setMessageGenerator(MessageGenerator messageGenerator) {
+        this.messageGenerator = messageGenerator;
+    }
+
+    public LoggerFactory getLoggerFactory() {
+        return loggerFactory;
+    }
+
+    public void setLoggerFactory(LoggerFactory loggerFactory) {
+        this.loggerFactory = loggerFactory;
+    }
+
     //buduca polja za model celog projekta
     private ClassyRepositoryImplementation classyRepositoryImplementation;
 
@@ -26,7 +46,8 @@ public class ApplicationFramework {
     public void initialize(){
 
         MainFrame.getInstance().setVisible(true);
-        classyRepositoryImplementation = new ClassyRepositoryImplementation();
+        this.classyRepositoryImplementation = new ClassyRepositoryImplementation();
+        System.out.println(this.getClassyRepositoryImplementation());
 
         loggerFactory = new LoggerFactory();
         Logger loggerConsole= loggerFactory.CreateLogger("consolelogger");
@@ -37,14 +58,13 @@ public class ApplicationFramework {
         messageGenerator.GenerateMessage("proba poruke", MessageType.ERROR);
     }
 
-    public ClassyRepositoryImplementation getClassyRepositoryImplementation() {
-        return classyRepositoryImplementation;
-    }
-
     public static ApplicationFramework getInstance(){
         if(instance==null){
             instance = new ApplicationFramework();
         }
         return instance;
+    }
+    public ClassyRepositoryImplementation getClassyRepositoryImplementation() {
+        return this.classyRepositoryImplementation;
     }
 }

@@ -1,9 +1,13 @@
 package raf.dsw.classycraft.app.model.composite_implementation;
 
+import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
 
 public class ProjectExplorer extends ClassyNodeComposite {
-    public ProjectExplorer() {
+
+
+    public ProjectExplorer(String name) {
+        super(name, null);
     }
 
     @Override
