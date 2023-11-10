@@ -2,7 +2,11 @@ package raf.dsw.classycraft.app.view;
 
 import raf.dsw.classycraft.app.Observer.ISubscriber;
 import raf.dsw.classycraft.app.controller.ActionManager;
+import raf.dsw.classycraft.app.core.ApplicationFramework;
+import raf.dsw.classycraft.app.model.composite_implementation.ProjectExplorer;
 import raf.dsw.classycraft.app.model.message.Message;
+import raf.dsw.classycraft.app.tree.ClassyTree;
+import raf.dsw.classycraft.app.tree.ClassyTreeImplementation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +38,18 @@ public class MainFrame extends JFrame implements ISubscriber {
 
         MyToolBar toolBar = new MyToolBar();
         add(toolBar, BorderLayout.NORTH);
+
+        //ClassyTree classyTree = new ClassyTreeImplementation(); todo preko AppFrameworka jtree, split pane i tree
+        //JTree projectExplorer = classyTree.generateTree((ProjectExplorer) ApplicationFramework.getInstance().getClassyRepositoryImplementation().getRoot());
+
+        //JPanel desktop = new JPanel();
+
+        //JScrollPane scroll=new JScrollPane(projectExplorer);
+        //scroll.setMinimumSize(new Dimension(200,150));
+//        JSplitPane split=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+//        getContentPane().add(split,BorderLayout.CENTER);
+//        split.setDividerLocation(250);
+//        split.setOneTouchExpandable(true);
     }
 
     public ActionManager getActionManager() {
