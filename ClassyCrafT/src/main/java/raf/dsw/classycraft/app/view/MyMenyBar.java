@@ -20,7 +20,6 @@ public class MyMenyBar extends JMenuBar {
         editMenu.add(aboutusItem);
         add(editMenu);
 
-        // TODO implementirati AboutUs akciju (reagovanje na biranje MenuItema, otvaranje AboutUs prozora sa imenima i slikama)
 
         //aboutusItem.add(MainFrame.getInstance().getActionManager().getAboutUsAction());
         aboutusItem.addActionListener(MainFrame.getInstance().getActionManager().getAboutUsAction());
