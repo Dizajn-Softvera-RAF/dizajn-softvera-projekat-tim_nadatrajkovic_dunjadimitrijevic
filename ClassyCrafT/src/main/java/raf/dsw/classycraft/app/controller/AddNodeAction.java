@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.controller;
 
+import raf.dsw.classycraft.app.model.composite_implementation.NodeType;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.view.MainFrame;
 
@@ -18,7 +19,8 @@ public class AddNodeAction extends AbstractClassyAction{
     @Override
     public void actionPerformed(ActionEvent e) {
         ClassyTreeItem selected = (ClassyTreeItem) MainFrame.getInstance().getClassyTree().getSelectedNode();
-        MainFrame.getInstance().getClassyTree().addChild(selected);
+        NodeType type= NodeType.DIAGRAM; //todo bira tip noda
+        MainFrame.getInstance().getClassyTree().addChild(selected, type);
         //System.out.println("add node clicked");
     }
 }

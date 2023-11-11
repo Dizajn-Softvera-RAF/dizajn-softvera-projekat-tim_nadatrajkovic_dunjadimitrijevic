@@ -5,8 +5,15 @@ import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
 
 public class Project extends ClassyNodeComposite {
 
+    private static int brojacProjekata=1;
     public Project(String name, ClassyNode parent) {
         super(name, parent);
+    }
+
+    public Project(ClassyNode parent)
+    {
+        super("projekat"+brojacProjekata,parent);
+        brojacProjekata++;
     }
 
     @Override

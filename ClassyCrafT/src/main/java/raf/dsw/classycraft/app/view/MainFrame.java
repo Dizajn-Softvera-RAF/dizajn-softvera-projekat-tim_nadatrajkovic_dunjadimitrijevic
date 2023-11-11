@@ -3,7 +3,6 @@ package raf.dsw.classycraft.app.view;
 import raf.dsw.classycraft.app.Observer.ISubscriber;
 import raf.dsw.classycraft.app.controller.ActionManager;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
-import raf.dsw.classycraft.app.model.composite_implementation.ProjectExplorer;
 import raf.dsw.classycraft.app.model.message.Message;
 import raf.dsw.classycraft.app.tree.ClassyTree;
 import raf.dsw.classycraft.app.tree.ClassyTreeImplementation;
@@ -46,7 +45,7 @@ public class MainFrame extends JFrame implements ISubscriber {
         //System.out.println(ApplicationFramework.getInstance());
         //System.out.println(ApplicationFramework.getInstance().getClassyRepositoryImplementation());
         //System.out.println("msg: "+ ApplicationFramework.getInstance().getMessageGenerator());
-        JTree projectExplorer = classyTree.generateTree(ApplicationFramework.getInstance().getClassyRepositoryImplementation().getRoot());
+        JTree projectExplorer = classyTree.generateTree(ApplicationFramework.getInstance().getClassyRepository().getRoot());
 
         JPanel desktop = new JPanel();
 

@@ -3,12 +3,8 @@ package raf.dsw.classycraft.app.core;
 import raf.dsw.classycraft.app.model.log_factory.Logger;
 import raf.dsw.classycraft.app.model.log_factory.LoggerFactory;
 import raf.dsw.classycraft.app.model.message.MessageGenerator;
-import raf.dsw.classycraft.app.model.message.MessageType;
 import raf.dsw.classycraft.app.tree.ClassyTreeImplementation;
 import raf.dsw.classycraft.app.view.MainFrame;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class ApplicationFramework {
 
@@ -16,7 +12,7 @@ public class ApplicationFramework {
 
 
     //buduca polja za model celog projekta
-    private ClassyRepositoryImplementation classyRepositoryImplementation;
+    private ClassyRepository classyRepository;
 
     private MessageGenerator messageGenerator;
     private LoggerFactory loggerFactory;
@@ -28,8 +24,8 @@ public class ApplicationFramework {
 
     public void initialize(){
 
-        this.classyRepositoryImplementation = new ClassyRepositoryImplementation();
-        System.out.println(this.getClassyRepositoryImplementation());
+        this.classyRepository = new ClassyRepositoryImplementation();
+        System.out.println(this.getClassyRepository());
 
         loggerFactory = new LoggerFactory();
         Logger loggerConsole= loggerFactory.CreateLogger("consolelogger");
@@ -50,11 +46,11 @@ public class ApplicationFramework {
         }
         return instance;
     }
-    public ClassyRepositoryImplementation getClassyRepositoryImplementation() {
-        return this.classyRepositoryImplementation;
+    public ClassyRepository getClassyRepository() {
+        return this.classyRepository;
     }
-    public void setClassyRepositoryImplementation(ClassyRepositoryImplementation classyRepositoryImplementation) {
-        this.classyRepositoryImplementation = classyRepositoryImplementation;
+    public void setClassyRepository(ClassyRepository classyRepository) {
+        this.classyRepository = classyRepository;
     }
 
     public MessageGenerator getMessageGenerator() {
