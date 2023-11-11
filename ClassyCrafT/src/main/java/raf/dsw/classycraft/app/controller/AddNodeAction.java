@@ -1,7 +1,13 @@
 package raf.dsw.classycraft.app.controller;
 
+import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.model.composite_implementation.NodeType;
+import raf.dsw.classycraft.app.model.composite_implementation.Project;
+import raf.dsw.classycraft.app.model.composite_implementation.Package;
+import raf.dsw.classycraft.app.model.message.MessageType;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
+import raf.dsw.classycraft.app.view.AboutUsWindow;
+import raf.dsw.classycraft.app.view.AddPackageChildWindow;
 import raf.dsw.classycraft.app.view.MainFrame;
 
 import javax.swing.*;
@@ -9,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class AddNodeAction extends AbstractClassyAction{
+    private NodeType type;
     public AddNodeAction() {
         //putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
         putValue(SMALL_ICON, loadIcon("/images/plus.png"));
@@ -16,10 +23,39 @@ public class AddNodeAction extends AbstractClassyAction{
         putValue(SHORT_DESCRIPTION, "Add node");
     }
 
+    public NodeType getType() {
+        return type;
+    }
+
+    public void setType(NodeType type) {
+        this.type = type;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         ClassyTreeItem selected = (ClassyTreeItem) MainFrame.getInstance().getClassyTree().getSelectedNode();
-        NodeType type= NodeType.DIAGRAM; //todo bira tip noda
+        //NodeType type;//= NodeType.DIAGRAM; //todo bira tip noda
+        if(selected == null)
+        {
+            ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("izabrani cvor nije izabran", MessageType.ERROR);
+            return;
+        }
+        if(selected.getClassyNode() instanceof Package)
+        {
+            AddPackageChildWindow pcw=new AddPackageChildWindow();
+
+            pcw.setVisible(true);
+
+
+
+//            if(pcw.getR1().isSelected())
+//                type = NodeType.PROJECT;
+//            else
+//                type = NodeType.DIAGRAM;
+
+        }
+        //System.out.println("pre addChild: "+ type.toString());
+
         MainFrame.getInstance().getClassyTree().addChild(selected, type);
         //System.out.println("add node clicked");
     }

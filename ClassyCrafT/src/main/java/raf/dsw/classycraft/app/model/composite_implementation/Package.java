@@ -17,7 +17,19 @@ public class Package extends ClassyNodeComposite {
 
     @Override
     public void addChild(ClassyNode child) {
-        //TODO
+        //TODO exceptioni?
+        if (child != null &&  child instanceof Package){
+            Package p = (Package) child;
+            if (!this.getChildren().contains(p)){
+                this.getChildren().add(p);
+            }
+        }
+        else if (child != null &&  child instanceof Diagram){
+            Diagram d = (Diagram) child;
+            if (!this.getChildren().contains(d)){
+                this.getChildren().add(d);
+            }
+        }
     }
 
     @Override

@@ -18,10 +18,10 @@ public class ClassyTreeImplementation implements ClassyTree{
 
     private ClassyTreeView treeView;
     private DefaultTreeModel treeModel;
-    private static int project_cnt; // ovi cnt sluze kao neko (privremeno?) resenje za imenovanje
-    private static  int package_cnt;
-    private static int diagram_cnt;
-    private MessageGenerator messageGenerator = new MessageGenerator();
+//    private static int project_cnt; // ovi cnt sluze kao neko (privremeno?) resenje za imenovanje
+//    private static  int package_cnt;
+//    private static int diagram_cnt;
+    //private MessageGenerator messageGenerator = new MessageGenerator();
 
     @Override
     public ClassyTreeView generateTree(ProjectExplorer projectExplorer) {
@@ -29,9 +29,8 @@ public class ClassyTreeImplementation implements ClassyTree{
         treeModel = new DefaultTreeModel(root);
         treeView = new ClassyTreeView(treeModel);
         System.out.println("generate tree" + root.toString());
-        project_cnt = 0;
 
-        messageGenerator.addSubscriber(MainFrame.getInstance());
+        ApplicationFramework.getInstance().getMessageGenerator().addSubscriber(MainFrame.getInstance());
 
         return treeView;
     }
@@ -41,7 +40,7 @@ public class ClassyTreeImplementation implements ClassyTree{
         //todo implementirati - glavni deo
         if(!(parent.getClassyNode() instanceof ClassyNodeComposite)) // ako je izabrani cvor Diagram, ne moze
         {
-            messageGenerator.GenerateMessage("izabrani cvor ne moze da bude roditelj", MessageType.ERROR);
+            ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("izabrani cvor ne moze da bude roditelj", MessageType.ERROR);
             return; // todo ispisati gresku/info, mozda treba da bude publisher pa da obavesti main frame
 
         }

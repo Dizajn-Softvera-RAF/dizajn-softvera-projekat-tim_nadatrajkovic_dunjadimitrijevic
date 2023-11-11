@@ -5,6 +5,7 @@ public class ActionManager {
     private ExitAction exitAction;
     private AboutUsAction aboutUsAction;
     private AddNodeAction addNodeAction;
+    private PackageChildAction packageChildAction;
     public ActionManager() {
         initialiseActions();
     }
@@ -13,6 +14,10 @@ public class ActionManager {
         return exitAction;
     }
     public AboutUsAction getAboutUsAction(){return aboutUsAction;}
+
+    public PackageChildAction getPackageChildAction() {
+        return packageChildAction;
+    }
 
     public AddNodeAction getAddNodeAction() {
         return addNodeAction;

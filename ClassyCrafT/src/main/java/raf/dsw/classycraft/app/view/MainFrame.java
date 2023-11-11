@@ -75,6 +75,7 @@ public class MainFrame extends JFrame implements ISubscriber {
         return instance;
     }
 
+
     @Override
     public void Update(Object notification) {
         if(notification instanceof Message)
