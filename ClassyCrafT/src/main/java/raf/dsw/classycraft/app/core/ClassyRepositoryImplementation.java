@@ -8,7 +8,7 @@ public class ClassyRepositoryImplementation implements ClassyRepository{
 
     public ClassyRepositoryImplementation() {
         this.root = new ProjectExplorer("Project Explorer");
-        System.out.println("napravio project explorer" + root.getName());
+        System.out.println("napravio project explorer " + root.getName() + " " + this);
     }
 
     @Override

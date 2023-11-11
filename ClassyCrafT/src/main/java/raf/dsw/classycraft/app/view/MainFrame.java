@@ -43,17 +43,19 @@ public class MainFrame extends JFrame implements ISubscriber {
          // todo preko AppFrameworka jtree, split pane i tree
         classyTree = new ClassyTreeImplementation();
 
+        System.out.println(ApplicationFramework.getInstance());
         System.out.println(ApplicationFramework.getInstance().getClassyRepositoryImplementation());
-        //JTree projectExplorer = classyTree.generateTree(ApplicationFramework.getInstance().getClassyRepositoryImplementation().getRoot());
-//
-//        JPanel desktop = new JPanel();
-//
-//        JScrollPane scroll=new JScrollPane(projectExplorer);
-//        scroll.setMinimumSize(new Dimension(200,150));
-//        JSplitPane split=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scroll,desktop);
-//        getContentPane().add(split,BorderLayout.CENTER);
-//        split.setDividerLocation(250);
-//        split.setOneTouchExpandable(true);
+        System.out.println("msg: "+ ApplicationFramework.getInstance().getMessageGenerator());
+        JTree projectExplorer = classyTree.generateTree(ApplicationFramework.getInstance().getClassyRepositoryImplementation().getRoot());
+
+        JPanel desktop = new JPanel();
+
+        JScrollPane scroll=new JScrollPane(projectExplorer);
+        scroll.setMinimumSize(new Dimension(200,150));
+        JSplitPane split=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scroll,desktop);
+        getContentPane().add(split,BorderLayout.CENTER);
+        split.setDividerLocation(250);
+        split.setOneTouchExpandable(true);
     }
 
     public ActionManager getActionManager() {
