@@ -10,8 +10,14 @@ public class Project extends ClassyNodeComposite {
     }
 
     @Override
-    public void addChild() {
-        //TODO
+    public void addChild(ClassyNode child) {
+        //TODO hendlovati exceptione
+        if (child != null &&  child instanceof Package){
+            Package p = (Package) child;
+            if (!this.getChildren().contains(p)){
+                this.getChildren().add(p);
+            }
+        }
     }
 
     @Override

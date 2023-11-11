@@ -43,9 +43,9 @@ public class MainFrame extends JFrame implements ISubscriber {
          // todo preko AppFrameworka jtree, split pane i tree
         classyTree = new ClassyTreeImplementation();
 
-        System.out.println(ApplicationFramework.getInstance());
-        System.out.println(ApplicationFramework.getInstance().getClassyRepositoryImplementation());
-        System.out.println("msg: "+ ApplicationFramework.getInstance().getMessageGenerator());
+        //System.out.println(ApplicationFramework.getInstance());
+        //System.out.println(ApplicationFramework.getInstance().getClassyRepositoryImplementation());
+        //System.out.println("msg: "+ ApplicationFramework.getInstance().getMessageGenerator());
         JTree projectExplorer = classyTree.generateTree(ApplicationFramework.getInstance().getClassyRepositoryImplementation().getRoot());
 
         JPanel desktop = new JPanel();
@@ -60,6 +60,10 @@ public class MainFrame extends JFrame implements ISubscriber {
 
     public ActionManager getActionManager() {
         return actionManager;
+    }
+
+    public ClassyTree getClassyTree() {
+        return classyTree;
     }
 
     public static MainFrame getInstance()

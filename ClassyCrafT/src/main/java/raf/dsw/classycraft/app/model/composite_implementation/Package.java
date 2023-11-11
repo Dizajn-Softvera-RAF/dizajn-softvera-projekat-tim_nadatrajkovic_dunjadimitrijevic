@@ -9,7 +9,7 @@ public class Package extends ClassyNodeComposite {
     }
 
     @Override
-    public void addChild() {
+    public void addChild(ClassyNode child) {
         //TODO
     }
 

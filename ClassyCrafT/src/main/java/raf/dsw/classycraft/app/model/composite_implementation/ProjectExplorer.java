@@ -11,8 +11,17 @@ public class ProjectExplorer extends ClassyNodeComposite {
     }
 
     @Override
-    public void addChild() {
-        //TODO
+    public void addChild(ClassyNode child) {
+        //TODO hendlovati exceptionse
+        if (child != null &&  child instanceof Project){
+            Project project = (Project) child;
+            if (!this.getChildren().contains(project)){
+                this.getChildren().add(project);
+            }
+        }
+//        if(child == null || !(child instanceof Project))
+//            return;
+//        this.getChildren().add((Project) child);
     }
 
     @Override
