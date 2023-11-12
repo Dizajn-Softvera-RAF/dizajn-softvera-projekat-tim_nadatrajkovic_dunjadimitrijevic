@@ -15,6 +15,7 @@ public abstract class ClassyNode implements IPublisher {
     public ClassyNode(String name, ClassyNode parent) {
         this.name = name;
         this.parent = parent;
+        subscriberList=new ArrayList<>();
     }
 
     public String getName() {
@@ -31,6 +32,15 @@ public abstract class ClassyNode implements IPublisher {
 
     public ClassyNode getParent() {
         return parent;
+    }
+
+    public void removeNode()
+    {
+        this.parent=null;
+        notifySubscribers("brisi");
+        /*for (ISubscriber i:subscriberList) {
+            removeSubscriber(i);
+        }*/
     }
 
 

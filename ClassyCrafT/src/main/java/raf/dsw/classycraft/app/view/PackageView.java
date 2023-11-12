@@ -58,6 +58,12 @@ public class PackageView extends JPanel implements ISubscriber {
         {
             setAutor(((Pair)notification).getValue().toString());
         }
+        else if(notification.toString().equals("brisi"))
+        {
+            removeAll();
+            repaint();
+            revalidate();
+        }
         else if(notification instanceof String)
         {
             setProjectNaziv(notification.toString());
@@ -68,6 +74,7 @@ public class PackageView extends JPanel implements ISubscriber {
             MainFrame.getInstance().getPackageView().getTabs().addTab(((Diagram) notification).getName(), dw);
             ((Diagram)notification).addSubscriber(dw);
         }
+
 
     }
 }

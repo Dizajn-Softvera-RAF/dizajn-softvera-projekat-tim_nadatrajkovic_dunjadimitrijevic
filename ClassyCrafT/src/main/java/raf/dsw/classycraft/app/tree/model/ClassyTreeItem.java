@@ -3,6 +3,7 @@ package raf.dsw.classycraft.app.tree.model;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.MutableTreeNode;
 
 public class ClassyTreeItem extends DefaultMutableTreeNode {
     private ClassyNode classyNode;
@@ -22,5 +23,19 @@ public class ClassyTreeItem extends DefaultMutableTreeNode {
 
     public ClassyNode getClassyNode() {
         return classyNode;
+    }
+
+
+    @Override
+    public void removeFromParent() {
+        super.removeFromParent();
+        classyNode.removeNode();
+    }
+
+
+    @Override
+    public void removeAllChildren() {
+        super.removeAllChildren();
+        classyNode.removeNode();
     }
 }

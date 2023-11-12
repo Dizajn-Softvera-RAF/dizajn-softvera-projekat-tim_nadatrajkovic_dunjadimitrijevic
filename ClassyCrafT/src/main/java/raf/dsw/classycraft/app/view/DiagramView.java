@@ -16,6 +16,11 @@ public class DiagramView extends JPanel implements ISubscriber {
 
     @Override
     public void Update(Object notification) {
-
+        if(notification.toString().equals("brisi"))
+        {
+            removeAll();
+            repaint();
+            revalidate();
+        }
     }
 }

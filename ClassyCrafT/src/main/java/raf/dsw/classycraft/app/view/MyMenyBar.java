@@ -14,6 +14,7 @@ public class MyMenyBar extends JMenuBar {
         fileMenu.add(MainFrame.getInstance().getActionManager().getExitAction());
         fileMenu.add(MainFrame.getInstance().getActionManager().getAddNodeAction());
         fileMenu.add(MainFrame.getInstance().getActionManager().getAddAutorAction());
+        fileMenu.add(MainFrame.getInstance().getActionManager().getDeleteAction());
         add(fileMenu);
 
         JMenu editMenu = new JMenu("Edit");
