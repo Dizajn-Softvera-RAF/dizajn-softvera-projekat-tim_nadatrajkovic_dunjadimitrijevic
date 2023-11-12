@@ -23,13 +23,16 @@ public class OpenPackageAction implements MouseListener {
         {
             ClassyTreeItem selected = (ClassyTreeItem) MainFrame.getInstance().getClassyTree().getSelectedNode();
             ArrayList<ClassyNode> package_children = new ArrayList<>();
+            MainFrame.getInstance().getTabs().removeAll();
             if(selected.getClassyNode() instanceof Package)
             {
                 package_children = ((Package) selected.getClassyNode()).getChildren();
             }
             if(package_children.isEmpty())
+            {
                 return;
-            MainFrame.getInstance().getTabs().removeAll();
+            }
+            //MainFrame.getInstance().getTabs().removeAll();
             for (ClassyNode child:package_children) {
                 MainFrame.getInstance().getTabs().addTab(child.getName(), new JPanel() );
             }

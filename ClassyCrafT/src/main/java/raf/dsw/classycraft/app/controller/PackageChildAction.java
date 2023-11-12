@@ -28,10 +28,13 @@ public class PackageChildAction implements ActionListener {
         }
         else
             t = NodeType.PACKAGE;
-
-        //System.out.println("e: "+ e.);
-        MainFrame.getInstance().getActionManager().getAddNodeAction().setType(t);
+        System.out.println("usao u OK action performed");
+        System.out.println("t: "+ t);
+        MainFrame.getInstance().setSelectedPackageChild(t);
+        //f.setVisible(false);
+        f.dispose();
         f.setVisible(false);
-
+        //f.revalidate();
+        //f.repaint();
     }
 }

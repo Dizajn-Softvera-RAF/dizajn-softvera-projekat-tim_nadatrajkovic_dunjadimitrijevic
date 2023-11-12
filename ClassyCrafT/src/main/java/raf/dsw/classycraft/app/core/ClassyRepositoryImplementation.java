@@ -28,7 +28,7 @@ public class ClassyRepositoryImplementation implements ClassyRepository{
     }
 
     @Override
-    public ClassyNode createNode(ClassyNode parent, NodeType type)
+    public ClassyNode createNode(ClassyNode parent)
     {
         AbstractNodeFactory factory = null;
         if(parent instanceof ProjectExplorer)
@@ -37,13 +37,21 @@ public class ClassyRepositoryImplementation implements ClassyRepository{
             factory = new PackageNodeFactory();
         else if (parent instanceof Package)
         {
-            factory=new DiagramNodeFactory();
-//            if(type == NodeType.DIAGRAM)
-//                factory=new DiagramNodeFactory();//todo moze da bira izmedju Diagram i Package
-//            else if(type == NodeType.PACKAGE)
-//                factory = new PackageNodeFactory();
-//            else
-//                ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("nije izabran tip za dete paketa", MessageType.ERROR);
+            //factory=new DiagramNodeFactory();
+            NodeType type = MainFrame.getInstance().getSelectedPackageChild();
+
+            if(type != null)
+            {
+                if(type == NodeType.DIAGRAM)
+                    factory=new DiagramNodeFactory();//todo moze da bira izmedju Diagram i Package
+                else if(type == NodeType.PACKAGE)
+                    factory = new PackageNodeFactory();
+                else
+                    ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("nije izabran tip za dete paketa", MessageType.ERROR);
+            }
+            else{
+                //throw new RuntimeException("nije izabran paket ili diagram");
+            }
         }
 //        if(type == NodeType.DIAGRAM)
 //            factory = new DiagramNodeFactory();

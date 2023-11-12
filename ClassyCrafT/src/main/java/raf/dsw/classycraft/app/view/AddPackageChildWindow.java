@@ -11,7 +11,8 @@ public class AddPackageChildWindow extends JDialog{
     JRadioButton r2;
     ButtonGroup bg;
     JButton ok;
-    public AddPackageChildWindow(){
+    public AddPackageChildWindow(JFrame parent){
+        super(parent, true);
         r1=new JRadioButton("New Package");
         r2=new JRadioButton("New Diagram");
         r1.setBounds(75,50,200,30);
@@ -26,11 +27,12 @@ public class AddPackageChildWindow extends JDialog{
         bg.clearSelection();
         this.add(r1);
         this.add(r2);
+        PackageChildAction buttonListener = new PackageChildAction(r1, r2, this);
+        ok.addActionListener(buttonListener);
         this.add(ok);
         this.setSize(300,300);
         this.setLayout(null);
-        this.setVisible(true);
-        ok.addActionListener(new PackageChildAction(r1, r2, this));
+        System.out.println("usao u pcwindow konstruktor");
     }
 
     public JRadioButton getR1() {

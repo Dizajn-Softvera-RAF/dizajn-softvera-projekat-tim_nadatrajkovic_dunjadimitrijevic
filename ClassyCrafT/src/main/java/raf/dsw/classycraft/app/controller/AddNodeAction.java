@@ -13,9 +13,21 @@ import raf.dsw.classycraft.app.view.MainFrame;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class AddNodeAction extends AbstractClassyAction{
     private NodeType type;
+    private static boolean closed_window = false;
+
+    public static boolean isClosed_window() {
+        return closed_window;
+    }
+
+    public static void setClosed_window(boolean closed_window) {
+        AddNodeAction.closed_window = closed_window;
+    }
+
     public AddNodeAction() {
         //putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
         putValue(SMALL_ICON, loadIcon("/images/plus.png"));
@@ -42,9 +54,25 @@ public class AddNodeAction extends AbstractClassyAction{
         }
         if(selected.getClassyNode() instanceof Package)
         {
-            AddPackageChildWindow pcw=new AddPackageChildWindow();
+            AddPackageChildWindow pcw=new AddPackageChildWindow(MainFrame.getInstance());
+            pcw.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
+            pcw.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    super.windowClosed(e);
+                    System.out.println("zatvoren pcw prozor");
+                    closed_window = true;
+                    System.out.println(closed_window);
+                }
+            });
             pcw.setVisible(true);
+            System.out.println(closed_window);
+            if(closed_window)
+            {
+
+                return;
+            }
 
 
 
@@ -55,6 +83,7 @@ public class AddNodeAction extends AbstractClassyAction{
 
         }
         //System.out.println("pre addChild: "+ type.toString());
+        //type = MainFrame.getInstance().getSelectedPackageChild();
 
         MainFrame.getInstance().getClassyTree().addChild(selected, type);
         //System.out.println("add node clicked");
