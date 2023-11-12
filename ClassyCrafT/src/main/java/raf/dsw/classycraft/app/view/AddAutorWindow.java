@@ -26,39 +26,49 @@ public class AddAutorWindow extends JDialog {
     public AddAutorWindow(JFrame parent, ClassyNode node) {
         super(parent,true);
 
-        if(!(node instanceof Project))
-        {
-            ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("samo projektu moze da se menja autor", MessageType.ERROR);
-            zaPrikazivanje=false;
-        }
-        else
-        {
-            this.project=(Project)node;
-            this.setSize(300,300);
+
+
+
+            this.project = (Project) node;
+            this.setSize(300, 300);
             this.setLocationRelativeTo(null);
 
+
+
+
             textField = new JTextField();
-            textField.setSize(100,20);
-            textField.setBounds(75,50,200,40);
+            textField.setSize(100, 20);
+            textField.setBounds(75, 50, 200, 40);
             textField.setText((project).getImeAutora());
+            //JPanel textPanel = new JPanel();
+            //textPanel.add(textField);
+
             btnPosalji = new JButton("zavrsi");
-            btnPosalji.setSize(40,40);
+            btnPosalji.setSize(40, 40);
             btnPosalji.setVisible(true);
+            //JPanel btnPanel=new JPanel();
+            //btnPanel.add(btnPosalji);
+
+            ChangeNameAction changeNameAction = new ChangeNameAction(this, this.project);
+            btnPosalji.addActionListener(changeNameAction);
+
+
+
+            //BorderLayout bl = new BorderLayout(10,10);
+            //bl.addLayoutComponent(textField,BorderLayout.LINE_START);
+            //bl.addLayoutComponent(btnPosalji,BorderLayout.CENTER);
+
 
             this.add(textField);
             this.add(btnPosalji);
 
-            this.setLayout(null);
-            this.setVisible(true);
+            //this.setLayout(bl);
+            //this.setVisible(true);
 
 
             //zaPrikazivanje=true;
 
-            ActionListener promenaImena=new ChangeNameAction(this,this.project,this.textField.getText());
-            btnPosalji.addActionListener(promenaImena);
-
-
-
+            setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 
 
@@ -75,17 +85,32 @@ public class AddAutorWindow extends JDialog {
             //textField.setVisible(true);
             //btnPosalji.setVisible(true);
 
-        }
+
 
     }
 
 
-
-    public boolean isZaPrikazivanje() {
-        return zaPrikazivanje;
+    public String textFromField()
+    {
+        return textField.getText();
     }
 
-    public void setZaPrikazivanje(boolean zaPrikazivanje) {
-        this.zaPrikazivanje = zaPrikazivanje;
+    public JTextField getTextField() {
+        return textField;
     }
+
+    public void setTextField(JTextField textField) {
+        this.textField = textField;
+    }
+
+
+
+
+//    public boolean isZaPrikazivanje() {
+//        return true;//zaPrikazivanje;
+//    }
+//
+//    public void setZaPrikazivanje(boolean zaPrikazivanje) {
+//        this.zaPrikazivanje = zaPrikazivanje;
+//    }
 }

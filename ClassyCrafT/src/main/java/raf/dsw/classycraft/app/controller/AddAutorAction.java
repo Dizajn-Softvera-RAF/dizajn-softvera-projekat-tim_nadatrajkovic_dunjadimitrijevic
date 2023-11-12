@@ -1,6 +1,7 @@
 package raf.dsw.classycraft.app.controller;
 
 import raf.dsw.classycraft.app.core.ApplicationFramework;
+import raf.dsw.classycraft.app.model.composite_implementation.Project;
 import raf.dsw.classycraft.app.model.message.MessageType;
 import raf.dsw.classycraft.app.view.AboutUsWindow;
 import raf.dsw.classycraft.app.view.AddAutorWindow;
@@ -25,11 +26,17 @@ public class AddAutorAction extends AbstractClassyAction{
             ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("niste izabrali projekat", MessageType.ERROR);
             return;
         }
-        AddAutorWindow autorWindow=new AddAutorWindow(MainFrame.getInstance(),MainFrame.getInstance().getClassyTree().getSelectedNode().getClassyNode());
+        else if (MainFrame.getInstance().getClassyTree().getSelectedNode().getClassyNode() instanceof Project )
+        {
+            AddAutorWindow autorWindow = new AddAutorWindow(MainFrame.getInstance(), MainFrame.getInstance().getClassyTree().getSelectedNode().getClassyNode());
 
 
-        autorWindow.setVisible(true);
-
+            autorWindow.setVisible(true);
+        }
+        else
+        {
+            ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("samo projekat ima ime autora", MessageType.ERROR);
+        }
     }
 
 
