@@ -2,6 +2,7 @@ package raf.dsw.classycraft.app.view;
 
 import raf.dsw.classycraft.app.Observer.ISubscriber;
 import raf.dsw.classycraft.app.controller.ActionManager;
+import raf.dsw.classycraft.app.controller.OpenPackageAction;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.model.message.Message;
 import raf.dsw.classycraft.app.tree.ClassyTree;
@@ -15,6 +16,8 @@ public class MainFrame extends JFrame implements ISubscriber {
 
     private ActionManager actionManager;
     private ClassyTree classyTree;
+    private JTree projectExplorer;
+    private JTabbedPane tabs;
     //buduca polja za sve komponente view-a na glavnom prozoru
 
     private MainFrame(){
@@ -39,15 +42,24 @@ public class MainFrame extends JFrame implements ISubscriber {
         MyToolBar toolBar = new MyToolBar();
         add(toolBar, BorderLayout.NORTH);
 
-         // todo preko AppFrameworka jtree, split pane i tree
+
         classyTree = new ClassyTreeImplementation();
 
         //System.out.println(ApplicationFramework.getInstance());
         //System.out.println(ApplicationFramework.getInstance().getClassyRepositoryImplementation());
         //System.out.println("msg: "+ ApplicationFramework.getInstance().getMessageGenerator());
-        JTree projectExplorer = classyTree.generateTree(ApplicationFramework.getInstance().getClassyRepository().getRoot());
+        projectExplorer = classyTree.generateTree(ApplicationFramework.getInstance().getClassyRepository().getRoot());
 
+        JPanel desktopinfo = new JPanel();
+        Label project = new Label("Current project: ");
+        Label author = new Label("Author: ");
+        desktopinfo.add(project);
+        desktopinfo.add(author);
         JPanel desktop = new JPanel();
+        desktop.setLayout(new BorderLayout());
+        desktop.add(desktopinfo, BorderLayout.NORTH);
+        JPanel tabs_panel = new JPanel();
+        desktop.add(tabs_panel,BorderLayout.CENTER);
 
         JScrollPane scroll=new JScrollPane(projectExplorer);
         scroll.setMinimumSize(new Dimension(200,150));
@@ -55,7 +67,27 @@ public class MainFrame extends JFrame implements ISubscriber {
         getContentPane().add(split,BorderLayout.CENTER);
         split.setDividerLocation(250);
         split.setOneTouchExpandable(true);
+
+        tabs = new JTabbedPane(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT);
+        //tabs.setSize(500,300);
+
+        tabs_panel.add(tabs);
+
+        projectExplorer.addMouseListener(new OpenPackageAction());
+
     }
+
+    public JTree getProjectExplorer() {
+        return projectExplorer;
+    }
+
+    public JTabbedPane getTabs() {
+        return tabs;
+    }
+
+//    public void setTabs(JTabbedPane tabs) {
+//        this.tabs = tabs;
+//    }
 
     public ActionManager getActionManager() {
         return actionManager;
