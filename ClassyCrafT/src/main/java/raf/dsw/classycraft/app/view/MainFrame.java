@@ -20,24 +20,24 @@ public class MainFrame extends JFrame implements ISubscriber {
     private ActionManager actionManager;
     private ClassyTree classyTree;
 
-    private NodeType selectedPackageChild;
+    //private NodeType selectedPackageChild;
 
-    public NodeType getSelectedPackageChild() {
-        if(selectedPackageChild == null)
-        {
-            ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("nije izabran tip deteta paketa", MessageType.ERROR);
-            return null;
-        }
-        else
-        {
-            return selectedPackageChild;
-        }
-    }
-
-    public void setSelectedPackageChild(NodeType selectedPackageChild) {
-        this.selectedPackageChild = selectedPackageChild;
-        System.out.println("setovao type");
-    }
+//    public NodeType getSelectedPackageChild() {
+//        if(selectedPackageChild == null)
+//        {
+//            ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("nije izabran tip deteta paketa", MessageType.ERROR);
+//            return null;
+//        }
+//        else
+//        {
+//            return selectedPackageChild;
+//        }
+//    }
+//
+//    public void setSelectedPackageChild(NodeType selectedPackageChild) {
+//        this.selectedPackageChild = selectedPackageChild;
+//        System.out.println("setovao type");
+//    }
 //buduca polja za sve komponente view-a na glavnom prozoru
     private JTree projectExplorer;
     private JTabbedPane tabs;

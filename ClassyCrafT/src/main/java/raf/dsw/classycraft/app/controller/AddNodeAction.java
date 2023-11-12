@@ -33,6 +33,7 @@ public class AddNodeAction extends AbstractClassyAction{
         putValue(SMALL_ICON, loadIcon("/images/plus.png"));
         putValue(NAME, "Add");
         putValue(SHORT_DESCRIPTION, "Add node");
+
     }
 
     public NodeType getType() {
@@ -56,23 +57,24 @@ public class AddNodeAction extends AbstractClassyAction{
         {
             AddPackageChildWindow pcw=new AddPackageChildWindow(MainFrame.getInstance());
             pcw.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-
+            closed_window = false;
             pcw.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
                     super.windowClosed(e);
+
                     System.out.println("zatvoren pcw prozor");
                     closed_window = true;
                     System.out.println(closed_window);
                 }
             });
             pcw.setVisible(true);
-            System.out.println(closed_window);
-            if(closed_window)
-            {
-
-                return;
-            }
+            //System.out.println(closed_window);
+//            if(closed_window)
+//            {
+//
+//                return;
+//            }
 
 
 
@@ -82,10 +84,14 @@ public class AddNodeAction extends AbstractClassyAction{
 //                type = NodeType.DIAGRAM;
 
         }
+        else
+        {
+            MainFrame.getInstance().getClassyTree().addChild(selected, type);
+        }
         //System.out.println("pre addChild: "+ type.toString());
         //type = MainFrame.getInstance().getSelectedPackageChild();
 
-        MainFrame.getInstance().getClassyTree().addChild(selected, type);
+        //MainFrame.getInstance().getClassyTree().addChild(selected, type);
         //System.out.println("add node clicked");
     }
 }
