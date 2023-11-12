@@ -2,7 +2,10 @@ package raf.dsw.classycraft.app.view;
 
 import raf.dsw.classycraft.app.Observer.ISubscriber;
 import raf.dsw.classycraft.app.controller.ActionManager;
+import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.model.message.Message;
+import raf.dsw.classycraft.app.tree.ClassyTree;
+import raf.dsw.classycraft.app.tree.ClassyTreeImplementation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +14,7 @@ public class MainFrame extends JFrame implements ISubscriber {
     private static MainFrame instance;
 
     private ActionManager actionManager;
+    private ClassyTree classyTree;
     //buduca polja za sve komponente view-a na glavnom prozoru
 
     private MainFrame(){
@@ -34,10 +38,31 @@ public class MainFrame extends JFrame implements ISubscriber {
 
         MyToolBar toolBar = new MyToolBar();
         add(toolBar, BorderLayout.NORTH);
+
+         // todo preko AppFrameworka jtree, split pane i tree
+        classyTree = new ClassyTreeImplementation();
+
+        //System.out.println(ApplicationFramework.getInstance());
+        //System.out.println(ApplicationFramework.getInstance().getClassyRepositoryImplementation());
+        //System.out.println("msg: "+ ApplicationFramework.getInstance().getMessageGenerator());
+        JTree projectExplorer = classyTree.generateTree(ApplicationFramework.getInstance().getClassyRepository().getRoot());
+
+        JPanel desktop = new JPanel();
+
+        JScrollPane scroll=new JScrollPane(projectExplorer);
+        scroll.setMinimumSize(new Dimension(200,150));
+        JSplitPane split=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scroll,desktop);
+        getContentPane().add(split,BorderLayout.CENTER);
+        split.setDividerLocation(250);
+        split.setOneTouchExpandable(true);
     }
 
     public ActionManager getActionManager() {
         return actionManager;
+    }
+
+    public ClassyTree getClassyTree() {
+        return classyTree;
     }
 
     public static MainFrame getInstance()
@@ -49,6 +74,7 @@ public class MainFrame extends JFrame implements ISubscriber {
         }
         return instance;
     }
+
 
     @Override
     public void Update(Object notification) {

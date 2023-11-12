@@ -20,6 +20,7 @@ public class AboutUsWindow extends JFrame {
         System.out.println("uso u konstruktor");
 
 
+        // todo nema slike u resources
         URL imageURL = getClass().getResource("/images/slikaAboutUs.jpeg");
         ImageIcon icon = null;
 
