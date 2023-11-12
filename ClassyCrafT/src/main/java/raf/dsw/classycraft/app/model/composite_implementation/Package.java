@@ -1,7 +1,12 @@
 package raf.dsw.classycraft.app.model.composite_implementation;
 
+import raf.dsw.classycraft.app.Observer.IPublisher;
+import raf.dsw.classycraft.app.Observer.ISubscriber;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Package extends ClassyNodeComposite {
     public static int brojacPaketa=1;
@@ -29,11 +34,16 @@ public class Package extends ClassyNodeComposite {
             if (!this.getChildren().contains(d)){
                 this.getChildren().add(d);
             }
+            this.notifySubscribers(child);
         }
+        //addSubscriber(child);
     }
 
     @Override
-    public void removeChild() {
+    public void removeChild(ClassyNode child) {
+        //removeSubscriber(child);
         //TODO
     }
+
+
 }

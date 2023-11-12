@@ -1,7 +1,10 @@
 package raf.dsw.classycraft.app.controller;
 
+import javafx.util.Pair;
 import raf.dsw.classycraft.app.Observer.IPublisher;
 import raf.dsw.classycraft.app.Observer.ISubscriber;
+import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
+import raf.dsw.classycraft.app.model.composite_implementation.Package;
 import raf.dsw.classycraft.app.model.composite_implementation.Project;
 import raf.dsw.classycraft.app.view.AddAutorWindow;
 import raf.dsw.classycraft.app.view.MainFrame;
@@ -39,6 +42,14 @@ public class ChangeNameAction implements ActionListener{ //IPublisher {
         System.out.println("uso u action prerformed1"+tekst);
 
         project.setImeAutora(tekst);  //dal ovde uopste treba observer mozda zapravo treba u project kad promeni tekst
+        project.notifySubscribers(new Pair("promena imena",tekst));
+
+        for (ClassyNode p:project.getChildren()) {
+            if(p instanceof Package)
+            {
+                ((Package) p).notifySubscribers(new Pair("promena imena",tekst));
+            }
+        }
 
         System.out.println("uso u action prerformed"+tekst);
 
@@ -47,6 +58,8 @@ public class ChangeNameAction implements ActionListener{ //IPublisher {
         //System.exit(0);
         dialog1.dispose();
         dialog.dispose();
+
+
 
         //dialog.setVisible(false);
         //dialog1.setVisible(false);

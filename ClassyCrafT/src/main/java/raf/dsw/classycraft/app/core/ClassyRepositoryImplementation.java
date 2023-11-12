@@ -60,8 +60,10 @@ public class ClassyRepositoryImplementation implements ClassyRepository{
 
             if(selectedPackageChild != null)
             {
-                if(selectedPackageChild == NodeType.DIAGRAM)
-                    factory=new DiagramNodeFactory();//todo moze da bira izmedju Diagram i Package
+                if(selectedPackageChild == NodeType.DIAGRAM) {
+                    factory = new DiagramNodeFactory();//todo moze da bira izmedju Diagram i Package
+
+                }
                 else if(selectedPackageChild == NodeType.PACKAGE)
                     factory = new PackageNodeFactory();
                 else
@@ -82,6 +84,10 @@ public class ClassyRepositoryImplementation implements ClassyRepository{
 
         if(factory == null)
             return null;
-        return factory.createNode(parent);
+        ClassyNode noviNode=factory.createNode(parent);
+        //if(selectedPackageChild == NodeType.DIAGRAM && parent instanceof Package)
+        //    parent.notifySubscribers(noviNode);
+
+        return noviNode;
     }
 }

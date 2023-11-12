@@ -25,7 +25,7 @@ public class ProjectExplorer extends ClassyNodeComposite {
     }
 
     @Override
-    public void removeChild() {
+    public void removeChild(ClassyNode child) {
         //TODO
     }
 }
