@@ -38,14 +38,14 @@ public class AddAutorWindow extends JDialog {
 
             textField = new JTextField();
             textField.setSize(100, 20);
-            textField.setBounds(75, 50, 200, 40);
+            //textField.setBounds(75, 50, 200, 40);
             textField.setText((project).getImeAutora());
             //JPanel textPanel = new JPanel();
             //textPanel.add(textField);
 
             btnPosalji = new JButton("zavrsi");
-            btnPosalji.setSize(40, 40);
-            btnPosalji.setVisible(true);
+            btnPosalji.setSize(100,50);
+           // btnPosalji.setVisible(true);
             //JPanel btnPanel=new JPanel();
             //btnPanel.add(btnPosalji);
 
@@ -54,13 +54,18 @@ public class AddAutorWindow extends JDialog {
 
 
 
-            //BorderLayout bl = new BorderLayout(10,10);
+            BorderLayout bl = new BorderLayout(50,50);
             //bl.addLayoutComponent(textField,BorderLayout.LINE_START);
             //bl.addLayoutComponent(btnPosalji,BorderLayout.CENTER);
 
+            Container pane = this.getContentPane();
+            pane.setLayout(new BoxLayout(pane,BoxLayout.Y_AXIS));
+            pane.setSize(200,200);
 
-            this.add(textField);
-            this.add(btnPosalji);
+            textField.setSize(100,50);
+            pane.add(textField);
+
+            pane.add(btnPosalji);
 
             //this.setLayout(bl);
             //this.setVisible(true);
