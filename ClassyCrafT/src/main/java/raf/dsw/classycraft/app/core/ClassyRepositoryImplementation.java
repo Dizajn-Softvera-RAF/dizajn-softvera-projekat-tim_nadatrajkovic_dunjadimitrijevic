@@ -17,6 +17,25 @@ import raf.dsw.classycraft.app.view.MainFrame;
 public class ClassyRepositoryImplementation implements ClassyRepository{
     private ProjectExplorer root;
 
+    private NodeType selectedPackageChild;
+
+    public NodeType getSelectedPackageChild() {
+        if(selectedPackageChild == null)
+        {
+            ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("nije izabran tip deteta paketa", MessageType.ERROR);
+            return null;
+        }
+        else
+        {
+            return selectedPackageChild;
+        }
+    }
+
+    public void setSelectedPackageChild(NodeType selectedPackageChild) {
+        this.selectedPackageChild = selectedPackageChild;
+        System.out.println("setovao type");
+    }
+
     public ClassyRepositoryImplementation() {
         this.root = new ProjectExplorer("Project Explorer");
         System.out.println("napravio project explorer " + root.getName() + " " + this);
@@ -28,7 +47,7 @@ public class ClassyRepositoryImplementation implements ClassyRepository{
     }
 
     @Override
-    public ClassyNode createNode(ClassyNode parent, NodeType type)
+    public ClassyNode createNode(ClassyNode parent)
     {
         AbstractNodeFactory factory = null;
         if(parent instanceof ProjectExplorer)
@@ -37,13 +56,20 @@ public class ClassyRepositoryImplementation implements ClassyRepository{
             factory = new PackageNodeFactory();
         else if (parent instanceof Package)
         {
-            factory=new DiagramNodeFactory();
-//            if(type == NodeType.DIAGRAM)
-//                factory=new DiagramNodeFactory();//todo moze da bira izmedju Diagram i Package
-//            else if(type == NodeType.PACKAGE)
-//                factory = new PackageNodeFactory();
-//            else
-//                ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("nije izabran tip za dete paketa", MessageType.ERROR);
+            //factory=new DiagramNodeFactory();
+
+            if(selectedPackageChild != null)
+            {
+                if(selectedPackageChild == NodeType.DIAGRAM)
+                    factory=new DiagramNodeFactory();//todo moze da bira izmedju Diagram i Package
+                else if(selectedPackageChild == NodeType.PACKAGE)
+                    factory = new PackageNodeFactory();
+                else
+                    ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("nije izabran tip za dete paketa", MessageType.ERROR);
+            }
+            else{
+                //throw new RuntimeException("nije izabran paket ili diagram");
+            }
         }
 //        if(type == NodeType.DIAGRAM)
 //            factory = new DiagramNodeFactory();
