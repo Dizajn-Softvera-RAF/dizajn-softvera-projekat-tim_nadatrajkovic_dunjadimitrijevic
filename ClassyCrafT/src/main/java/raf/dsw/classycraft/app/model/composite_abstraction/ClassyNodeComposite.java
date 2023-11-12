@@ -15,6 +15,16 @@ public abstract class ClassyNodeComposite extends ClassyNode{
         this.children = new ArrayList<>();
     }
 
+    @Override
+    public void removeNode() {
+        super.removeNode();
+        for (ClassyNode node:children) {
+            node.removeNode();
+        }
+    }
+
+
+
     public abstract void addChild(ClassyNode child);
-    public abstract void removeChild();
+    public abstract void removeChild(ClassyNode child);
 }

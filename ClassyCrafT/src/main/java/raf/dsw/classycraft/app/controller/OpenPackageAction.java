@@ -1,8 +1,12 @@
 package raf.dsw.classycraft.app.controller;
 
+import javafx.util.Pair;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
+import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
 import raf.dsw.classycraft.app.model.composite_implementation.Package;
+import raf.dsw.classycraft.app.model.composite_implementation.Project;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
+import raf.dsw.classycraft.app.view.DiagramView;
 import raf.dsw.classycraft.app.view.MainFrame;
 
 import javax.swing.*;
@@ -23,10 +27,24 @@ public class OpenPackageAction implements MouseListener {
         {
             ClassyTreeItem selected = (ClassyTreeItem) MainFrame.getInstance().getClassyTree().getSelectedNode();
             ArrayList<ClassyNode> package_children = new ArrayList<>();
-            MainFrame.getInstance().getTabs().removeAll();
+            MainFrame.getInstance().getPackageView().getTabs().removeAll();
             if(selected.getClassyNode() instanceof Package)
             {
                 package_children = ((Package) selected.getClassyNode()).getChildren();
+
+                ClassyNode node=selected.getClassyNode();
+                while(!(node instanceof Project))
+                {
+                    node=node.getParent();
+                }
+
+                node.addSubscriber(MainFrame.getInstance().getPackageView());
+                node.notifySubscribers(node.getName());
+                node.notifySubscribers(new Pair("",((Project) node).getImeAutora()));
+
+
+                selected.getClassyNode().addSubscriber(MainFrame.getInstance().getPackageView());
+                //MainFrame.getInstance().getPackageView().setProjectNaziv(((Package)selected.getClassyNode()).getName());
             }
             if(package_children.isEmpty())
             {
@@ -34,7 +52,14 @@ public class OpenPackageAction implements MouseListener {
             }
             //MainFrame.getInstance().getTabs().removeAll();
             for (ClassyNode child:package_children) {
-                MainFrame.getInstance().getTabs().addTab(child.getName(), new JPanel() );
+                if(!(child instanceof Package)) {
+
+                    DiagramView dw = new DiagramView();
+                    selected.getClassyNode().notifySubscribers(child);
+                    //MainFrame.getInstance().getPackageView().getTabs().addTab(child.getName(), dw);
+                    ((Diagram)child).addSubscriber(dw);
+                }
+
             }
             //MainFrame.getInstance().getTabs().addTab()
         }

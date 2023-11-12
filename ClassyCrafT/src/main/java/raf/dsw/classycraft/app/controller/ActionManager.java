@@ -8,6 +8,7 @@ public class ActionManager {
     private AboutUsAction aboutUsAction;
     private AddNodeAction addNodeAction;
     private AddAutorAction addAutorAction;
+    private DeleteAction deleteAction;
     public ActionManager() {
         initialiseActions();
     }
@@ -29,6 +30,9 @@ public class ActionManager {
         return addAutorAction;
     }
 
+    public DeleteAction getDeleteAction() {
+        return deleteAction;
+    }
 
     private void initialiseActions()
     {
@@ -36,6 +40,8 @@ public class ActionManager {
         aboutUsAction = new AboutUsAction();
         addNodeAction = new AddNodeAction();
         addAutorAction = new AddAutorAction();
+        deleteAction = new DeleteAction();
+
     }
 
 }
