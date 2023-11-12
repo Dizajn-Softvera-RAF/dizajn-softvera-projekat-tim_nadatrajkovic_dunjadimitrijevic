@@ -13,5 +13,6 @@ public class MyToolBar extends JToolBar {
         //ExitAction ea = new ExitAction();
         add(MainFrame.getInstance().getActionManager().getExitAction());
         add(MainFrame.getInstance().getActionManager().getAddNodeAction());
+        add(MainFrame.getInstance().getActionManager().getAddAutorAction());
     }
 }

@@ -7,7 +7,7 @@ public class ActionManager {
     private ExitAction exitAction;
     private AboutUsAction aboutUsAction;
     private AddNodeAction addNodeAction;
-    //private PackageChildAction packageChildAction;
+    private AddAutorAction addAutorAction;
     public ActionManager() {
         initialiseActions();
     }
@@ -25,11 +25,17 @@ public class ActionManager {
         return addNodeAction;
     }
 
+    public AddAutorAction getAddAutorAction() {
+        return addAutorAction;
+    }
+
+
     private void initialiseActions()
     {
         exitAction = new ExitAction();
         aboutUsAction = new AboutUsAction();
         addNodeAction = new AddNodeAction();
+        addAutorAction = new AddAutorAction();
     }
 
 }
