@@ -90,4 +90,16 @@ public class ClassyRepositoryImplementation implements ClassyRepository{
 
         return noviNode;
     }
+
+    @Override
+    public void removeNode(ClassyNode node) {
+        if(node instanceof ProjectExplorer)
+        {
+            ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("ne sme da se brise project explorer", MessageType.ERROR);
+            return;
+        }
+
+        node.removeNode();
+
+    }
 }

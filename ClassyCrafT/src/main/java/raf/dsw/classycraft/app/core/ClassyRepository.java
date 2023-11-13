@@ -8,4 +8,5 @@ public interface ClassyRepository {
     ProjectExplorer getRoot();
 
     ClassyNode createNode(ClassyNode parent);
+    void removeNode(ClassyNode node);
 }

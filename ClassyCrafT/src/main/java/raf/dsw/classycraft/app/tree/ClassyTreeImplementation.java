@@ -52,6 +52,27 @@ public class ClassyTreeImplementation implements ClassyTree{
         SwingUtilities.updateComponentTreeUI(treeView);
 
     }
+
+    @Override
+    public void removeChild(ClassyTreeItem child) {
+        if((child.getClassyNode() instanceof ProjectExplorer))
+        {
+            return;
+        }
+        child.getClassyNode().notifySubscribers("brisi");
+        ClassyNodeComposite parent = (ClassyNodeComposite) child.getClassyNode().getParent();
+        parent.getChildren().remove(child.getClassyNode());
+        deleteChild(child.getClassyNode());
+        child.removeFromParent();
+
+        SwingUtilities.updateComponentTreeUI(treeView);
+
+    }
+    private void deleteChild(ClassyNode child)
+    {
+        ApplicationFramework.getInstance().getClassyRepository().removeNode(child);
+    }
+
     protected ClassyNode createChild(ClassyNode parent, NodeType type)
     {
         return ApplicationFramework.getInstance().getClassyRepository().createNode(parent);
@@ -62,4 +83,6 @@ public class ClassyTreeImplementation implements ClassyTree{
     public ClassyTreeItem getSelectedNode() {
         return (ClassyTreeItem) treeView.getLastSelectedPathComponent();
     }
+
+
 }

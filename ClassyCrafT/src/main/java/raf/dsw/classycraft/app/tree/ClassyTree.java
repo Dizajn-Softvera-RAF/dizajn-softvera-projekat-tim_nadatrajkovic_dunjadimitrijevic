@@ -9,5 +9,6 @@ public interface ClassyTree {
     ClassyTreeView generateTree(ProjectExplorer projectExplorer);
     void addChild(ClassyTreeItem parent, NodeType type);
     //todo dodati deleteChild
+    void removeChild(ClassyTreeItem child);
     ClassyTreeItem getSelectedNode();
 }

@@ -60,7 +60,8 @@ public class PackageView extends JPanel implements ISubscriber {
         }
         else if(notification.toString().equals("brisi"))
         {
-            removeAll();
+            //removeAll();
+            //tabs.remove(DiagramView);
             repaint();
             revalidate();
         }
