@@ -22,8 +22,13 @@ public class DeleteAction extends AbstractClassyAction{
     public void actionPerformed(ActionEvent e) {
 
         ClassyTreeItem item= MainFrame.getInstance().getClassyTree().getSelectedNode();
-        item.removeAllChildren();
-        item.removeFromParent();
+
+
+        MainFrame.getInstance().getClassyTree().removeChild(item);
+
+        //item.removeAllChildren();
+        //item.removeFromParent();
+
 
 
     }

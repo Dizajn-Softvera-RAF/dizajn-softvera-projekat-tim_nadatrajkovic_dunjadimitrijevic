@@ -17,14 +17,20 @@ public abstract class ClassyNodeComposite extends ClassyNode{
 
     @Override
     public void removeNode() {
-        super.removeNode();
+
         for (ClassyNode node:children) {
             node.removeNode();
         }
+
+        super.removeNode();
+
     }
 
 
 
     public abstract void addChild(ClassyNode child);
-    public abstract void removeChild(ClassyNode child);
+    public void removeChild(ClassyNode child)
+    {
+        this.getChildren().remove(child);
+    }
 }

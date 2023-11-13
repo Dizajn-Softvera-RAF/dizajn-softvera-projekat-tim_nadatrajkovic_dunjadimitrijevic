@@ -30,4 +30,9 @@ public class ClassyTreeCellRenderer extends DefaultTreeCellRenderer {
 
         return this;
     }
+
+    @Override
+    public void remove(Component comp) {
+        super.remove(this);
+    }
 }
