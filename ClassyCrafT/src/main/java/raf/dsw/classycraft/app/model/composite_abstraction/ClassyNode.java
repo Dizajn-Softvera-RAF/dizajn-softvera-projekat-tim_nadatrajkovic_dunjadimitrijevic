@@ -14,6 +14,14 @@ public abstract class ClassyNode implements IPublisher {
     private String name;
     private ClassyNode parent;
 
+    public List<ISubscriber> getSubscriberList() {
+        return subscriberList;
+    }
+
+    public void setSubscriberList(List<ISubscriber> subscriberList) {
+        this.subscriberList = subscriberList;
+    }
+
     public ClassyNode(String name, ClassyNode parent) {
         this.name = name;
         this.parent = parent;

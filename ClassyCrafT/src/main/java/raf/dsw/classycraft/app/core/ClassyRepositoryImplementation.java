@@ -17,24 +17,24 @@ import raf.dsw.classycraft.app.view.MainFrame;
 public class ClassyRepositoryImplementation implements ClassyRepository{
     private ProjectExplorer root;
 
-    private NodeType selectedPackageChild;
+    //private NodeType selectedPackageChild;
 
-    public NodeType getSelectedPackageChild() {
-        if(selectedPackageChild == null)
-        {
-            ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("nije izabran tip deteta paketa", MessageType.ERROR);
-            return null;
-        }
-        else
-        {
-            return selectedPackageChild;
-        }
-    }
+//    public NodeType getSelectedPackageChild() {
+//        if(selectedPackageChild == null)
+//        {
+//            ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("nije izabran tip deteta paketa", MessageType.ERROR);
+//            return null;
+//        }
+//        else
+//        {
+//            return selectedPackageChild;
+//        }
+//    }
 
-    public void setSelectedPackageChild(NodeType selectedPackageChild) {
-        this.selectedPackageChild = selectedPackageChild;
-        System.out.println("setovao type");
-    }
+//    public void setSelectedPackageChild(NodeType selectedPackageChild) {
+//        this.selectedPackageChild = selectedPackageChild;
+//        System.out.println("setovao type");
+//    }
 
     public ClassyRepositoryImplementation() {
         this.root = new ProjectExplorer("Project Explorer");
@@ -47,32 +47,53 @@ public class ClassyRepositoryImplementation implements ClassyRepository{
     }
 
     @Override
-    public ClassyNode createNode(ClassyNode parent)
+    public ClassyNode createNode(ClassyNode parent, NodeType type)
     {
         AbstractNodeFactory factory = null;
-        if(parent instanceof ProjectExplorer)
-            factory = new ProjectNodeFactory();
-        else if(parent instanceof Project)
-            factory = new PackageNodeFactory();
-        else if (parent instanceof Package)
+        if(type == null)
         {
-            //factory=new DiagramNodeFactory();
-
-            if(selectedPackageChild != null)
+            if(parent instanceof ProjectExplorer)
+                factory = new ProjectNodeFactory();
+            else if(parent instanceof Project)
+                factory = new PackageNodeFactory();
+        }
+        else
+        {
+            if(parent instanceof Package)
             {
-                if(selectedPackageChild == NodeType.DIAGRAM) {
+                if(type == NodeType.DIAGRAM)
+                {
                     factory = new DiagramNodeFactory();//todo moze da bira izmedju Diagram i Package
-
                 }
-                else if(selectedPackageChild == NodeType.PACKAGE)
+                else if(type == NodeType.PACKAGE)
+                {
                     factory = new PackageNodeFactory();
+                }
                 else
+                {
                     ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("nije izabran tip za dete paketa", MessageType.ERROR);
-            }
-            else{
-                //throw new RuntimeException("nije izabran paket ili diagram");
+                }
             }
         }
+//        else if (parent instanceof Package)
+//        {
+//            //factory=new DiagramNodeFactory();
+//
+//            if(selectedPackageChild != null)
+//            {
+//                if(selectedPackageChild == NodeType.DIAGRAM) {
+//                    factory = new DiagramNodeFactory();//todo moze da bira izmedju Diagram i Package
+//
+//                }
+//                else if(selectedPackageChild == NodeType.PACKAGE)
+//                    factory = new PackageNodeFactory();
+//                else
+//                    ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("nije izabran tip za dete paketa", MessageType.ERROR);
+//            }
+//            else{
+//                //throw new RuntimeException("nije izabran paket ili diagram");
+//            }
+//        }
 //        if(type == NodeType.DIAGRAM)
 //            factory = new DiagramNodeFactory();
 //        else if(type == NodeType.PACKAGE)

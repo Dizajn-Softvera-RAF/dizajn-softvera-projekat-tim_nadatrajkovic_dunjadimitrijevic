@@ -24,4 +24,12 @@ public class Notification {
         this.objectOfNotification = objectOfNotification;
         this.notificationType = notificationType;
     }
+
+    @Override
+    public String toString() {
+        return "Notification{" +
+                "objectOfNotification=" + objectOfNotification +
+                ", notificationType=" + notificationType.toString() +
+                '}';
+    }
 }

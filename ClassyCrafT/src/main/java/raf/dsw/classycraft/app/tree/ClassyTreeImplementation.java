@@ -37,7 +37,7 @@ public class ClassyTreeImplementation implements ClassyTree{
 
     @Override
     public void addChild(ClassyTreeItem parent, NodeType type) {
-        //todo implementirati - glavni deo
+        // glavni deo
         if(!(parent.getClassyNode() instanceof ClassyNodeComposite)) // ako je izabrani cvor Diagram, ne moze
         {
             ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("izabrani cvor ne moze da bude roditelj", MessageType.ERROR);
@@ -46,6 +46,7 @@ public class ClassyTreeImplementation implements ClassyTree{
         }
 
         ClassyNode new_node = createChild(parent.getClassyNode(), type);
+        System.out.println(new_node);
         parent.add(new ClassyTreeItem(new_node));
         ((ClassyNodeComposite) parent.getClassyNode()).addChild(new_node);
         treeView.expandPath(treeView.getSelectionPath());
@@ -59,9 +60,9 @@ public class ClassyTreeImplementation implements ClassyTree{
         {
             return;
         }
-        child.getClassyNode().notifySubscribers("brisi");
+        //child.getClassyNode().notifySubscribers("brisi");
         ClassyNodeComposite parent = (ClassyNodeComposite) child.getClassyNode().getParent();
-        parent.getChildren().remove(child.getClassyNode());
+        parent.removeChild(child.getClassyNode());
         deleteChild(child.getClassyNode());
         child.removeFromParent();
 
@@ -75,7 +76,7 @@ public class ClassyTreeImplementation implements ClassyTree{
 
     protected ClassyNode createChild(ClassyNode parent, NodeType type)
     {
-        return ApplicationFramework.getInstance().getClassyRepository().createNode(parent);
+        return ApplicationFramework.getInstance().getClassyRepository().createNode(parent, type);
     }
 
     @Override

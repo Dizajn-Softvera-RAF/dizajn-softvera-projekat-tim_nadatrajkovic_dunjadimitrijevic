@@ -2,6 +2,8 @@ package raf.dsw.classycraft.app.model.composite_implementation;
 
 import raf.dsw.classycraft.app.Observer.IPublisher;
 import raf.dsw.classycraft.app.Observer.ISubscriber;
+import raf.dsw.classycraft.app.Observer.Notification;
+import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
 
@@ -22,7 +24,7 @@ public class Package extends ClassyNodeComposite {
 
     @Override
     public void addChild(ClassyNode child) {
-        //TODO exceptioni?
+        //exceptioni?
         if (child != null &&  child instanceof Package){
             Package p = (Package) child;
             if (!this.getChildren().contains(p)){
@@ -34,21 +36,24 @@ public class Package extends ClassyNodeComposite {
             if (!this.getChildren().contains(d)){
                 this.getChildren().add(d);
             }
-            this.notifySubscribers(child);
+            System.out.println(this.getSubscriberList());
+            this.notifySubscribers(new Notification(d, NotificationType.ADD));
+
         }
-        // todo notifySubscribers() ... (videti gde sve jos treba)
+        // notifySubscribers() ...
         //addSubscriber(child);
     }
 
     @Override
     public void removeChild(ClassyNode child) {
         //removeSubscriber(child);
-        //TODO
+        this.getChildren().remove(child);
+        notifySubscribers(new Notification(child, NotificationType.DELETE));
     }
 
-    public void openPackage()
-    {
-
-    }
+//    public void openPackage()
+//    {
+//
+//    }
 
 }

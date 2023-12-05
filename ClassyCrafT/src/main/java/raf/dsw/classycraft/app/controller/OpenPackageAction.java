@@ -43,7 +43,7 @@ public class OpenPackageAction implements MouseListener {
 //                node.notifySubscribers(node.getName());
 //                node.notifySubscribers(new Pair("", ((Project) node).getImeAutora()));
 
-
+                MainFrame.getInstance().getPackageView().setPaket((Package)(selected.getClassyNode()));
                 selected.getClassyNode().addSubscriber(MainFrame.getInstance().getPackageView());
 
 //                if(package_children.isEmpty())
@@ -60,7 +60,7 @@ public class OpenPackageAction implements MouseListener {
 //                        child.addSubscriber(dw);
 //                    }
 //                }
-                selected.getClassyNode().notifySubscribers(new Notification((Package)selected.getClassyNode(), NotificationType.SHOW));
+                //selected.getClassyNode().notifySubscribers(new Notification((Package)selected.getClassyNode(), NotificationType.SHOW)); // ovo ne ovde, nego npr u addChild u Package
             }
         }
     }
