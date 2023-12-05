@@ -4,9 +4,13 @@ import com.sun.tools.javac.Main;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.core.ClassyRepositoryImplementation;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
+import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
+import raf.dsw.classycraft.app.model.composite_implementation.Package;
 import raf.dsw.classycraft.app.model.composite_implementation.NodeType;
+import raf.dsw.classycraft.app.tree.ClassyTreeImplementation;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.view.MainFrame;
+
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -16,6 +20,8 @@ public class PackageChildAction implements ActionListener {
     JRadioButton p;
     JRadioButton d;
     JDialog f;
+
+    // mislim da nam sad ne treba ovaj action jer imamo joptionpane u AddNodeAction
     public PackageChildAction(JRadioButton jpackage, JRadioButton diagram, JDialog dialog) {
         p = jpackage;
         d = diagram;
@@ -24,6 +30,32 @@ public class PackageChildAction implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        ClassyTreeItem selectedItem = (ClassyTreeItem)MainFrame.getInstance().getClassyTree().getSelectedNode();
+        if(selectedItem == null)
+        {
+
+        }
+        else
+        {
+            if((ClassyNodeComposite)selectedItem.getClassyNode() instanceof Package)
+            {
+                Object[] options = {"New Package", "New Diagram"};
+                //String nodeType = "";
+                int choice = JOptionPane.showOptionDialog(MainFrame.getInstance(),"Izaberi paket ili diagram", "Add to package", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE,null, options, options[0]);
+                if(choice == 0)
+                {
+                    //nodeType = "Package";
+                    MainFrame.getInstance().getClassyTree().addChild(selectedItem, NodeType.PACKAGE);
+                    return;
+                }
+                if(choice == 1)
+                {
+                    MainFrame.getInstance().getClassyTree().addChild(selectedItem, NodeType.DIAGRAM);
+                    return;
+                }
+            }
+        }
+
         NodeType t;
         if(d.isSelected())
         {
@@ -33,12 +65,13 @@ public class PackageChildAction implements ActionListener {
             t = NodeType.PACKAGE;
         System.out.println("usao u OK action performed");
         System.out.println("t: "+ t);
-        ((ClassyRepositoryImplementation)ApplicationFramework.getInstance().getClassyRepository()).setSelectedPackageChild(t);
+        //((ClassyRepositoryImplementation)ApplicationFramework.getInstance().getClassyRepository()).setSelectedPackageChild(t);
         //f.setVisible(false);
         ClassyTreeItem selected = (ClassyTreeItem) MainFrame.getInstance().getClassyTree().getSelectedNode();
-        MainFrame.getInstance().getClassyTree().addChild(selected, t);
         f.dispose();
         f.setVisible(false);
+        MainFrame.getInstance().getClassyTree().addChild(selected, t);
+
         //f.revalidate();
         //f.repaint();
     }

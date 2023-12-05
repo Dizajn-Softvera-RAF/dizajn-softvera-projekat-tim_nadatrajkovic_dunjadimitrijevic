@@ -1,6 +1,7 @@
 package raf.dsw.classycraft.app.model.log_factory;
 
 import raf.dsw.classycraft.app.Observer.ISubscriber;
+import raf.dsw.classycraft.app.Observer.Notification;
 import raf.dsw.classycraft.app.model.message.Message;
 
 public class ConsoleLogger implements Logger {
@@ -13,6 +14,6 @@ public class ConsoleLogger implements Logger {
     @Override
     public void Update(Object notification) {
         if(notification instanceof Message)
-            napraviLogger((Message) notification);
+            napraviLogger((Message)notification);
     }
 }

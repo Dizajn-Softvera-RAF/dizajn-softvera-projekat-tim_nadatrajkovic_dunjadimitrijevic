@@ -2,6 +2,8 @@ package raf.dsw.classycraft.app.model.composite_abstraction;
 
 import raf.dsw.classycraft.app.Observer.IPublisher;
 import raf.dsw.classycraft.app.Observer.ISubscriber;
+import raf.dsw.classycraft.app.Observer.Notification;
+import raf.dsw.classycraft.app.Observer.NotificationType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,14 @@ public abstract class ClassyNode implements IPublisher {
 
     private String name;
     private ClassyNode parent;
+
+    public List<ISubscriber> getSubscriberList() {
+        return subscriberList;
+    }
+
+    public void setSubscriberList(List<ISubscriber> subscriberList) {
+        this.subscriberList = subscriberList;
+    }
 
     public ClassyNode(String name, ClassyNode parent) {
         this.name = name;
@@ -24,6 +34,7 @@ public abstract class ClassyNode implements IPublisher {
 
     public void setName(String name) {
         this.name = name;
+        this.notifySubscribers(new Notification(this, NotificationType.RENAME));
     }
 
     public void setParent(ClassyNode parent) {

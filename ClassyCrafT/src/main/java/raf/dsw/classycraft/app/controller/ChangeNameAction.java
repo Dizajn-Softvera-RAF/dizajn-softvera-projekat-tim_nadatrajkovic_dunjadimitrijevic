@@ -41,15 +41,15 @@ public class ChangeNameAction implements ActionListener{ //IPublisher {
 
         System.out.println("uso u action prerformed1"+tekst);
 
-        project.setImeAutora(tekst);  //dal ovde uopste treba observer mozda zapravo treba u project kad promeni tekst
-        project.notifySubscribers(new Pair("promena imena",tekst));
+        project.setImeAutora(tekst);  //dal ovde uopste treba observer mozda zapravo treba u project kad promeni tekst -> promenjeno
+        //project.notifySubscribers(new Pair("promena imena",tekst));
 
-        for (ClassyNode p:project.getChildren()) {
-            if(p instanceof Package)
-            {
-                ((Package) p).notifySubscribers(new Pair("promena imena",tekst));
-            }
-        }
+//        for (ClassyNode p:project.getChildren()) {
+//            if(p instanceof Package)
+//            {
+//                ((Package) p).notifySubscribers(new Pair("promena imena",tekst));
+//            }
+//        } // da li nam treba ovo?
 
         System.out.println("uso u action prerformed"+tekst);
 
@@ -58,52 +58,6 @@ public class ChangeNameAction implements ActionListener{ //IPublisher {
         //System.exit(0);
         dialog1.dispose();
         dialog.dispose();
-
-
-
-        //dialog.setVisible(false);
-        //dialog1.setVisible(false);
-
-        //dialog.setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
-        //dialog1.setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
-
-        //dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        //dialog1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        /*dialog.setVisible(false);
-        dialog.dispose();*/
-        //notifySubscribers(tekst);
-
-
-
-
     }
 
-    /*@Override
-    public void addSubscriber(ISubscriber sub) {
-        if(sub == null)
-            return;
-        if(this.subscriberList ==null)
-            this.subscriberList = new ArrayList<>();
-        if(this.subscriberList.contains(sub))
-            return;
-        this.subscriberList.add(sub);
-    }
-
-    @Override
-    public void removeSubscriber(ISubscriber sub) {
-        if(sub == null || this.subscriberList == null || !this.subscriberList.contains(sub))
-            return;
-        this.subscriberList.remove(sub);
-
-    }
-
-    @Override
-    public void notifySubscribers(Object notification) {
-        if(notification == null || this.subscriberList == null || this.subscriberList.isEmpty())
-            return;
-
-        for(ISubscriber listener : subscriberList){
-            listener.Update(notification);
-        }
-    }*/
 }

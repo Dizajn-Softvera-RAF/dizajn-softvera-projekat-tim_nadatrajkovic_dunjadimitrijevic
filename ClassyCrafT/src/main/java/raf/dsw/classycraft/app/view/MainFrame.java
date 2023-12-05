@@ -1,6 +1,7 @@
 package raf.dsw.classycraft.app.view;
 
 import raf.dsw.classycraft.app.Observer.ISubscriber;
+import raf.dsw.classycraft.app.Observer.Notification;
 import raf.dsw.classycraft.app.controller.ActionManager;
 import raf.dsw.classycraft.app.controller.OpenPackageAction;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
@@ -92,6 +93,10 @@ public class MainFrame extends JFrame implements ISubscriber {
 
     }
 
+    public void setPackageView(PackageView packageView) {
+        this.packageView = packageView;
+    }
+
     public JTree getProjectExplorer() {
         return projectExplorer;
     }
@@ -127,8 +132,8 @@ public class MainFrame extends JFrame implements ISubscriber {
     public void Update(Object notification) {
         if(notification instanceof Message)
         {
-            JFrame f=new JFrame();
-            Message msg= (Message)notification;
+            JFrame f =new JFrame();
+            Message msg = (Message)notification;
             JOptionPane.showMessageDialog(f,msg.getSadrzaj(),msg.getTip().toString(),msg.getTip().ordinal());
         }
     }

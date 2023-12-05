@@ -1,11 +1,20 @@
 package raf.dsw.classycraft.app.view;
 
+import com.sun.tools.javac.Main;
 import javafx.util.Pair;
 import raf.dsw.classycraft.app.Observer.ISubscriber;
+import raf.dsw.classycraft.app.Observer.Notification;
+import raf.dsw.classycraft.app.Observer.NotificationType;
+import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
+import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
 import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
+import raf.dsw.classycraft.app.model.composite_implementation.Package;
+import raf.dsw.classycraft.app.model.composite_implementation.Project;
 
 import javax.swing.*;
+import javax.swing.plaf.metal.MetalIconFactory;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class PackageView extends JPanel implements ISubscriber {
 
@@ -16,6 +25,9 @@ public class PackageView extends JPanel implements ISubscriber {
     private JPanel tabs_panel;
 
     private JTabbedPane tabs;
+
+    private Package paket; // paket koji se trenutno prikazuje
+
 
     public PackageView() {
         super();
@@ -38,6 +50,15 @@ public class PackageView extends JPanel implements ISubscriber {
 
     }
 
+    public Package getPaket() {
+        return paket;
+    }
+
+    public void setPaket(Package paket) {
+        this.paket = paket;
+        this.Update(new Notification(paket, NotificationType.SHOW));
+    }
+
     public JTabbedPane getTabs() {
         return tabs;
     }
@@ -52,29 +73,161 @@ public class PackageView extends JPanel implements ISubscriber {
         project.setText("Current project: " + naziv);
     }
 
+    private void showComponents(){
+        project.setVisible(true);
+        author.setVisible(true);
+        tabs_panel.setVisible(true);
+        tabs.setVisible(true);
+    }
+    private void createTabs(ArrayList<DiagramView> tabNames)
+    {
+        this.getTabs().removeAll();
+        for(DiagramView dv : tabNames)
+        {
+            this.getTabs().addTab(dv.getDiagram().getName(), dv);
+        }
+    }
+    private void hideComponents()
+    {
+
+    }
+
     @Override
     public void Update(Object notification) {
-        if(notification instanceof Pair)
+        System.out.println("usao u PackageView update()"+ notification.toString());
+
+
+        /// Mora da se sredi sa Notification
+        if(notification instanceof Notification)
         {
-            setAutor(((Pair)notification).getValue().toString());
+            if(((Notification) notification).getNotificationType() == NotificationType.SHOW)
+            {
+                MainFrame.getInstance().setPackageView(this);
+                System.out.println(paket.getName());
+                //Package currentPackage = (Package) ((Notification) notification).getObjectOfNotification();
+                //ClassyNode node = (ClassyNode) ((Notification) notification).getObjectOfNotification();
+                ClassyNode node = (ClassyNode) paket;
+
+                while (!(node instanceof Project)) {
+                    node = node.getParent();
+                }
+                this.setProjectNaziv(((Project) node).getName());
+                this.setAutor(((Project) node).getImeAutora());
+                node.addSubscriber(this);
+//                if(tabs.getTabCount() > 0)
+//                {
+//                    showComponents();
+//                    this.setProjectNaziv(((Project) node).getName());
+//                    this.setAutor(((Project) node).getImeAutora());
+//                    return;
+//                }
+                ClassyNodeComposite cp = (ClassyNodeComposite) paket;
+                ArrayList<DiagramView> tabNames = new ArrayList<>();
+                for(ClassyNode c : cp.getChildren()){
+                    if(c instanceof Diagram)
+                    {
+                        //((Diagram)c).addSubscriber(this); // ?
+                        DiagramView dw = new DiagramView((Diagram) c);
+                        dw.Update(new Notification(c, NotificationType.SHOWDIAGRAM));
+                        c.addSubscriber(dw);
+                        //tabs.add(dw);
+                        //cp.addSubscriber(dw); // jel mi treba ovo?
+                        tabNames.add(dw);
+                    }
+
+                }
+                createTabs(tabNames);
+                this.setProjectNaziv(((Project) node).getName());
+                this.setAutor(((Project) node).getImeAutora());
+                showComponents();
+
+            }
+
+            else if(((Notification) notification).getNotificationType() == NotificationType.RENAME)
+            {
+                if(((Notification) notification).getObjectOfNotification() instanceof Project) // za promenu imena Autora projekta i imena projekta
+                {
+                    this.setAutor(((Project) ((Notification) notification).getObjectOfNotification()).getImeAutora());
+                    this.setProjectNaziv(((Project) ((Notification) notification).getObjectOfNotification()).getName());
+                }
+                else if(((Notification) notification).getObjectOfNotification() instanceof Diagram)
+                {
+
+                }
+            }
+
+            else if(((Notification) notification).getNotificationType() == NotificationType.ADD)
+            {
+                if(((Notification) notification).getObjectOfNotification() instanceof Diagram)
+                {
+                    Diagram d = (Diagram) ((Notification) notification).getObjectOfNotification();
+                    if(d.getParent() == paket)
+                    {
+                        System.out.println("usao u 'jeste se dodalo na otvoreni paket' ");
+                        DiagramView dv = new DiagramView(d);
+                        //d.addSubscriber(this);
+                        System.out.println(d.getSubscriberList());
+                        d.addSubscriber(dv);
+                        System.out.println(d.getSubscriberList());
+                        //dv.Update(new Notification(d, NotificationType.SHOWDIAGRAM));
+                        //paket.addSubscriber(dv);
+                        this.getTabs().addTab(dv.getDiagram().getName(), dv);
+                    }
+
+
+                    //tabs.add(dw);
+
+
+                }
+            }
+            else if(((Notification) notification).getNotificationType() == NotificationType.DELETE)
+            {
+                if(((Notification) notification).getObjectOfNotification() instanceof Project)
+                {
+                    // vrv dopuniti kasnije
+                    hideComponents();
+                    return;
+                }
+                if(((Notification) notification).getObjectOfNotification() instanceof Package)
+                {
+                    // vrv dopuniti kasnije
+                    hideComponents();
+                    return;
+                }
+                if(((Notification) notification).getObjectOfNotification() instanceof Diagram)
+                {
+                    for(int i = 0; i < tabs.getTabCount(); i++)
+                    {
+                        DiagramView dv = (DiagramView) tabs.getComponentAt(i);
+                        if(dv.getDiagram().getName().equals(((Diagram)((Notification) notification).getObjectOfNotification()).getName()))
+                        {
+                            tabs.remove(i);
+                            return;
+                        }
+                    }
+                }
+
+            }
+
         }
-        else if(notification.toString().equals("brisi"))
-        {
-            //removeAll();
-            //tabs.remove(DiagramView);
-            repaint();
-            revalidate();
-        }
-        else if(notification instanceof String)
-        {
-            setProjectNaziv(notification.toString());
-        }
-        else if(notification instanceof Diagram)
-        {
-            DiagramView dw = new DiagramView();
-            MainFrame.getInstance().getPackageView().getTabs().addTab(((Diagram) notification).getName(), dw);
-            ((Diagram)notification).addSubscriber(dw);
-        }
+//        else if(notification.toString().equals("brisi"))
+//        {
+////            //removeAll();
+////            //tabs.remove(DiagramView);
+////            repaint();
+////            revalidate();
+//        }
+//        else if(notification instanceof String) // sredi ove notifikacije, da se zna sta je sta
+//        {
+//            //setProjectNaziv(notification.toString());
+//        }
+//        else if(notification instanceof Diagram)
+//        {
+//            //DiagramView dw = new DiagramView();
+//            //this.getTabs().addTab(((Diagram) notification).getName(), dw);
+//            //MainFrame.getInstance().getPackageView().getTabs().addTab(((Diagram) notification).getName(), dw);
+//            //((Diagram)notification).addSubscriber(dw);
+//        }
 
 
     }

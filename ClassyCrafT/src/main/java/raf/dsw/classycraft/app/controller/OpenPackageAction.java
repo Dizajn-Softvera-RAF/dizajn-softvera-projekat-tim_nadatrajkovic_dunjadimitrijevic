@@ -1,6 +1,8 @@
 package raf.dsw.classycraft.app.controller;
 
 import javafx.util.Pair;
+import raf.dsw.classycraft.app.Observer.Notification;
+import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
 import raf.dsw.classycraft.app.model.composite_implementation.Package;
@@ -23,45 +25,43 @@ public class OpenPackageAction implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(e.getClickCount() == 2)
-        {
+        if(e.getClickCount() == 2) {
             ClassyTreeItem selected = (ClassyTreeItem) MainFrame.getInstance().getClassyTree().getSelectedNode();
-            ArrayList<ClassyNode> package_children = new ArrayList<>();
-            MainFrame.getInstance().getPackageView().getTabs().removeAll();
-            if(selected.getClassyNode() instanceof Package)
-            {
-                package_children = ((Package) selected.getClassyNode()).getChildren();
+            if (selected.getClassyNode() instanceof Package) {
+                //selected.openPackage();
 
-                ClassyNode node=selected.getClassyNode();
-                while(!(node instanceof Project))
-                {
-                    node=node.getParent();
-                }
+////                ArrayList<ClassyNode> package_children = new ArrayList<>();
+////                MainFrame.getInstance().getPackageView().getTabs().removeAll();
+////
+////                package_children = ((Package) selected.getClassyNode()).getChildren();
+////                ClassyNode node = selected.getClassyNode();
+////                while (!(node instanceof Project)) {
+////                    node = node.getParent();
+////                }
+//
+//                node.addSubscriber(MainFrame.getInstance().getPackageView()); // jel ok ovo ovako da uradimo?
+//                node.notifySubscribers(node.getName());
+//                node.notifySubscribers(new Pair("", ((Project) node).getImeAutora()));
 
-                node.addSubscriber(MainFrame.getInstance().getPackageView());
-                node.notifySubscribers(node.getName());
-                node.notifySubscribers(new Pair("",((Project) node).getImeAutora()));
-
-
+                MainFrame.getInstance().getPackageView().setPaket((Package)(selected.getClassyNode()));
                 selected.getClassyNode().addSubscriber(MainFrame.getInstance().getPackageView());
-                //MainFrame.getInstance().getPackageView().setProjectNaziv(((Package)selected.getClassyNode()).getName());
-            }
-            if(package_children.isEmpty())
-            {
-                return;
-            }
-            //MainFrame.getInstance().getTabs().removeAll();
-            for (ClassyNode child:package_children) {
-                if(!(child instanceof Package)) {
 
-                    DiagramView dw = new DiagramView();
-                    selected.getClassyNode().notifySubscribers(child);
-                    //MainFrame.getInstance().getPackageView().getTabs().addTab(child.getName(), dw);
-                    ((Diagram)child).addSubscriber(dw);
-                }
+//                if(package_children.isEmpty())
+//                {
+//                    return;
+//                }
 
+//                for (ClassyNode child : package_children) {
+//                    if (child instanceof Diagram) {
+//
+//                        DiagramView dw = new DiagramView((Diagram)child);
+//                        selected.getClassyNode().notifySubscribers(child); // sluzi da se doda novi DW u PakcageViewu u TabbedPaneu
+//                        //MainFrame.getInstance().getPackageView().getTabs().addTab(child.getName(), dw);
+//                        child.addSubscriber(dw);
+//                    }
+//                }
+                //selected.getClassyNode().notifySubscribers(new Notification((Package)selected.getClassyNode(), NotificationType.SHOW)); // ovo ne ovde, nego npr u addChild u Package
             }
-            //MainFrame.getInstance().getTabs().addTab()
         }
     }
 
