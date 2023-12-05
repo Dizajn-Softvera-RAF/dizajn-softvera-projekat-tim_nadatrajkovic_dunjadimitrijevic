@@ -76,7 +76,6 @@ public class ClassyTreeImplementation implements ClassyTree{
     protected ClassyNode createChild(ClassyNode parent, NodeType type)
     {
         return ApplicationFramework.getInstance().getClassyRepository().createNode(parent);
-
     }
 
     @Override

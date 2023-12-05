@@ -36,6 +36,7 @@ public class Package extends ClassyNodeComposite {
             }
             this.notifySubscribers(child);
         }
+        // todo notifySubscribers() ... (videti gde sve jos treba)
         //addSubscriber(child);
     }
 
@@ -45,5 +46,9 @@ public class Package extends ClassyNodeComposite {
         //TODO
     }
 
+    public void openPackage()
+    {
+
+    }
 
 }

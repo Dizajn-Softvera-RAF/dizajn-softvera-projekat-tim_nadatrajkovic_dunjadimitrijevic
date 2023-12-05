@@ -1,7 +1,10 @@
 package raf.dsw.classycraft.app.model.composite_implementation;
 
+import javafx.util.Pair;
 import raf.dsw.classycraft.app.Observer.IPublisher;
 import raf.dsw.classycraft.app.Observer.ISubscriber;
+import raf.dsw.classycraft.app.Observer.Notification;
+import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
 
@@ -46,16 +49,8 @@ public class Project extends ClassyNodeComposite { //implements ISubscriber { mo
 
     public void setImeAutora(String imeAutora) {
         this.imeAutora = imeAutora;
+        notifySubscribers(new Notification(this, NotificationType.RENAME));
         System.out.println("promenio ime autora "+this.imeAutora);
     }
 
-
-
-//    @Override
-//    public void Update(Object notification) {
-//        if(notification instanceof String)
-//        {
-//            imeAutora=(String)notification;
-//        }
-//    }
 }

@@ -49,6 +49,6 @@ public class ClassyTreeCellEditor extends DefaultTreeCellEditor implements Actio
         ClassyTreeItem clicked = (ClassyTreeItem) clickedOn;
         clicked.setName(e.getActionCommand());
         clicked.getClassyNode().setName(e.getActionCommand());
-        clicked.getClassyNode().notifySubscribers(e.getActionCommand());
+        //clicked.getClassyNode().notifySubscribers(e.getActionCommand()); ovo treba u ClassyNode da ide (u setName)
     }
 }
