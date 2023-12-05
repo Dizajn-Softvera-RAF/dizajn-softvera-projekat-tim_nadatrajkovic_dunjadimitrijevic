@@ -55,7 +55,7 @@ public class AddNodeAction extends AbstractClassyAction{
             return;
         }
 
-        if((ClassyNodeComposite)selected.getClassyNode() instanceof Package)
+        if(selected.getClassyNode() instanceof ClassyNodeComposite && selected.getClassyNode() instanceof Package)
         {
             Object[] options = {"New Package", "New Diagram"};
             //String nodeType = "";
