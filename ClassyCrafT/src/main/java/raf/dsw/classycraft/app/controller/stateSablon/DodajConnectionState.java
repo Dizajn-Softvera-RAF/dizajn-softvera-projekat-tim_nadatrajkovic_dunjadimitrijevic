@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class DodajConnectionState implements State{
     @Override
-    public void misKliknut(Point P, DiagramView dv) {
+    public void misPritisnut(Point P, DiagramView dv) {
 
     }
 

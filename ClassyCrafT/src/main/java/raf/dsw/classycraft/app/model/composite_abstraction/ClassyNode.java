@@ -84,4 +84,11 @@ public abstract class ClassyNode implements IPublisher {
             listener.Update(notification);
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof ClassyNode)
+            return this.name.equals(((ClassyNode)obj).getName());
+        return false;
+    }
 }

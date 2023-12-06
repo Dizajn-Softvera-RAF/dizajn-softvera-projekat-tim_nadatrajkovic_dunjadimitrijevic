@@ -19,7 +19,7 @@ public class Diagram extends ClassyNodeComposite implements IPublisher {
         if (child != null &&  child instanceof DiagramElement){
             DiagramElement de = (DiagramElement) child;
             if (!this.getChildren().contains(de)){
-                this.getChildren().add(de);
+                this.getChildren().add(de);//jel ovde notify subscribers da se osvezi diagram view da repaintuje?
             }
         }
     }

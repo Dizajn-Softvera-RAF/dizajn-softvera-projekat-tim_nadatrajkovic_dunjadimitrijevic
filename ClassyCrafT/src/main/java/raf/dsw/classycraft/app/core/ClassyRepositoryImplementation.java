@@ -12,6 +12,7 @@ import raf.dsw.classycraft.app.tree.factoryNodes.AbstractNodeFactory;
 import raf.dsw.classycraft.app.tree.factoryNodes.DiagramNodeFactory;
 import raf.dsw.classycraft.app.tree.factoryNodes.PackageNodeFactory;
 import raf.dsw.classycraft.app.tree.factoryNodes.ProjectNodeFactory;
+import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.view.MainFrame;
 
 public class ClassyRepositoryImplementation implements ClassyRepository{

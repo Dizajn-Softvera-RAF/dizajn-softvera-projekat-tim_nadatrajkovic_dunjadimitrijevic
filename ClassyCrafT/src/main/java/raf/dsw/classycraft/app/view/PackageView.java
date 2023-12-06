@@ -1,7 +1,5 @@
 package raf.dsw.classycraft.app.view;
 
-import com.sun.tools.javac.Main;
-import javafx.util.Pair;
 import raf.dsw.classycraft.app.Observer.ISubscriber;
 import raf.dsw.classycraft.app.Observer.Notification;
 import raf.dsw.classycraft.app.Observer.NotificationType;
@@ -13,7 +11,6 @@ import raf.dsw.classycraft.app.model.composite_implementation.Package;
 import raf.dsw.classycraft.app.model.composite_implementation.Project;
 
 import javax.swing.*;
-import javax.swing.plaf.metal.MetalIconFactory;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -136,7 +133,7 @@ public class PackageView extends JPanel implements ISubscriber {
                     if (c instanceof Diagram) {
                         //((Diagram)c).addSubscriber(this); // ?
                         DiagramView dw = new DiagramView((Diagram) c);
-                        dw.Update(new Notification(c, NotificationType.SHOWDIAGRAM));
+                        //dw.Update(new Notification(c, NotificationType.SHOWDIAGRAM));
                         c.addSubscriber(dw);
                         //tabs.add(dw);
                         //cp.addSubscriber(dw); // jel mi treba ovo?
@@ -250,7 +247,7 @@ public class PackageView extends JPanel implements ISubscriber {
 
     public void misKliknutmng(Point P,DiagramView dv)
     {
-        stateManager.getCurrentState().misKliknut(P,dv);
+        stateManager.getCurrentState().misPritisnut(P,dv);
     }
     public void misPovucenmng(Point P, DiagramView dv)
     {

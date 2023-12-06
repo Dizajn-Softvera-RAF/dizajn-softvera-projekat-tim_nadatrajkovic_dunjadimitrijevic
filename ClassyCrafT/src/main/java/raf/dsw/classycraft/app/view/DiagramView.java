@@ -27,7 +27,7 @@ public class DiagramView extends JPanel implements ISubscriber {
 
     public DiagramView(Diagram d) {
         super();
-        diagram = d;
+        diagram = d;//ovaj diagram view je subscriber za dijagram jel? pa se apdejtuje kad dodamo nesto na dijagram i repaintuje sve
 
         diagramListener=new DiagramViewMouseListener(this);
 

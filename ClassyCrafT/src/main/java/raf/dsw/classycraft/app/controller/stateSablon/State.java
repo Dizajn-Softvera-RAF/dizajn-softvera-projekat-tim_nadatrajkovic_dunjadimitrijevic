@@ -6,7 +6,7 @@ import java.awt.*;
 
 public interface State {
 
-    public void misKliknut(Point P, DiagramView dv);
+    public void misPritisnut(Point P, DiagramView dv);
 
     public void misPovucen(Point P, DiagramView dv);
     public void misOtpusten(Point P, DiagramView dv);
