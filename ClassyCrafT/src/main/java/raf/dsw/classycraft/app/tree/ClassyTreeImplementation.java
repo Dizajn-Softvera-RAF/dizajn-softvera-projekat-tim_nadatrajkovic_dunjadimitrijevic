@@ -103,29 +103,39 @@ public class ClassyTreeImplementation implements ClassyTree{
     public ClassyTreeItem NadjiClassyTreePrekoClassyNode(ClassyNode node,ClassyTreeItem parent) {
         if (parent.getClassyNode().equals(node))//ov
         {
-
-            System.out.println("naso odgovarajuci " + parent.toString());
+            System.out.println("naso odgovarajuci1 " + parent.toString()); // nikad ne ulazi ovde
 
             return parent;
         }
-
-        for (int i = 0; i < parent.getChildCount(); i++) {
-            TreeNode child = parent.getChildAt(i);
-            if (child instanceof ClassyTreeItem) {
-                ClassyTreeItem childItem = (ClassyTreeItem) child;
-                if (childItem.getClassyNode().equals(node)) {
-                    System.out.println("naso odgovarajuci " + childItem.toString());
-
-                    return childItem;
+        if (parent.getChildCount() > 0) {
+            System.out.println("parent: "+ parent.getClassyNode().getName() + " decacnt: " + parent.getChildCount() + " trazimo node: "+ node.getName());
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                TreeNode child = parent.getChildAt(i);
+                if (child instanceof ClassyTreeItem) {
+                    ClassyTreeItem childItem = (ClassyTreeItem) child;
+                    if(NadjiClassyTreePrekoClassyNode(node, childItem) == null)
+                        continue;
+                    if (NadjiClassyTreePrekoClassyNode(node, childItem).getClassyNode().equals(node)) {
+                        return childItem;
+                    }
+//                    else
+//                    {
+//                        continue; // ovde zelim da predje na sledece dete iz petlje, nzm zasto ne bi registrovao ovaj continue?
+//                    }
+//                if (childItem.getClassyNode().equals(node)) {
+//                    System.out.println("naso odgovarajuci " + childItem.toString());
+//
+//                    return childItem;
+//                }
+                    //NadjiClassyTreePrekoClassyNode(node, childItem);
+                } else {
+                    System.out.println("tree node nije instance of classytreeitem" + node.getName());
                 }
-                NadjiClassyTreePrekoClassyNode(node, childItem);
             }
-            System.out.println("tree node nije instance of classytreeitem");
-
+        } else {
+            System.out.println("nije naso odgovarajuci" + parent.getClassyNode().getName());
+            return null;
         }
-
-        System.out.println("nije naso odgovarajuci");
         return null;
-
     }
 }
