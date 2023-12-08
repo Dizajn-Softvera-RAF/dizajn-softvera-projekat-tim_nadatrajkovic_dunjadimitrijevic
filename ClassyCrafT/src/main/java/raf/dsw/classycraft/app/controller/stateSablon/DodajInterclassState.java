@@ -6,6 +6,7 @@ import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Kl
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.view.DiagramView;
 import raf.dsw.classycraft.app.view.MainFrame;
+import raf.dsw.classycraft.app.view.painteri.KlasaPainter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,12 +20,46 @@ public class DodajInterclassState implements State{
                 //MainFrame.getInstance(),"Izaberi klasu, interfejs ili enum", "Nova interklasa", JOptionPane., JOptionPane.QUESTION_MESSAGE,null, options, options[0]);
         if(choice == 0)
         {
-            Klasa klasa=new Klasa("novo ime",dv.getDiagram());
+
             ClassyTreeItem item= MainFrame.getInstance().getClassyTree().NadjiClassyTreePrekoClassyNode(dv.getDiagram(),MainFrame.getInstance().getClassyTree().getRoot());
-            System.out.println("kao dodao klasu");
+            //System.out.println("item"+item.toString());
             System.out.println( dv.getDiagram().getChildren().toString()+" ovo su parentova deca");
+
+            JTextField nazivtf=new JTextField();
+
+            JTextArea poljata=new JTextArea();
+            JTextArea metodeta=new JTextArea();
+
+
+            JComponent[] inputs = new JComponent[] {
+                    new JLabel("ImeKlase"),
+                    nazivtf,
+                    new JLabel("Polja"),
+                    poljata,
+                    new JLabel("Metode"),
+                    metodeta
+            };
+
+            int rez = JOptionPane.showConfirmDialog(MainFrame.getInstance(),inputs,"novaKlasa",JOptionPane.YES_OPTION);
+                    /*,
+                    "Complete the sentence:\n"
+                            + "\"Green eggs and...\"",
+                    "Customized Dialog",
+                    JOptionPane.PLAIN_MESSAGE,
+                    icon,
+                    possibilities,
+                    "ham");*/
+
+
+            //ako je s null proveri
+            String s=nazivtf.getText();
+
+            Klasa klasa=new Klasa(s,dv.getDiagram());
+            KlasaPainter klasaPainter=new KlasaPainter(klasa,P);
+            dv.addPainter(klasaPainter);
+
             //nodeType = "Package";
-            //MainFrame.getInstance().getClassyTree().addChild(selected, NodeType.PACKAGE);
+            MainFrame.getInstance().getClassyTree().addDiagramElement(item, klasa);
             //return;
         }
         if(choice == 1)

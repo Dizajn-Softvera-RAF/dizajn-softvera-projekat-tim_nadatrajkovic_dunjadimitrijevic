@@ -11,6 +11,8 @@ public interface ClassyTree {
     ClassyTreeView generateTree(ProjectExplorer projectExplorer);
 
     void addChild(ClassyTreeItem parent, NodeType type);
+
+    void addDiagramElement(ClassyTreeItem parent, ClassyNode element);
     //todo dodati deleteChild
     void removeChild(ClassyTreeItem child);
     ClassyTreeItem getSelectedNode();

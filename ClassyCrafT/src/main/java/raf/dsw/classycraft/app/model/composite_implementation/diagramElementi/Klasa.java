@@ -10,4 +10,6 @@ public class Klasa extends Interclass {
     public Klasa(String name, ClassyNode parent, InterclassVidljivost vidljivost) {
         super(name, parent, vidljivost);
     }
+
+
 }

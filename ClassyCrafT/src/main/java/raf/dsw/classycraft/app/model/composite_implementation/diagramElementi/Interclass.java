@@ -21,4 +21,12 @@ public abstract class Interclass extends DiagramElement {
         super(name, parent);
         this.vidljivost=vidljivost;
     }
+
+    public void addClassContent(ClassContent classContent)
+    {
+        sadrzaj.add(classContent);
+    }
+
+    //public abstract void changeClassContent(ClassContent classContentkoji, ClassContent novi);
+
 }

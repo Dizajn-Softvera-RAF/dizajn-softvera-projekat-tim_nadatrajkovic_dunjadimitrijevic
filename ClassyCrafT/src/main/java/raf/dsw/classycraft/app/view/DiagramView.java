@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DiagramView extends JPanel implements ISubscriber {
@@ -30,6 +31,7 @@ public class DiagramView extends JPanel implements ISubscriber {
         diagram = d;//ovaj diagram view je subscriber za dijagram jel? pa se apdejtuje kad dodamo nesto na dijagram i repaintuje sve
 
         diagramListener=new DiagramViewMouseListener(this);
+        painterList=new ArrayList<>();
 
         this.addMouseListener(diagramListener);
 
@@ -60,10 +62,16 @@ public class DiagramView extends JPanel implements ISubscriber {
         System.out.println("uso da peint component");
         Graphics2D g2=(Graphics2D) g;
 
-        /*for (ElementPainter p:painterList) {
-            p.draw(g);
-        }*/
+        for (ElementPainter p:painterList) {
+            p.draw(g2);
+        }
 
+    }
+
+    public void addPainter(ElementPainter painter)
+    {
+        painterList.add(painter);
+        repaint();
     }
 
 

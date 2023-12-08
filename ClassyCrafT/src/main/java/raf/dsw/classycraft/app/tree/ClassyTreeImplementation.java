@@ -12,9 +12,11 @@ import raf.dsw.classycraft.app.tree.view.ClassyTreeView;
 import raf.dsw.classycraft.app.view.MainFrame;
 
 import javax.swing.*;
+import javax.swing.plaf.IconUIResource;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 public class ClassyTreeImplementation implements ClassyTree{
 
@@ -70,6 +72,21 @@ public class ClassyTreeImplementation implements ClassyTree{
     }
 
     @Override
+    public void addDiagramElement(ClassyTreeItem parent, ClassyNode element)
+    {
+        System.out.println(element);
+        System.out.println("parent u addDiagramelement "+parent.getClassyNode().getName());
+        parent.add(new ClassyTreeItem(element));
+        ((ClassyNodeComposite) parent.getClassyNode()).addChild(element);
+        TreeNode[] nodes=parent.getPath();
+        System.out.println(nodes.toString());
+        TreePath tp=new TreePath(nodes);
+        treeView.expandPath(tp);//treeView.getSelectionPath());
+
+        SwingUtilities.updateComponentTreeUI(treeView);
+    }
+
+    @Override
     public void removeChild(ClassyTreeItem child) {
         if((child.getClassyNode() instanceof ProjectExplorer))
         {
@@ -113,11 +130,16 @@ public class ClassyTreeImplementation implements ClassyTree{
                 TreeNode child = parent.getChildAt(i);
                 if (child instanceof ClassyTreeItem) {
                     ClassyTreeItem childItem = (ClassyTreeItem) child;
+                    ClassyTreeItem trenutni=NadjiClassyTreePrekoClassyNode(node, childItem);
+                    if(trenutni==null)
+                        continue;
+                    return trenutni;
+                    /*
                     if(NadjiClassyTreePrekoClassyNode(node, childItem) == null)
                         continue;
                     if (NadjiClassyTreePrekoClassyNode(node, childItem).getClassyNode().equals(node)) {
                         return childItem;
-                    }
+                    }*/
 //                    else
 //                    {
 //                        continue; // ovde zelim da predje na sledece dete iz petlje, nzm zasto ne bi registrovao ovaj continue?
