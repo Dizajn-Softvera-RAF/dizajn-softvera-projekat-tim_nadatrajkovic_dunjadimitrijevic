@@ -24,4 +24,8 @@ public abstract class ElementPainter{
         }
         return duzina;
     }
+
+    public DiagramElement getDiagramElement() {
+        return diagramElement;
+    }
 }

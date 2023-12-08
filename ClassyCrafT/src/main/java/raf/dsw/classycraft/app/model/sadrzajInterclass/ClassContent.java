@@ -20,7 +20,7 @@ public abstract class ClassContent {
 
     @Override
     public String toString() {
-        return vidljivost+" " + naziv;
+        return naziv.toLowerCase()+" " + naziv;
     }
 
     public String znakZaVidljivost()

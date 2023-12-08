@@ -6,6 +6,7 @@ import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.En
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.InterclassVidljivost;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Interfejs;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Klasa;
+import raf.dsw.classycraft.app.model.sadrzajInterclass.Atribut;
 import raf.dsw.classycraft.app.model.sadrzajInterclass.ClanEnumeracije;
 import raf.dsw.classycraft.app.model.sadrzajInterclass.Metoda;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
@@ -52,7 +53,7 @@ public class DodajInterclassState implements State{
             novaKlasa.createDialog(MainFrame.getInstance(),"nova klasa");
             novaKlasa.setVisible(true);
 
-            //int rez = novaKlasa.showConfirmDialog(MainFrame.getInstance(),inputs,"novaKlasa",JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+            int rez = novaKlasa.showConfirmDialog(MainFrame.getInstance(),inputs,"novaKlasa",JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
                     /*,
                     "Complete the sentence:\n"
                             + "\"Green eggs and...\"",
