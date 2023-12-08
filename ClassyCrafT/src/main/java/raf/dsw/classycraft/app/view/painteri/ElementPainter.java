@@ -6,7 +6,7 @@ import java.awt.*;
 
 public abstract class ElementPainter{
     //diagram
-    private DiagramElement diagramElement;
+    protected DiagramElement diagramElement;
 
     public ElementPainter(DiagramElement diagramElement) {
         this.diagramElement = diagramElement;

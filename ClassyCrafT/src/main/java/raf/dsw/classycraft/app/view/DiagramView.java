@@ -61,6 +61,8 @@ public class DiagramView extends JPanel implements ISubscriber {
         super.paintComponent(g);
         System.out.println("uso da peint component");
         Graphics2D g2=(Graphics2D) g;
+        int fontSize=15;
+        g2.setFont(new Font("TimesNewRoman",Font.PLAIN,fontSize));
 
         for (ElementPainter p:painterList) {
             p.draw(g2);

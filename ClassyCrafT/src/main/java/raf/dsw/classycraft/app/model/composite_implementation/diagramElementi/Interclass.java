@@ -27,6 +27,10 @@ public abstract class Interclass extends DiagramElement {
         sadrzaj.add(classContent);
     }
 
+    public List<ClassContent> getClassContent() {
+        return sadrzaj;
+    }
+
     //public abstract void changeClassContent(ClassContent classContentkoji, ClassContent novi);
 
 }
