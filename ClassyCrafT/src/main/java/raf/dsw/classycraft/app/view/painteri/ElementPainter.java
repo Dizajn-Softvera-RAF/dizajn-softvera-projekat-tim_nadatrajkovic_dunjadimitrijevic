@@ -8,6 +8,14 @@ public abstract class ElementPainter{
     //diagram
     private DiagramElement diagramElement;
 
+    public DiagramElement getDiagramElement() {
+        return diagramElement;
+    }
+
+    public void setDiagramElement(DiagramElement diagramElement) {
+        this.diagramElement = diagramElement;
+    }
+
     public ElementPainter(DiagramElement diagramElement) {
         this.diagramElement = diagramElement;
     }

@@ -21,6 +21,9 @@ public class KlasaPainter extends ElementPainter{
 
     @Override
     public void draw(Graphics2D g) {
+//        Font f=new Font("Garamond",Font.ITALIC+Font.BOLD+Font.PLAIN,18);
+//        g.setFont(f);
+//        g.drawString("."+this.getDiagramElement().getName(), pocetnaTacka.x, pocetnaTacka.y + g.getFont().getSize());
 
         g.drawRect(pocetnaTacka.x,pocetnaTacka.y,50,50);
 

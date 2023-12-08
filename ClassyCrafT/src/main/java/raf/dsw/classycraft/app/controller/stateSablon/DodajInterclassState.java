@@ -3,6 +3,7 @@ package raf.dsw.classycraft.app.controller.stateSablon;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.model.composite_implementation.NodeType;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Klasa;
+import raf.dsw.classycraft.app.model.message.MessageType;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.view.DiagramView;
 import raf.dsw.classycraft.app.view.MainFrame;
@@ -40,27 +41,37 @@ public class DodajInterclassState implements State{
                     metodeta
             };
 
-            int rez = JOptionPane.showConfirmDialog(MainFrame.getInstance(),inputs,"novaKlasa",JOptionPane.YES_OPTION);
-                    /*,
-                    "Complete the sentence:\n"
-                            + "\"Green eggs and...\"",
-                    "Customized Dialog",
-                    JOptionPane.PLAIN_MESSAGE,
-                    icon,
-                    possibilities,
-                    "ham");*/
+            int rez = JOptionPane.showConfirmDialog(MainFrame.getInstance(),inputs,"novaKlasa",JOptionPane.OK_CANCEL_OPTION);
 
+            if(rez == 0)
+            {
 
-            //ako je s null proveri
-            String s=nazivtf.getText();
+                System.out.println("kliknut OK");
+                //ako je s null proveri
 
-            Klasa klasa=new Klasa(s,dv.getDiagram());
-            KlasaPainter klasaPainter=new KlasaPainter(klasa,P);
-            dv.addPainter(klasaPainter);
+                String s=nazivtf.getText();
+                if(s == null || s.equals(""))
+                {
+                    ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("potrebno je uneti ime klase", MessageType.WARNING);
+                    // jos nesto?
+                }
+                else
+                {
+                    Klasa klasa=new Klasa(s,dv.getDiagram());
+                    KlasaPainter klasaPainter=new KlasaPainter(klasa,P);
+                    dv.addPainter(klasaPainter);
 
-            //nodeType = "Package";
-            MainFrame.getInstance().getClassyTree().addDiagramElement(item, klasa);
-            //return;
+                    //nodeType = "Package";
+                    MainFrame.getInstance().getClassyTree().addDiagramElement(item, klasa);
+                    //return;
+                }
+
+            }
+            else if(rez == 1)
+            {
+                // ako je kliknut cancel - onda nista
+            }
+
         }
         if(choice == 1)
         {
