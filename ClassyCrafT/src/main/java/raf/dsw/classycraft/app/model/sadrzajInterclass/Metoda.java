@@ -7,24 +7,35 @@ import java.util.List;
 
 public class Metoda extends ClassContent{
 
-    private List<Atribut> clanoviFunkcije;
+    private List<Atribut> parametriFunkcije;
     public Metoda(String naziv, InterclassVidljivost vidljivost, String tip) {
         super(naziv, vidljivost, tip);
-        clanoviFunkcije=new ArrayList<>();
+        parametriFunkcije = new ArrayList<>(); //jel su ovo parametri?
+    }
+    public void addParametarFunkcije(Atribut p)
+    {
+        parametriFunkcije.add(p);
     }
 
-    public List<Atribut> getClanoviFunkcije() {
-        return clanoviFunkcije;
+    public List<Atribut> getParametriFunkcije() {
+        return parametriFunkcije;
     }
 
     @Override
     public String toString() {
-        StringBuilder pocetak = new StringBuilder(this.znakZaVidljivost() + " " + tip + " " + naziv + "(");
-        for (Atribut a:clanoviFunkcije) {
-            pocetak.append(a.getNaziv()+", ");
-
+        StringBuilder pocetak = new StringBuilder(this.znakZaVidljivost() + " "  + " " + naziv + "(");
+        for (Atribut a: parametriFunkcije) {
+            if(parametriFunkcije.indexOf(a) == 0){
+                pocetak.append(a.getNaziv());
+            }
+            else
+            {
+                pocetak.append(", " + a.getNaziv());
+            }
         }
         pocetak.append(")");
+        pocetak.append(":");
+        pocetak.append(tip);
         return pocetak.toString();
     }
 }

@@ -6,6 +6,8 @@ import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.En
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.InterclassVidljivost;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Interfejs;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Klasa;
+import raf.dsw.classycraft.app.model.message.MessageType;
+import raf.dsw.classycraft.app.model.sadrzajInterclass.Atribut;
 import raf.dsw.classycraft.app.model.sadrzajInterclass.ClanEnumeracije;
 import raf.dsw.classycraft.app.model.sadrzajInterclass.Metoda;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
@@ -17,6 +19,9 @@ import raf.dsw.classycraft.app.view.painteri.KlasaPainter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DodajInterclassState implements State{
     @Override
@@ -92,7 +97,7 @@ public class DodajInterclassState implements State{
             JComponent[] inputs = new JComponent[] {
                     new JLabel("ImeInterfejsa"),
                     nazivtf,
-                    new JLabel("Metode, primer: private int izracunaj(int a, int b)"),
+                    new JLabel("Metode razdvojene zarezom, primer: -metoda1(int a,String s):int;+metoda2():void"),
                     metodeta
             };
 
@@ -102,9 +107,66 @@ public class DodajInterclassState implements State{
             String s=nazivtf.getText();
 
 
-            Interfejs interfejs =new Interfejs(s,dv.getDiagram());
-            interfejs.addClassContent(new Metoda("max", InterclassVidljivost.PRIVATE,"int"));
-            interfejs.addClassContent(new Metoda("min", InterclassVidljivost.PUBLIC,"int"));
+            Interfejs interfejs = new Interfejs(s,dv.getDiagram());
+            System.out.println("metode " + metodeta.getText());
+
+            // ne radi regex:(
+            Pattern patern = Pattern.compile("[^[+-~]{1}[(]{1}[)]{1}[:]{1}]", Pattern.CASE_INSENSITIVE);
+
+            //Pattern patern = Pattern.compile("^[+~-][(][)][:]", Pattern.CASE_INSENSITIVE);
+            //Pattern patern = Pattern.compile("[^[+\\-~]{1}[(]{1}[)]{1}[:]{1}]", Pattern.CASE_INSENSITIVE);
+
+            //Pattern patern = Pattern.compile("[a-z]", Pattern.CASE_INSENSITIVE);
+
+
+            for (String line : metodeta.getText().split(";"))
+            {
+                System.out.println("linija1 " + line);
+                if(!Objects.equals(line, "")) {
+                    //Pattern patern = Pattern.compile("^[+~-]", Pattern.CASE_INSENSITIVE);
+                    Matcher matcher = patern.matcher(line);
+                    System.out.println("linija2 " + line);
+                    if(matcher.find())
+                    {
+                        line = line.trim();
+                        char s0 = line.charAt(0);
+                        InterclassVidljivost vidljivost;
+                        if (s0 == '~') {
+                            vidljivost = InterclassVidljivost.PROTECTED;
+                        } else if (s0 == '-') {
+                            vidljivost = InterclassVidljivost.PRIVATE;
+                        } else {
+                            vidljivost = InterclassVidljivost.PUBLIC;
+                        }
+                        // srediti da pazi na to da ako nije uneta vidljivost
+                        System.out.println("trenutna linija" + line);
+
+                        String nazivMetode = line.substring(1, line.indexOf("("));
+                        String povratniTip = line.substring(line.indexOf(":") + 1);
+                        Metoda metoda = new Metoda(nazivMetode, vidljivost, povratniTip);
+
+
+                        String[] parametri = line.substring(line.indexOf("(") + 1, line.indexOf(")")).split(",");
+                        for (String parametar : parametri) {
+                            parametar = parametar.trim();
+                            String tip = parametar.substring(0, parametar.indexOf(" "));
+                            String nazivParametra = parametar.substring(parametar.indexOf(" ") + 1);
+                            metoda.addParametarFunkcije(new Atribut(nazivParametra, InterclassVidljivost.PRIVATE, tip));
+                        }
+                        interfejs.addClassContent(metoda);
+                        System.out.println("trenutna metoda" + metoda.toString());
+                    }
+                    else
+                    {
+                        ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("lepo upisi metodu bre", MessageType.WARNING);
+                        return;
+                    }
+
+                }
+//                String[] nazivMetode = line.split("(");
+            }
+            //interfejs.addClassContent(new Metoda("max", InterclassVidljivost.PRIVATE,"int"));
+            //interfejs.addClassContent(new Metoda("min", InterclassVidljivost.PUBLIC,"int"));
             InterfejsPainter interfejsPainter=new InterfejsPainter(interfejs,P);
             dv.addPainter(interfejsPainter);
 

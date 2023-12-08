@@ -7,6 +7,7 @@ public class Atribut extends ClassContent{
         super(naziv, vidljivost, tip);
     }
 
+
     public Atribut(String naziv, InterclassVidljivost vidljivost) {
         super(naziv, vidljivost);
     }
