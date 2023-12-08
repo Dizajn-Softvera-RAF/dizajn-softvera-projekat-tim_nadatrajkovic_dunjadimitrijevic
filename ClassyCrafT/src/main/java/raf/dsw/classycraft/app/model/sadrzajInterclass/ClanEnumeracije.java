@@ -4,7 +4,7 @@ import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.In
 
 public class ClanEnumeracije extends ClassContent{
     public ClanEnumeracije(String naziv) {
-        super(naziv, InterclassVidljivost.PUBLIC);
+        super(naziv, InterclassVidljivost.PUBLIC, "int");
     }
 
     @Override

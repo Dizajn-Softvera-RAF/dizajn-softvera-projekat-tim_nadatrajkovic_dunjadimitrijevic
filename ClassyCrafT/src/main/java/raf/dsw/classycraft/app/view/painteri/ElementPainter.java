@@ -14,4 +14,14 @@ public abstract class ElementPainter{
 
     public abstract void draw(Graphics2D g);
     public abstract boolean elementAt(Point P);
+
+    protected int duzinaReci(String rec, Graphics2D g)
+    {
+        int duzina=0;
+        for(int i=0;i<rec.length();i++) {
+            int jedan=g.getFontMetrics().charWidth(rec.charAt(i));
+            duzina+=jedan;
+        }
+        return duzina;
+    }
 }

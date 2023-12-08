@@ -3,9 +3,11 @@ package raf.dsw.classycraft.app.controller.stateSablon;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.model.composite_implementation.NodeType;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Enumeracija;
+import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.InterclassVidljivost;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Interfejs;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Klasa;
 import raf.dsw.classycraft.app.model.sadrzajInterclass.ClanEnumeracije;
+import raf.dsw.classycraft.app.model.sadrzajInterclass.Metoda;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.view.DiagramView;
 import raf.dsw.classycraft.app.view.MainFrame;
@@ -24,7 +26,7 @@ public class DodajInterclassState implements State{
         int choice = JOptionPane.showOptionDialog(MainFrame.getInstance(),"Izaberi klasu, interfejs ili enum", "Nova interklasa",JOptionPane.YES_OPTION,JOptionPane.QUESTION_MESSAGE,null, options, options[0]);
                 //MainFrame.getInstance(),"Izaberi klasu, interfejs ili enum", "Nova interklasa", JOptionPane., JOptionPane.QUESTION_MESSAGE,null, options, options[0]);
         ClassyTreeItem item= MainFrame.getInstance().getClassyTree().NadjiClassyTreePrekoClassyNode(dv.getDiagram(),MainFrame.getInstance().getClassyTree().getRoot());
-        if(choice == 0)
+        if(choice == 0)//crta klasu
         {
 
             //System.out.println("item"+item.toString());
@@ -79,7 +81,7 @@ public class DodajInterclassState implements State{
             MainFrame.getInstance().getClassyTree().addDiagramElement(item, klasa);
             //return;
         }
-        if(choice == 1)
+        if(choice == 1)//crta interfejs
         {
 
             JTextField nazivtf=new JTextField();
@@ -101,6 +103,8 @@ public class DodajInterclassState implements State{
 
 
             Interfejs interfejs =new Interfejs(s,dv.getDiagram());
+            interfejs.addClassContent(new Metoda("max", InterclassVidljivost.PRIVATE,"int"));
+            interfejs.addClassContent(new Metoda("min", InterclassVidljivost.PUBLIC,"int"));
             InterfejsPainter interfejsPainter=new InterfejsPainter(interfejs,P);
             dv.addPainter(interfejsPainter);
 

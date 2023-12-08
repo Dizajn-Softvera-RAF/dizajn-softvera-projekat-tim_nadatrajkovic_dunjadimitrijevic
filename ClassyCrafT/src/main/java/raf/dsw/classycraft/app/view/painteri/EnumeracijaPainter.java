@@ -14,14 +14,15 @@ public class EnumeracijaPainter extends ElementPainter{
     public EnumeracijaPainter(DiagramElement diagramElement, Point pocetnaTacka) {
         super(diagramElement);
         this.pocetnaTacka = pocetnaTacka;
-        width=100;
-        height=100;
+        //width=100;
+        //height=100;
     }
 
     @Override
     public void draw(Graphics2D g) {
         String ime=diagramElement.getName();
-        int velicinaFonta=g.getFont().getSize();
+        int velicinaFonta=g.getFontMetrics().getHeight();
+        System.out.println("velicina fonta enum "+velicinaFonta);
 
         int maxSize=ime.length();
 
@@ -38,7 +39,7 @@ public class EnumeracijaPainter extends ElementPainter{
             }
         }
 
-        width=pocetnaTacka.x+maxSize*velicinaFonta+2*velicinaFonta;
+        width=maxSize*velicinaFonta+2*velicinaFonta;
         height=koordinateElEnuma.y- pocetnaTacka.y;
 
         g.drawString(ime,pocetnaTacka.x+(width-ime.length()*velicinaFonta)/2, pocetnaTacka.y+velicinaFonta);
