@@ -111,7 +111,14 @@ public class DodajInterclassState implements State{
             System.out.println("metode " + metodeta.getText());
 
             // ne radi regex:(
-            Pattern patern = Pattern.compile("[^[+-~]{1}[(]{1}[)]{1}[:]{1}]", Pattern.CASE_INSENSITIVE);
+            //tvoja linija:
+            //Pattern patern = Pattern.compile("[^[+-~]{1}[(]{1}[)]{1}[:]{1}]", Pattern.CASE_INSENSITIVE);
+            //Pattern patern = Pattern.compile("-[A-Za-z0-9]+\\([^)]*\\):[A-Za-z]+", Pattern.CASE_INSENSITIVE);
+
+            Pattern patern = Pattern.compile(
+                    "[+~-][a-zA-z0-9_]+\\((([a-zA-z0-9_]+\\s[a-zA-z0-9_]+)(,\\s*[a-zA-z0-9_]+\\s[a-zA-z0-9_]+)*)*\\):[a-zA-z0-9_]+", Pattern.CASE_INSENSITIVE);
+            Matcher matcher = patern.matcher("-metoda1(int a,String s):int");
+            System.out.println(matcher.find());
 
             //Pattern patern = Pattern.compile("^[+~-][(][)][:]", Pattern.CASE_INSENSITIVE);
             //Pattern patern = Pattern.compile("[^[+\\-~]{1}[(]{1}[)]{1}[:]{1}]", Pattern.CASE_INSENSITIVE);
@@ -124,7 +131,8 @@ public class DodajInterclassState implements State{
                 System.out.println("linija1 " + line);
                 if(!Objects.equals(line, "")) {
                     //Pattern patern = Pattern.compile("^[+~-]", Pattern.CASE_INSENSITIVE);
-                    Matcher matcher = patern.matcher(line);
+                    //Matcher matcher = patern.matcher(line);
+                    matcher = patern.matcher(line);
                     System.out.println("linija2 " + line);
                     if(matcher.find())
                     {
@@ -145,14 +153,19 @@ public class DodajInterclassState implements State{
                         String povratniTip = line.substring(line.indexOf(":") + 1);
                         Metoda metoda = new Metoda(nazivMetode, vidljivost, povratniTip);
 
-
-                        String[] parametri = line.substring(line.indexOf("(") + 1, line.indexOf(")")).split(",");
-                        for (String parametar : parametri) {
-                            parametar = parametar.trim();
-                            String tip = parametar.substring(0, parametar.indexOf(" "));
-                            String nazivParametra = parametar.substring(parametar.indexOf(" ") + 1);
-                            metoda.addParametarFunkcije(new Atribut(nazivParametra, InterclassVidljivost.PRIVATE, tip));
+                        if(line.charAt(line.indexOf("(") + 1) != ')')
+                        {
+                            String[] parametri = line.substring(line.indexOf("(") + 1, line.indexOf(")")).split(",");
+                            for (String parametar : parametri) {
+                                System.out.println(parametar);
+                                parametar = parametar.trim();
+                                String tip = parametar.substring(0, parametar.indexOf(" "));
+                                String nazivParametra = parametar.substring(parametar.indexOf(" ") + 1);
+                                metoda.addParametarFunkcije(new Atribut(nazivParametra, InterclassVidljivost.PRIVATE, tip));
+                            }
                         }
+
+
                         interfejs.addClassContent(metoda);
                         System.out.println("trenutna metoda" + metoda.toString());
                     }
