@@ -318,7 +318,6 @@ public class DodajInterclassState implements State{
 
     @Override
     public void misPovucen(Point P, DiagramView dv) {
-
     }
 
     @Override

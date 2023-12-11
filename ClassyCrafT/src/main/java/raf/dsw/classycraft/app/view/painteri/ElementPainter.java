@@ -7,6 +7,8 @@ import java.awt.*;
 public abstract class ElementPainter{
     //diagram
     protected DiagramElement diagramElement;
+    protected boolean selektovano=false;
+
 
     public ElementPainter(DiagramElement diagramElement) {
         this.diagramElement = diagramElement;
@@ -14,6 +16,14 @@ public abstract class ElementPainter{
 
     public abstract void draw(Graphics2D g);
     public abstract boolean elementAt(Point P);
+
+    public boolean isSelektovano() {
+        return selektovano;
+    }
+
+    public void setSelektovano(boolean selektovano) {
+        this.selektovano = selektovano;
+    }
 
     protected int duzinaReci(String rec, Graphics2D g)
     {

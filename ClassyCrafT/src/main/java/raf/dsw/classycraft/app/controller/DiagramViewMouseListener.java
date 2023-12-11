@@ -4,12 +4,9 @@ import raf.dsw.classycraft.app.view.DiagramView;
 import raf.dsw.classycraft.app.view.MainFrame;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseWheelEvent;
+import java.awt.event.*;
 
-public class DiagramViewMouseListener extends MouseAdapter {
+public class DiagramViewMouseListener extends MouseAdapter implements MouseMotionListener {
 
     private DiagramView diagramView;
     private Point pocetneKoordinate;
@@ -29,10 +26,12 @@ public class DiagramViewMouseListener extends MouseAdapter {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        super.mouseDragged(e);
-        MainFrame.getInstance().getPackageView().misPovucenmng(e.getPoint(),diagramView);
+        //super.mouseDragged(e);
+        System.out.println("uso u listener dragged");
+
+        //MainFrame.getInstance().getPackageView().misPovucenmng(e.getPoint(),diagramView);
         //diagramView.update();
-        diagramView.repaint();
+        //diagramView.repaint();
 
     }
 
@@ -69,6 +68,11 @@ public class DiagramViewMouseListener extends MouseAdapter {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        super.mouseMoved(e);
+        //super.mouseMoved(e);
+        System.out.println("uso u listener mmoved");
+        MainFrame.getInstance().getPackageView().misPovucenmng(e.getPoint(),diagramView);
+        //diagramView.update();
+        diagramView.repaint();
+        System.out.println("uso u listener mmoved");
     }
 }

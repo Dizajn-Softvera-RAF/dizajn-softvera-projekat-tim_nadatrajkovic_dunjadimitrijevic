@@ -17,6 +17,7 @@ public abstract class InterclassPainter extends ElementPainter {
     protected ArrayList<Point> connectionPoints;
     protected int width,height;
 
+
     public InterclassPainter(DiagramElement diagramElement) {
         super(diagramElement);
     }
@@ -35,13 +36,16 @@ public abstract class InterclassPainter extends ElementPainter {
         int velicinaFonta=g.getFont().getSize();
 
         int maxSize=duzinaReci(ime,g);
-        System.out.println("maxSize poc"+maxSize);
+        //System.out.println("maxSize poc"+maxSize);
 
         Point koordinatePoljaInterklase=new Point(pocetnaTacka.x+velicinaFonta, pocetnaTacka.y+3*velicinaFonta);;
 
         if(diagramElement instanceof Interclass)
         {
             Interclass interclass=(Interclass) diagramElement;
+
+            boolean imaAtribut=false,imaMetoda=false;
+            int linijaY= pocetnaTacka.y;
 
             for (ClassContent c: interclass.getClassContent()) {
 
@@ -50,8 +54,13 @@ public abstract class InterclassPainter extends ElementPainter {
                     g.drawString(c.toString(), koordinatePoljaInterklase.x, koordinatePoljaInterklase.y);
                     koordinatePoljaInterklase.y += velicinaFonta;
                     maxSize = Math.max(maxSize, duzinaReci(c.toString(), g));
-
+                    imaAtribut=true;
                 }
+            }
+            if(imaAtribut)
+            {
+                koordinatePoljaInterklase.y+=velicinaFonta;
+                linijaY= koordinatePoljaInterklase.y+velicinaFonta/2;
             }
 
             for (ClassContent c: interclass.getClassContent()) {
@@ -61,7 +70,14 @@ public abstract class InterclassPainter extends ElementPainter {
                     g.drawString(c.toString(), koordinatePoljaInterklase.x, koordinatePoljaInterklase.y);
                     koordinatePoljaInterklase.y += velicinaFonta;
                     maxSize = Math.max(maxSize, duzinaReci(c.toString(), g));
+                    imaMetoda=true;
                 }
+
+            }
+
+            if(imaMetoda && imaAtribut)
+            {
+                g.drawLine(pocetnaTacka.x, linijaY, pocetnaTacka.x+width,linijaY);
             }
 
             for (ClassContent c: interclass.getClassContent()) {
@@ -80,12 +96,25 @@ public abstract class InterclassPainter extends ElementPainter {
 
         width=maxSize+2*velicinaFonta;
 
-        System.out.println("maxsize i width "+maxSize+" "+width);
+        //System.out.println("maxsize i width "+maxSize+" "+width);
 
         height= koordinatePoljaInterklase.y - pocetnaTacka.y;
 
         g.drawString(ime,pocetnaTacka.x+(width-duzinaReci(ime,g))/2, pocetnaTacka.y+velicinaFonta);
 
+
+
+        if(selektovano)
+        {
+            Stroke dashed = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,
+                    0, new float[]{9}, 0);
+            g.setStroke(dashed);
+        }
+        else
+        {
+            Stroke obicna=new BasicStroke(2);
+            g.setStroke(obicna);
+        }
         g.drawRect(pocetnaTacka.x,pocetnaTacka.y,width ,height);
 
         dodajConnectonPoints();
@@ -93,7 +122,7 @@ public abstract class InterclassPainter extends ElementPainter {
 
     @Override
     public boolean elementAt(Point p) {
-        if((p.x> pocetnaTacka.x && p.x< pocetnaTacka.x+width) && (p.y> pocetnaTacka.y && p.y< pocetnaTacka.x+height))
+        if((p.x> pocetnaTacka.x && p.x< pocetnaTacka.x+width) && (p.y> pocetnaTacka.y && p.y< pocetnaTacka.y+height))
             return true;
         return false;
     }
@@ -112,4 +141,6 @@ public abstract class InterclassPainter extends ElementPainter {
             }
         }
     }
+
+
 }
