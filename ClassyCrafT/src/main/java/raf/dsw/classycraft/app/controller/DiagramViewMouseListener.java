@@ -19,32 +19,37 @@ public class DiagramViewMouseListener extends MouseAdapter implements MouseMotio
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        MainFrame.getInstance().getPackageView().misKliknutmng(e.getPoint(),diagramView);
-        //diagramView.update();
-        diagramView.repaint();
+//        //OVO JE NIJE BILO IZKOMENTARISANO,  prebacila sam ovo u mousePressed
+//        MainFrame.getInstance().getPackageView().misPritisnutmng(e.getPoint(),diagramView);
+//            //diagramView.update(); (ovo jeste)
+//        diagramView.repaint();
     }
 
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        //super.mouseDragged(e);
-        System.out.println("uso u listener dragged");
-
-        //MainFrame.getInstance().getPackageView().misPovucenmng(e.getPoint(),diagramView);
-        //diagramView.update();
-        //diagramView.repaint();
-
-    }
 
     @Override
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
         pocetneKoordinate=e.getPoint();
+        System.out.println("MOUSE PRESSED");
+        MainFrame.getInstance().getPackageView().misPritisnutmng(e.getPoint(),diagramView);
+        diagramView.repaint();
     }
 
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        super.mouseDragged(e);
+        System.out.println("MOUSE DRAGGED");
+//
+//        MainFrame.getInstance().getPackageView().misPovucenmng(e.getPoint(),diagramView);
+        //diagramView.update();
+        //diagramView.repaint();
+
+    }
     @Override
     public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
         krajnjeKoordinate=e.getPoint();
+        System.out.println("MOUSE RELEASED");
         MainFrame.getInstance().getPackageView().misOtpustenmng(krajnjeKoordinate,diagramView);
 
     }
@@ -68,11 +73,11 @@ public class DiagramViewMouseListener extends MouseAdapter implements MouseMotio
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        //super.mouseMoved(e);
-        System.out.println("uso u listener mmoved");
-        MainFrame.getInstance().getPackageView().misPovucenmng(e.getPoint(),diagramView);
-        //diagramView.update();
-        diagramView.repaint();
-        System.out.println("uso u listener mmoved");
+//        //super.mouseMoved(e);
+//        System.out.println("MOUSE MOVED");
+//        MainFrame.getInstance().getPackageView().misPovucenmng(e.getPoint(),diagramView);
+//        //diagramView.update();
+//        diagramView.repaint();
+//        System.out.println("uso u listener mmoved");
     }
 }

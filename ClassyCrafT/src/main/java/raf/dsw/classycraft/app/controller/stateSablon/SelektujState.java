@@ -1,5 +1,7 @@
 package raf.dsw.classycraft.app.controller.stateSablon;
 
+import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
+import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
 import raf.dsw.classycraft.app.view.DiagramView;
 import raf.dsw.classycraft.app.view.painteri.ElementPainter;
 
@@ -17,12 +19,12 @@ public class SelektujState implements State{
             }
         }
         dv.setSelektovan(null); //ako je kliknuo u prazno
-        //jel treba ako se promeni stanje da nije nista
+        //jel treba ako se promeni stanje da nije nista  // nije mi jasno pitanje
     }
 
     @Override
     public void misPovucen(Point P, DiagramView dv) {
-
+        System.out.println("usao u MIS POVUCEN");
     }
 
     @Override

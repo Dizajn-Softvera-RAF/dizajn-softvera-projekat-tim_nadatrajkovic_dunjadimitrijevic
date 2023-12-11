@@ -73,6 +73,7 @@ public class DiagramView extends JPanel implements ISubscriber {
         painterList=new ArrayList<>();
 
         this.addMouseListener(diagramListener);
+        this.addMouseMotionListener(diagramListener);
 
     }
 
