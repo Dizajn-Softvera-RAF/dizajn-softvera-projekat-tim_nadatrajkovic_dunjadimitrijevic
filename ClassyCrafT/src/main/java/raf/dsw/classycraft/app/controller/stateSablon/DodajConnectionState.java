@@ -37,10 +37,10 @@ public class DodajConnectionState implements State{
 
     @Override
     public void misPovucen(Point P, DiagramView dv) {
-        System.out.println("zasto ne detektuje ovo "+P.toString());
+        //System.out.println("zasto ne detektuje ovo "+P.toString());
         dv.setP2(P);
         dv.repaint();
-        System.out.println("detektuje pomeranje misa "+P.toString());
+        //System.out.println("detektuje pomeranje misa "+P.toString());
 
     }
 

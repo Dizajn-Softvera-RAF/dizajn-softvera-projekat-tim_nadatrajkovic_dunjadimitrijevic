@@ -50,20 +50,42 @@ public class DiagramView extends JPanel implements ISubscriber {
 
     private List<ElementPainter> painterList;
     private List<ElementPainter> selektovaniList;
-    private ElementPainter selektovan;
 
-    public ElementPainter getSelektovan() {
-        return selektovan;
+    public List<ElementPainter> getSelektovaniList() {
+        return selektovaniList;
     }
 
-    public void setSelektovan(ElementPainter selektovan) {
-        if(this.selektovan!=null)
-            this.selektovan.setSelektovano(false);
-        this.selektovan = selektovan;
-        if(this.selektovan!=null)
-            this.selektovan.setSelektovano(true);
+    public void setSelektovaniList(List<ElementPainter> selektovaniList) {
+        this.selektovaniList = selektovaniList;
+    }
+    public void dodajUSelektovane(ElementPainter ep)
+    {
+        selektovaniList.add(ep);
+        ep.setSelektovano(true);
         repaint();
     }
+    public void ukloniSveIzSelektovanih()
+    {
+        for (ElementPainter ep:selektovaniList) {
+            ep.setSelektovano(false);
+        }
+        selektovaniList.clear();
+        repaint();
+    }
+    private ElementPainter selektovan;
+
+//    public ElementPainter getSelektovan() {
+//        return selektovan;
+//    }
+//
+//    public void setSelektovan(ElementPainter selektovan) {
+//        if(this.selektovan!=null)
+//            this.selektovan.setSelektovano(false);
+//        this.selektovan = selektovan;
+//        if(this.selektovan!=null)
+//            this.selektovan.setSelektovano(true);
+//        repaint();
+//    }
 
     public DiagramView(Diagram d) {
         super();
@@ -71,6 +93,7 @@ public class DiagramView extends JPanel implements ISubscriber {
 
         diagramListener=new DiagramViewMouseListener(this);
         painterList=new ArrayList<>();
+        selektovaniList = new ArrayList<>();
 
         this.addMouseListener(diagramListener);
         this.addMouseMotionListener(diagramListener);

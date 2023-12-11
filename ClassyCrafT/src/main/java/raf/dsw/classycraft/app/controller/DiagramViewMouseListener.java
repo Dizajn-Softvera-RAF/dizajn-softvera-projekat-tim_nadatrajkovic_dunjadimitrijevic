@@ -12,6 +12,22 @@ public class DiagramViewMouseListener extends MouseAdapter implements MouseMotio
     private Point pocetneKoordinate;
     private Point krajnjeKoordinate;
 
+    public Point getPocetneKoordinate() {
+        return pocetneKoordinate;
+    }
+
+    public void setPocetneKoordinate(Point pocetneKoordinate) {
+        this.pocetneKoordinate = pocetneKoordinate;
+    }
+
+    public Point getKrajnjeKoordinate() {
+        return krajnjeKoordinate;
+    }
+
+    public void setKrajnjeKoordinate(Point krajnjeKoordinate) {
+        this.krajnjeKoordinate = krajnjeKoordinate;
+    }
+
     public DiagramViewMouseListener(DiagramView diagramView) {
         super();
         this.diagramView = diagramView;
@@ -40,7 +56,7 @@ public class DiagramViewMouseListener extends MouseAdapter implements MouseMotio
         super.mouseDragged(e);
         System.out.println("MOUSE DRAGGED");
 //
-//        MainFrame.getInstance().getPackageView().misPovucenmng(e.getPoint(),diagramView);
+        MainFrame.getInstance().getPackageView().misPovucenmng(e.getPoint(),diagramView);
         //diagramView.update();
         //diagramView.repaint();
 

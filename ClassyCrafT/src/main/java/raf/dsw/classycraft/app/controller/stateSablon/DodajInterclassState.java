@@ -115,7 +115,7 @@ public class DodajInterclassState implements State{
         {
             Matcher matcher = pattern.matcher(line);
             if (matcher.find()) {
-                line.trim();
+                line = line.trim();
                 ClanEnumeracije ce = new ClanEnumeracije(line);
                 return ce;
             }

@@ -10,15 +10,18 @@ import java.awt.*;
 public class SelektujState implements State{
     @Override
     public void misPritisnut(Point P, DiagramView dv) {
+        dv.ukloniSveIzSelektovanih(); // prvo isprazni listu selektovani
         for (ElementPainter ep:dv.getPainterList()) {
             if(ep.elementAt(P))
             {
-                dv.setSelektovan(ep);
+                dv.dodajUSelektovane(ep); // ako je kliknut neki element, dodace ga u listu
                 System.out.println("naso selektovan "+ep.toString());
                 return;
             }
         }
-        dv.setSelektovan(null); //ako je kliknuo u prazno
+        // ako nije kliknut nijedan element, lista je svakako prazna
+
+        //dv.setSelektovan(null); //ako je kliknuo u prazno
         //jel treba ako se promeni stanje da nije nista  // nije mi jasno pitanje
     }
 
