@@ -6,6 +6,7 @@ import raf.dsw.classycraft.app.controller.DiagramViewMouseListener;
 import raf.dsw.classycraft.app.controller.OpenPackageAction;
 import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
+import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Interclass;
 import raf.dsw.classycraft.app.view.painteri.ElementPainter;
 
 import javax.swing.*;
@@ -72,6 +73,7 @@ public class DiagramView extends JPanel implements ISubscriber {
 
     public void addPainter(ElementPainter painter)
     {
+
         painterList.add(painter);
         repaint();
     }
