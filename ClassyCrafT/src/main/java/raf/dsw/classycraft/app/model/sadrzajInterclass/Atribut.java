@@ -11,4 +11,9 @@ public class Atribut extends ClassContent{
     public Atribut(String naziv, InterclassVidljivost vidljivost) {
         super(naziv, vidljivost);
     }
+
+    @Override
+    public String toString() {
+        return znakZaVidljivost()+" " +naziv+":"+tip;
+    }
 }

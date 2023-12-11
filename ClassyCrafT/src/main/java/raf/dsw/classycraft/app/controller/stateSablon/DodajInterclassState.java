@@ -93,7 +93,7 @@ public class DodajInterclassState implements State{
                 }
                 //System.out.println("trenutna linija" + line);
 
-                String nazivAtributa = line.substring(1, line.indexOf("(")).trim();
+                String nazivAtributa = line.substring(1, line.indexOf(":")).trim();
                 //System.out.println("naziv atributa trimovanje:"+nazivAtributa);
                 String tip = line.substring(line.indexOf(":") + 1).trim();
                 Atribut atribut = new Atribut(nazivAtributa, vidljivost, tip);
