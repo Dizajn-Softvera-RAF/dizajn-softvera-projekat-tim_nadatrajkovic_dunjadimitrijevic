@@ -118,6 +118,7 @@ public abstract class InterclassPainter extends ElementPainter {
         g.drawRect(pocetnaTacka.x,pocetnaTacka.y,width ,height);
 
         dodajConnectonPoints();
+
     }
 
     @Override
@@ -137,10 +138,12 @@ public abstract class InterclassPainter extends ElementPainter {
             for(int j=0;j<=2;j++)
             {
                 if(!(j==1 && i==1))
-                    connectionPoints.add(new Point(pocetnaTacka.x+i*xSkok,pocetnaTacka.y+ySkok));
+                    connectionPoints.add(new Point(pocetnaTacka.x+i*xSkok,pocetnaTacka.y+j*ySkok));
             }
         }
     }
 
-
+    public ArrayList<Point> getConnectionPoints() {
+        return connectionPoints;
+    }
 }
