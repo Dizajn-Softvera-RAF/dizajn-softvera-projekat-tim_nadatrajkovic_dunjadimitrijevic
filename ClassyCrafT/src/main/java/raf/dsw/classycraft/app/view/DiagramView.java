@@ -4,8 +4,13 @@ import jdk.jfr.consumer.RecordedClass;
 import raf.dsw.classycraft.app.Observer.ISubscriber;
 import raf.dsw.classycraft.app.controller.DiagramViewMouseListener;
 import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
+import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
+import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Interclass;
+import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Interfejs;
+import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Klasa;
 import raf.dsw.classycraft.app.view.painteri.ElementPainter;
 import raf.dsw.classycraft.app.view.painteri.InterclassPainter;
+import raf.dsw.classycraft.app.view.painteri.KlasaPainter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -155,7 +160,7 @@ public class DiagramView extends JPanel implements ISubscriber {
                     this.ukloniIzSelektovanih(ep);
                 }
             }
-
+            // treba dodati za ConnectionPaintere
 //            if(ep.elementAt(p2))
 //            {
 //                this.dodajUSelektovane(ep); // ako je kliknut neki element, dodace ga u listu
@@ -201,13 +206,17 @@ public class DiagramView extends JPanel implements ISubscriber {
 
         diagramListener=new DiagramViewMouseListener(this);
         painterList=new ArrayList<>();
+//        for (var child:diagram.getChildren()) {
+//
+//
+//        }
         selektovaniList = new ArrayList<>();
 
         crtaSeLaso = false;
 
         this.addMouseListener(diagramListener);
         this.addMouseMotionListener(diagramListener);
-
+        repaint();
     }
 
     public Diagram getDiagram() {
@@ -222,9 +231,9 @@ public class DiagramView extends JPanel implements ISubscriber {
     public void Update(Object notification) {
         if(notification.toString().equals("brisi"))
         {
-            removeAll();
+            //removeAll();
             //repaint();
-            revalidate();
+            //revalidate();
         }
     }
 
@@ -247,6 +256,16 @@ public class DiagramView extends JPanel implements ISubscriber {
         //ovde crta liniju za veze
 
     }
+//    private void addDiagramChildPainter(DiagramElement de)
+//    {
+//        ElementPainter ep;
+//        if(de instanceof Klasa)
+//            ep = new KlasaPainter(de);
+////        if(de instanceof Interclass)
+////        {
+////
+////        }
+//    }
 
     public void addPainter(ElementPainter painter)
     {
