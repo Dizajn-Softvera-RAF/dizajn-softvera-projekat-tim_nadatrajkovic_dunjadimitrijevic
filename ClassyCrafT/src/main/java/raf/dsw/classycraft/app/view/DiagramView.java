@@ -2,6 +2,8 @@ package raf.dsw.classycraft.app.view;
 
 import jdk.jfr.consumer.RecordedClass;
 import raf.dsw.classycraft.app.Observer.ISubscriber;
+import raf.dsw.classycraft.app.Observer.Notification;
+import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.controller.DiagramViewMouseListener;
 import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
@@ -229,8 +231,25 @@ public class DiagramView extends JPanel implements ISubscriber {
 
     @Override
     public void Update(Object notification) {
-        if(notification.toString().equals("brisi"))
+        if(notification instanceof Notification)
         {
+            //iz connection grane pokusad da radi observer
+            Notification n=(Notification) notification;
+            if(n.getNotificationType()== NotificationType.DELETE)
+            {
+                if(n.getObjectOfNotification() instanceof DiagramElement)
+                {
+                    DiagramElement brisani=(DiagramElement) n.getObjectOfNotification();
+                    for (ElementPainter ep:painterList) {
+                        if(ep.getDiagramElement().equals(brisani))
+                            painterList.remove(ep);
+                    }
+                }
+                //removeAll();
+                repaint();
+                //revalidate();
+            }
+          //ovo je bilo pre
             //removeAll();
             //repaint();
             //revalidate();

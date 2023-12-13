@@ -150,6 +150,25 @@ public class PackageView extends JPanel implements ISubscriber {
 //                    }
 //
 //                }
+  /*ovo je bilo pokusaj da se popravi ono sa tabovima ne znam da li radi sa tim ili bez toga, meni je radlo 
+                ClassyNodeComposite cp = (ClassyNodeComposite) paket;
+                //tabNames = new ArrayList<>();
+
+
+                for (ClassyNode c : cp.getChildren()) {
+                    if (c instanceof Diagram) {
+                        //((Diagram)c).addSubscriber(this); // ?
+                        DiagramView dw = new DiagramView((Diagram) c);
+                        //dw.Update(new Notification(c, NotificationType.SHOWDIAGRAM));
+                        c.addSubscriber(dw);
+                        //tabs.add(dw);
+                        //cp.addSubscriber(dw); // jel mi treba ovo?
+                        tabNames.add(dw);
+                    }
+
+                }
+
+*/
                 createTabs();
                 this.setProjectNaziv(((Project) node).getName());
                 this.setAutor(((Project) node).getImeAutora());
