@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public abstract class InterclassPainter extends ElementPainter {
     protected Point pocetnaTacka;
 
-    protected ArrayList<Point> connectionPoints;
+    protected ArrayList<Point> connectionPoints;  //nekako da cuva koji su zauzeti da ne pravi veze u istoj tacki
     protected int width,height;
 
 
@@ -130,12 +130,13 @@ public abstract class InterclassPainter extends ElementPainter {
 
     private void dodajConnectonPoints()
     {
-        int xSkok=width/2;
-        int ySkok=height/2;
+        connectionPoints.clear();
+        int xSkok=width/4;
+        int ySkok=height/4;
 
-        for(int i=0;i<=2;i++)
+        for(int i=0;i<=4;i++)
         {
-            for(int j=0;j<=2;j++)
+            for(int j=0;j<=4;j++)
             {
                 if(!(j==1 && i==1))
                     connectionPoints.add(new Point(pocetnaTacka.x+i*xSkok,pocetnaTacka.y+j*ySkok));

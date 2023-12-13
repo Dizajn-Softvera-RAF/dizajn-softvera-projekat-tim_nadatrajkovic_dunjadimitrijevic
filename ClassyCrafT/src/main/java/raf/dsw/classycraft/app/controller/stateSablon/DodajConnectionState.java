@@ -18,21 +18,18 @@ public class DodajConnectionState implements State{
 
     InterclassPainter odakle=null;
     InterclassPainter dokle=null;
-    boolean otpusten=false;
 
     @Override
     public void misPritisnut(Point P, DiagramView dv) {
-        otpusten=false;
         System.out.println("detektovao pritisak misa "+P.toString());
         for (ElementPainter ep:dv.getPainterList()) {
             if(ep instanceof InterclassPainter && ep.elementAt(P))
             {
                 System.out.println("naso kliknutu "+P.toString());
-                if(odakle==null) {
-                    odakle = (InterclassPainter) ep;
-                    dv.setP1(P);
-                    System.out.println("uso postavio pocetnu " + P.toString());
-                }
+                odakle = (InterclassPainter) ep;
+                dv.setP1(P);
+                System.out.println("uso postavio pocetnu " + P.toString());
+
 
             }
         }
@@ -41,11 +38,10 @@ public class DodajConnectionState implements State{
     @Override
     public void misPovucen(Point P, DiagramView dv) {
         //System.out.println("zasto ne detektuje ovo "+P.toString());
-        if(!otpusten)
-        {
-            dv.setP2(P);
-            dv.repaint();
-        }
+
+        dv.setP2(P);
+        dv.repaint();
+
 
         //System.out.println("detektuje pomeranje misa "+P.toString());
 
@@ -53,78 +49,92 @@ public class DodajConnectionState implements State{
 
     @Override
     public void misOtpusten(Point P, DiagramView dv) {
-        otpusten=true;
+        Point odP = null, doP = null;
+        Interclass interod=null;
+        Interclass interdo=null;
+
+        boolean nasoKliknutu=false;
 
         System.out.println("detektovao otpusten misa "+P.toString());
         for (ElementPainter ep:dv.getPainterList()) {
-            if(ep instanceof InterclassPainter && ep.elementAt(P))
-            {
-                System.out.println("naso kliknutu "+P.toString());
+            if(ep instanceof InterclassPainter && ep.elementAt(P)) {
+                nasoKliknutu=true;
+                System.out.println("naso kliknutu " + P.toString());
 
-                dokle =(InterclassPainter) ep;
+                dokle = (InterclassPainter) ep;
                 //ovde zavrsava crtanje i poziva connectionpainter
-                System.out.println("naso dokle ide linija "+P.toString());
+                System.out.println("naso dokle ide linija " + P.toString());
 
                 //ovde sad pravi vezu
 
 
-                Interclass interod=(Interclass) odakle.getDiagramElement();
-                Interclass interdo=(Interclass) dokle.getDiagramElement();
+                interod = (Interclass) odakle.getDiagramElement();
+                interdo = (Interclass) dokle.getDiagramElement();
 
-                Point odP=null,doP=null;
 
-                double minRastojanje=Integer.MAX_VALUE;
 
-                for (Point po:odakle.getConnectionPoints())
-                {
-                    for (Point pd:dokle.getConnectionPoints())
-                    {
-                        if(udaljenost(po,pd)<minRastojanje)
-                        {
-                            odP=po;
-                            doP=pd;
+                double minRastojanje = Integer.MAX_VALUE;
+
+
+
+                for (Point po : odakle.getConnectionPoints()) {
+                    for (Point pd : dokle.getConnectionPoints()) {
+                        if (udaljenost(po, pd) < minRastojanje) {
+                            odP = po;
+                            doP = pd;
+                            minRastojanje=udaljenost(po,pd);
                         }
                     }
 
                 }
 
-                Object[] options = {"Agregacia","Generalizacija","Kompozicija","Zavisnost"};
-                int choice = JOptionPane.showOptionDialog(MainFrame.getInstance(),"Izaberi vrstu veze", "Nova veza",JOptionPane.YES_OPTION,JOptionPane.QUESTION_MESSAGE,null, options, options[0]);
-                ClassyTreeItem item= MainFrame.getInstance().getClassyTree().NadjiClassyTreePrekoClassyNode(dv.getDiagram(),MainFrame.getInstance().getClassyTree().getRoot());
-                if(choice==0)//agregacija
-                {
-                    Agregacija agregacija=new Agregacija("agregacija",dv.getDiagram(),interod,interdo);
-
-                    AgregacijaPainter apainter=new AgregacijaPainter(agregacija,odP,doP);
-
-
-                    dv.addPainter(apainter);
-                    MainFrame.getInstance().getClassyTree().addDiagramElement(item, agregacija);
-
-                }
-                if(choice==1)//generalizacija
-                {
-
-                }
-                if(choice==2)//komozicija
-                {
-
-                }
-                if(choice==3)//zavisnost
-
-
-
-                dv.setP1(null);
-                dv.setP2(null);
-
+                break;
             }
         }
+
+        if(nasoKliknutu) {
+
+            Object[] options = {"Agregacia", "Generalizacija", "Kompozicija", "Zavisnost"};
+            int choice = JOptionPane.showOptionDialog(MainFrame.getInstance(), "Izaberi vrstu veze", "Nova veza", JOptionPane.YES_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            ClassyTreeItem item = MainFrame.getInstance().getClassyTree().NadjiClassyTreePrekoClassyNode(dv.getDiagram(), MainFrame.getInstance().getClassyTree().getRoot());
+
+            if (choice == 0)//agregacija
+            {
+                Agregacija agregacija = new Agregacija("agregacija", dv.getDiagram(), interod, interdo);
+
+                AgregacijaPainter apainter = new AgregacijaPainter(agregacija, odP, doP);
+
+
+                dv.addPainter(apainter);
+                MainFrame.getInstance().getClassyTree().addDiagramElement(item, agregacija);
+
+            }
+            if (choice == 1)//generalizacija
+            {
+
+            }
+            if (choice == 2)//komozicija
+            {
+
+            }
+            if (choice == 3)//zavisnost
+            {
+            }
+        }
+
+            dv.setP1(null);
+            dv.setP2(null);
+
+
+
     }
 
     private double udaljenost(Point p1, Point p2)
     {
+
         double a2=(p1.x-p2.x)*(p1.x-p2.x);
         double b2=(p1.y-p2.y)*(p1.y-p2.y);
+        System.out.println("udaljenost "+p1+" "+p2+" "+Math.sqrt(a2+b2));
         return Math.sqrt(a2+b2);
     }
 }

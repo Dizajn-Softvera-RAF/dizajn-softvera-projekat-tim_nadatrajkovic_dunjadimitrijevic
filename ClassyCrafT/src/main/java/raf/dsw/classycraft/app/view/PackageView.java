@@ -128,7 +128,9 @@ public class PackageView extends JPanel implements ISubscriber {
 //                    return;
 //                }
                 ClassyNodeComposite cp = (ClassyNodeComposite) paket;
-                tabNames = new ArrayList<>();
+                //tabNames = new ArrayList<>();
+
+
                 for (ClassyNode c : cp.getChildren()) {
                     if (c instanceof Diagram) {
                         //((Diagram)c).addSubscriber(this); // ?
