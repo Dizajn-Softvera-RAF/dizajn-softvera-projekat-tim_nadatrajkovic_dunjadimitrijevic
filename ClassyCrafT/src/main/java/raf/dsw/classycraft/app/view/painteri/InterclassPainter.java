@@ -27,6 +27,14 @@ public abstract class InterclassPainter extends ElementPainter {
         pocetnaTacka = p;
         connectionPoints=new ArrayList<>();
     }
+    public Point getPocetnaTacka()
+    {
+        return pocetnaTacka;
+    }
+    public Point getKrajnjaTacka()
+    {
+        return new Point(pocetnaTacka.x + width, pocetnaTacka.y + height);
+    }
 
     @Override
     public void draw(Graphics2D g) {

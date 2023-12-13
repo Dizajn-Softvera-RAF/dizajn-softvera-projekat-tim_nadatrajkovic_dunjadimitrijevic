@@ -23,14 +23,19 @@ public class Metoda extends ClassContent{
 
     @Override
     public String toString() {
-        StringBuilder pocetak = new StringBuilder(this.znakZaVidljivost() + " "  + " " + naziv + "(");
+        StringBuilder pocetak = new StringBuilder(this.znakZaVidljivost()  + " " + naziv + "(");
         for (Atribut a: parametriFunkcije) {
             if(parametriFunkcije.indexOf(a) == 0){
+                pocetak.append(a.getTip());
+                pocetak.append(" ");
                 pocetak.append(a.getNaziv());
             }
             else
             {
-                pocetak.append(", " + a.getNaziv());
+                pocetak.append(", " ); //a.getTip() + " " + a.getNaziv());
+                pocetak.append(a.getTip());
+                pocetak.append(" ");
+                pocetak.append(a.getNaziv());
             }
         }
         pocetak.append(")");
