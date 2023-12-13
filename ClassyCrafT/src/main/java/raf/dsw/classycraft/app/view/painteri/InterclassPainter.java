@@ -116,6 +116,7 @@ public abstract class InterclassPainter extends ElementPainter {
             g.setStroke(obicna);
         }
         g.drawRect(pocetnaTacka.x,pocetnaTacka.y,width ,height);
+        g.setStroke(new BasicStroke(2));
 
         dodajConnectonPoints();
 

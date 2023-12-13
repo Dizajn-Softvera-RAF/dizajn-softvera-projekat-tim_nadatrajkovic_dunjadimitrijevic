@@ -12,7 +12,7 @@ public class AgregacijaPainter extends ConnectionPainter {
         super(diagramElement, odakle, dokle);
     }
 
-    Point cetvrtaTacka;
+    Point cetvrtaTacka; //tacka za romb
 
     @Override
     public void draw(Graphics2D g) {
@@ -42,6 +42,7 @@ public class AgregacijaPainter extends ConnectionPainter {
         int x=odakle.x;
         int y=odakle.y;
         kNormale=-(1/k);
+        System.out.println("k i knormale "+ k+ " "+kNormale);
         //nNormale=odakle.x*(k*k+1)/k+n;
         //if(k>0)//nisam sigurna kako ovo radi al kao treba da ga makne za pola dijagonale ka unutra
         //nNormale+=duzinaDiajgonale/2;
@@ -59,7 +60,11 @@ public class AgregacijaPainter extends ConnectionPainter {
         if(odakle.x>dokle.x)
             koef=-1;
         xNormala=koef*(duzinaDiajgonale/2)/Math.sqrt(k*k+1)+x;
+
         yNormala=xNormala*k+n;
+
+        if((k<0.1 && k>-0.1)|| Double.isInfinite(k))
+            yNormala=y*koef;
 
         nNormale=yNormala-kNormale*xNormala;
 

@@ -48,10 +48,18 @@ public abstract class ConnectionPainter extends ElementPainter {
 
 
             x1=(duzinaDiajgonale/2)/Math.sqrt(kNormale*kNormale+1)+tackaNormale.x;
+
             y1=x1*kNormale+nNormale;
 
+            if((k<0.1 && k>-0.1) || Double.isInfinite(k))
+                y1=tackaNormale.y+duzinaDiajgonale/2;
+
             x2=-(duzinaDiajgonale/2)/Math.sqrt(kNormale*kNormale+1)+tackaNormale.x;
+
+
             y2=x2*kNormale+nNormale;
+            if((k<0.1 && k>-0.1)|| Double.isInfinite(k))
+                y2=tackaNormale.y-duzinaDiajgonale/2;
 
             tackaZaRombiStrelicu1=new Point((int) x1, (int) y1);
             tackaZaRombiStrelicu2=new Point((int) x2, (int) y2);
@@ -71,14 +79,29 @@ public abstract class ConnectionPainter extends ElementPainter {
 
 
     @Override
-    public void draw(Graphics2D g) {
+    public void draw(Graphics2D g){
+
+        if(selektovano)
+            g.setColor(Color.green);
+        else
+            g.setColor(Color.black);
+
         g.drawLine(odakle.x,odakle.y,dokle.x,dokle.y);
+
+        //g.setColor(Color.black);
 
     }
 
     @Override
     public boolean elementAt(Point P) {
+
+
+        System.out.println("prverava klik "+P);
+        if(P.y-P.x*k-n>=-10 && P.y-P.x*k-n<=10)
+            return true;
         return false;
+
+
     }
 
     protected abstract Point tackaPresekaDijagonala();
