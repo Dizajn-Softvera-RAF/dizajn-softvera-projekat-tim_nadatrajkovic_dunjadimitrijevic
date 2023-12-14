@@ -23,10 +23,23 @@ public abstract class Interclass extends DiagramElement {
         sadrzaj=new ArrayList<>();
     }
 
+//    @Override
+//    protected Object clone() throws CloneNotSupportedException {
+//        return super.clone();
+//    }
+
     public void addClassContent(ClassContent classContent)
     {
         sadrzaj.add(classContent);
         //notifySubscribers();
+    }
+
+    public InterclassVidljivost getVidljivost() {
+        return vidljivost;
+    }
+
+    public void setVidljivost(InterclassVidljivost vidljivost) {
+        this.vidljivost = vidljivost;
     }
 
     public List<ClassContent> getClassContent() {

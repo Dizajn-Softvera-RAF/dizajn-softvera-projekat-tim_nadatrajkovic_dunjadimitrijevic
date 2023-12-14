@@ -272,8 +272,12 @@ public class PackageView extends JPanel implements ISubscriber {
     {
         stateManager.setSelektujState();
     }
+    public void StartDuplicirajState()
+    {
+        stateManager.setDuplicirajState();
+    }
 
-    public void misPritisnutmng(Point P, DiagramView dv) // mozda preimenovati u misPritisnutMng da odgovara ostalim analognim metodama
+    public void misPritisnutmng(Point P, DiagramView dv)
     {
         stateManager.getCurrentState().misPritisnut(P,dv);
     }

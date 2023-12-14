@@ -6,6 +6,7 @@ public class StateManager {
     private ObrisiState obrisiState;
     private PromeniKlasuState promeniKlasuState;
     private  SelektujState selektujState;
+    private DuplicirajState duplicirajState;
     private State currentState;
 
     public State getCurrentState() {
@@ -22,6 +23,7 @@ public class StateManager {
         obrisiState=new ObrisiState();
         promeniKlasuState=new PromeniKlasuState();
         selektujState=new SelektujState();
+        duplicirajState = new DuplicirajState();
         currentState=dodajInterclassState;
     }
 
@@ -52,5 +54,12 @@ public class StateManager {
         this.currentState = selektujState;
 
         System.out.println("postavio currState na selektuj");
+    }
+
+    public void setDuplicirajState()
+    {
+        this.currentState = duplicirajState;
+
+        System.out.println("postavio currState na dupliciraj");
     }
 }
