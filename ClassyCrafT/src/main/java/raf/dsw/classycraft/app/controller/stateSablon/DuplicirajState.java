@@ -12,22 +12,22 @@ import java.awt.*;
 import java.util.Optional;
 
 public class DuplicirajState implements State{
-    private Interclass duplicirajElement(DiagramElement de)
+    private Interclass duplicirajElement(DiagramElement de, Point P)
     {
         Interclass novi_element = null;
         if(de instanceof Klasa)
         {
-            novi_element = new Klasa(de.getName(), de.getParent(), ((Klasa) de).getVidljivost());
+            novi_element = new Klasa(de.getName(), de.getParent(), P);
 
         }
         else if(de instanceof Interfejs)
         {
-            novi_element = new Interfejs(de.getName(), de.getParent(), ((Interfejs) de).getVidljivost());
+            novi_element = new Interfejs(de.getName(), de.getParent(), P);
 
         }
         else if(de instanceof Enumeracija)
         {
-            novi_element = new Enumeracija(de.getName(), de.getParent());
+            novi_element = new Enumeracija(de.getName(), de.getParent(), P);
         }
         if(novi_element != null)
         {
@@ -40,20 +40,6 @@ public class DuplicirajState implements State{
     }
     @Override
     public void misPritisnut(Point P, DiagramView dv) {
-        // proveravam da li u dv.selektovanim ima samo jedan, ako da - dupliciraj njega i tjt
-        // ako ima vise od jednog u selektovanim - isprazni selektovane
-        // ako je lista selektovanih prazna - selektuj onog koji je kliknut (ako je kliknut neki) i dupliciraj ga
-
-//        if(dv.getSelektovaniList().size() == 1)
-//        {
-//            ElementPainter ep = dv.getSelektovaniList().get(0);
-//            if(ep instanceof InterclassPainter)
-//            {
-//                System.out.println("DUPLICIRAN1");
-//                // dupliciraj ga
-//            }
-//            // ako je veza - nemoj
-//        }
         if(!dv.getSelektovaniList().isEmpty())
         {
             dv.ukloniSveIzSelektovanih();
@@ -77,19 +63,19 @@ public class DuplicirajState implements State{
                 if(rez == 0) // ok -> dupliciraj element
                 {
                     DiagramElement selectedInterclass = kliknut.getDiagramElement();
-                    Interclass novi_element = duplicirajElement(selectedInterclass);
+                    Interclass novi_element = duplicirajElement(selectedInterclass, P);
                     ClassyTreeItem item= MainFrame.getInstance().getClassyTree().NadjiClassyTreePrekoClassyNode(dv.getDiagram(),MainFrame.getInstance().getClassyTree().getRoot());
 
                     if(novi_element instanceof Klasa)
                     {
-                        KlasaPainter klasaPainter=new KlasaPainter(novi_element,P);
+                        KlasaPainter klasaPainter=new KlasaPainter(novi_element);
                         dv.addPainter(klasaPainter);
 
                         MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
                     }
                     else if(novi_element instanceof Interfejs)
                     {
-                        InterfejsPainter interfejsPainter=new InterfejsPainter(novi_element,P);
+                        InterfejsPainter interfejsPainter=new InterfejsPainter(novi_element);
                         dv.addPainter(interfejsPainter);
 
                         MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
@@ -97,7 +83,7 @@ public class DuplicirajState implements State{
                     }
                     else if(novi_element instanceof Enumeracija)
                     {
-                        EnumeracijaPainter enumeracijaPainter = new EnumeracijaPainter(novi_element, P);
+                        EnumeracijaPainter enumeracijaPainter = new EnumeracijaPainter(novi_element);
                         dv.addPainter(enumeracijaPainter);
 
                         MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);

@@ -12,29 +12,36 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class InterclassPainter extends ElementPainter {
-    protected Point pocetnaTacka;
+    private Point pocetnaTacka;
 
     protected ArrayList<Point> connectionPoints;  //nekako da cuva koji su zauzeti da ne pravi veze u istoj tacki
-    protected int width,height;
+    protected int width,height; // negde treba izracunati i proslediti da se cuva i u modelu (jer zavisi od Graphics)
 
 
-    public InterclassPainter(DiagramElement diagramElement) {
-        super(diagramElement);
-    }
+//    public InterclassPainter(DiagramElement diagramElement) {
+//        super(diagramElement);
+//    }
 
-    public InterclassPainter(DiagramElement diagramElement, Point p) {
-        super(diagramElement);
-        pocetnaTacka = p;
-        connectionPoints=new ArrayList<>();
-    }
-    public Point getPocetnaTacka()
+    public InterclassPainter(Interclass interclass)
     {
-        return pocetnaTacka;
+        super(interclass);
+        pocetnaTacka = interclass.getPocetnaTacka();
+        connectionPoints = new ArrayList<>();
     }
-    public Point getKrajnjaTacka()
-    {
-        return new Point(pocetnaTacka.x + width, pocetnaTacka.y + height);
-    }
+
+//    public InterclassPainter(DiagramElement diagramElement, Point p) {
+//        super(diagramElement);
+//        pocetnaTacka = p;
+//        connectionPoints=new ArrayList<>();
+//    }
+//    public Point getPocetnaTacka()
+//    {
+//        return pocetnaTacka;
+//    }
+//    public Point getKrajnjaTacka()
+//    {
+//        return new Point(pocetnaTacka.x + width, pocetnaTacka.y + height);
+//    }
 
     @Override
     public void draw(Graphics2D g) {
@@ -48,58 +55,58 @@ public abstract class InterclassPainter extends ElementPainter {
 
         Point koordinatePoljaInterklase=new Point(pocetnaTacka.x+velicinaFonta, pocetnaTacka.y+3*velicinaFonta);;
 
-        if(diagramElement instanceof Interclass)
+        //if(diagramElement instanceof Interclass)
+        //{
+        Interclass interclass=(Interclass) diagramElement;
+
+        boolean imaAtribut = false, imaMetoda = false;
+        //int linijaY = pocetnaTacka.y;
+
+        for (ClassContent c: interclass.getClassContent()) {
+
+            if (c instanceof Atribut)
+            {
+                g.drawString(c.toString(), koordinatePoljaInterklase.x, koordinatePoljaInterklase.y);
+                koordinatePoljaInterklase.y += velicinaFonta;
+                maxSize = Math.max(maxSize, duzinaReci(c.toString(), g));
+                imaAtribut=true;
+            }
+        }
+        if(imaAtribut)
         {
-            Interclass interclass=(Interclass) diagramElement;
+            koordinatePoljaInterklase.y+=velicinaFonta;
+            //linijaY= koordinatePoljaInterklase.y+velicinaFonta/2;
+        }
 
-            boolean imaAtribut=false,imaMetoda=false;
-            int linijaY= pocetnaTacka.y;
+        for (ClassContent c: interclass.getClassContent()) {
 
-            for (ClassContent c: interclass.getClassContent()) {
-
-                if (c instanceof Atribut)
-                {
-                    g.drawString(c.toString(), koordinatePoljaInterklase.x, koordinatePoljaInterklase.y);
-                    koordinatePoljaInterklase.y += velicinaFonta;
-                    maxSize = Math.max(maxSize, duzinaReci(c.toString(), g));
-                    imaAtribut=true;
-                }
-            }
-            if(imaAtribut)
+            if(c instanceof Metoda)
             {
-                koordinatePoljaInterklase.y+=velicinaFonta;
-                linijaY= koordinatePoljaInterklase.y+velicinaFonta/2;
-            }
-
-            for (ClassContent c: interclass.getClassContent()) {
-
-                if(c instanceof Metoda)
-                {
-                    g.drawString(c.toString(), koordinatePoljaInterklase.x, koordinatePoljaInterklase.y);
-                    koordinatePoljaInterklase.y += velicinaFonta;
-                    maxSize = Math.max(maxSize, duzinaReci(c.toString(), g));
-                    imaMetoda=true;
-                }
-
-            }
-
-            if(imaMetoda && imaAtribut)
-            {
-                g.drawLine(pocetnaTacka.x, linijaY, pocetnaTacka.x+width,linijaY);
-            }
-
-            for (ClassContent c: interclass.getClassContent()) {
-
-                if (c instanceof ClanEnumeracije)
-                {
-                    g.drawString(c.toString(), koordinatePoljaInterklase.x, koordinatePoljaInterklase.y);
-                    koordinatePoljaInterklase.y += velicinaFonta;
-                    maxSize = Math.max(maxSize, duzinaReci(c.toString(), g));
-
-                }
+                g.drawString(c.toString(), koordinatePoljaInterklase.x, koordinatePoljaInterklase.y);
+                koordinatePoljaInterklase.y += velicinaFonta;
+                maxSize = Math.max(maxSize, duzinaReci(c.toString(), g));
+                //imaMetoda=true;
             }
 
         }
+
+//        if(imaMetoda && imaAtribut)
+//        {
+//            g.drawLine(pocetnaTacka.x, linijaY, pocetnaTacka.x+width,linijaY);
+//        }
+
+        for (ClassContent c: interclass.getClassContent()) {
+
+            if (c instanceof ClanEnumeracije)
+            {
+                g.drawString(c.toString(), koordinatePoljaInterklase.x, koordinatePoljaInterklase.y);
+                koordinatePoljaInterklase.y += velicinaFonta;
+                maxSize = Math.max(maxSize, duzinaReci(c.toString(), g));
+
+            }
+        }
+
+       //}
 
 
         width=maxSize+2*velicinaFonta;
@@ -107,6 +114,9 @@ public abstract class InterclassPainter extends ElementPainter {
         //System.out.println("maxsize i width "+maxSize+" "+width);
 
         height= koordinatePoljaInterklase.y - pocetnaTacka.y;
+        ((Interclass) diagramElement).setKrajnjaTacka(width, height);
+//        ((Interclass) diagramElement).setWidth(width); // todo - pitanje da li nam treba ovo...
+//        ((Interclass) diagramElement).setHeight(height);
 
         g.drawString(ime,pocetnaTacka.x+(width-duzinaReci(ime,g))/2, pocetnaTacka.y+velicinaFonta);
 
@@ -123,7 +133,9 @@ public abstract class InterclassPainter extends ElementPainter {
             Stroke obicna=new BasicStroke(2);
             g.setStroke(obicna);
         }
-        g.drawRect(pocetnaTacka.x,pocetnaTacka.y,width ,height);
+        g.drawRect(pocetnaTacka.x,pocetnaTacka.y,width,height);
+        //g.setColor(Color.white);
+        //g.fillRect(pocetnaTacka.x, pocetnaTacka.y, width, height);
         g.setStroke(new BasicStroke(2));
 
         dodajConnectonPoints();
@@ -155,5 +167,14 @@ public abstract class InterclassPainter extends ElementPainter {
 
     public ArrayList<Point> getConnectionPoints() {
         return connectionPoints;
+    }
+    protected int duzinaReci(String rec, Graphics2D g)
+    {
+        int duzina=0;
+        for(int i=0;i<rec.length();i++) {
+            int jedan=g.getFontMetrics().charWidth(rec.charAt(i));
+            duzina+=jedan;
+        }
+        return duzina;
     }
 }

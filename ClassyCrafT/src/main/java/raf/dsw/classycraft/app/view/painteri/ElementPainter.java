@@ -25,15 +25,15 @@ public abstract class ElementPainter{
         this.selektovano = selektovano;
     }
 
-    protected int duzinaReci(String rec, Graphics2D g)
-    {
-        int duzina=0;
-        for(int i=0;i<rec.length();i++) {
-            int jedan=g.getFontMetrics().charWidth(rec.charAt(i));
-            duzina+=jedan;
-        }
-        return duzina;
-    }
+//    protected int duzinaReci(String rec, Graphics2D g)
+//    {
+//        int duzina=0;
+//        for(int i=0;i<rec.length();i++) {
+//            int jedan=g.getFontMetrics().charWidth(rec.charAt(i));
+//            duzina+=jedan;
+//        }
+//        return duzina;
+//    }
 
     public DiagramElement getDiagramElement() {
         return diagramElement;

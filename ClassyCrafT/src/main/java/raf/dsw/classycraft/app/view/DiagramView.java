@@ -5,6 +5,7 @@ import raf.dsw.classycraft.app.Observer.ISubscriber;
 import raf.dsw.classycraft.app.Observer.Notification;
 import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.controller.DiagramViewMouseListener;
+import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Interclass;
@@ -138,20 +139,21 @@ public class DiagramView extends JPanel implements ISubscriber {
             gorelevo = new Point(p1.x, p2.y);
             doledesno = new Point(p2.x, p1.y);
         }
+
         int width = doledesno.x - gorelevo.x;
         int height = doledesno.y - gorelevo.y;
         crtaSeLaso = true;
         laso = new Rectangle(gorelevo.x, gorelevo.y,width, height);
-        for(ElementPainter ep:painterList)
+
+        for(ElementPainter ep : this.painterList)
         {
-            System.out.println("trenutni painter " + ep.getDiagramElement().getName());
             if(ep instanceof InterclassPainter)
             {
                 System.out.println("ep je instanceof InterclassPainter");
-                Point l1 = ((InterclassPainter) ep).getPocetnaTacka();
-                Point r1 = ((InterclassPainter) ep).getKrajnjaTacka();
+                Point l1 = ((Interclass)ep.getDiagramElement()).getPocetnaTacka();
+                Point r1 = ((Interclass)ep.getDiagramElement()).getKrajnjaTacka();
                 System.out.println("l1: " + l1+" r1: "+ r1);
-                if(doOverlap(l1, r1, gorelevo, doledesno)) // zasto ne radi:((
+                if(doOverlap(l1, r1, gorelevo, doledesno))
                 {
                     System.out.println("they DO OVERLAP");
                     this.dodajUSelektovane(ep);
@@ -162,14 +164,14 @@ public class DiagramView extends JPanel implements ISubscriber {
                     this.ukloniIzSelektovanih(ep);
                 }
             }
-            // treba dodati za ConnectionPaintere
-//            if(ep.elementAt(p2))
-//            {
-//                this.dodajUSelektovane(ep); // ako je kliknut neki element, dodace ga u listu
-//                //System.out.println("naso selektovan "+ep.toString());
-//                return;
-//            }
         }
+
+            //System.out.println("trenutni painter " + ep.getDiagramElement().getName());
+
+            // treba dodati za veze
+
+
+    }
 //        for (ElementPainter ep:painterList) {
 //            //if(ep.elementAt(p2))
 ////            {
@@ -178,9 +180,9 @@ public class DiagramView extends JPanel implements ISubscriber {
 ////                return;
 ////            }
 //        }
-        //g.drawRect(p1.x,p1.y,width ,height);
-        repaint();
-    }
+//        //g.drawRect(p1.x,p1.y,width ,height);
+//        repaint();
+
     public void removeLasso()
     {
         // trebace posle

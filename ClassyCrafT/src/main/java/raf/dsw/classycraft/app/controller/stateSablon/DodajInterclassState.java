@@ -170,7 +170,7 @@ public class DodajInterclassState implements State{
                 }
                 else
                 {
-                    Klasa klasa = new Klasa(s, dv.getDiagram());
+                    Klasa klasa = new Klasa(s, dv.getDiagram(), P);
                     //+ime: String
                     //Pattern polja_patern = Pattern.compile("\\s*[+~-]\\s*[a-zA-z0-9_]+\\s*:\\s*[a-zA-z0-9_]+\\s*", Pattern.CASE_INSENSITIVE);
 
@@ -193,8 +193,7 @@ public class DodajInterclassState implements State{
                                 klasa.addClassContent(metoda);
                         }
                     }
-
-                    KlasaPainter klasaPainter=new KlasaPainter(klasa,P);
+                    KlasaPainter klasaPainter=new KlasaPainter(klasa);
                     dv.addPainter(klasaPainter);
 
                     MainFrame.getInstance().getClassyTree().addDiagramElement(item, klasa);
@@ -232,7 +231,7 @@ public class DodajInterclassState implements State{
                 }
                 else
                 {
-                    Interfejs interfejs = new Interfejs(s,dv.getDiagram());
+                    Interfejs interfejs = new Interfejs(s,dv.getDiagram(), P);
                     //System.out.println("metode " + metodeta.getText());
 
 //            Pattern patern = Pattern.compile(
@@ -252,7 +251,7 @@ public class DodajInterclassState implements State{
                         }
                     }
 
-                    InterfejsPainter interfejsPainter=new InterfejsPainter(interfejs,P);
+                    InterfejsPainter interfejsPainter=new InterfejsPainter(interfejs);
                     dv.addPainter(interfejsPainter);
 
                     MainFrame.getInstance().getClassyTree().addDiagramElement(item, interfejs);
@@ -291,7 +290,7 @@ public class DodajInterclassState implements State{
                 }
                 else
                 {
-                    Enumeracija enumeracija = new Enumeracija(s,dv.getDiagram());
+                    Enumeracija enumeracija = new Enumeracija(s,dv.getDiagram(), P);
                     if(!enumeracije.getText().trim().equals(""))
                     {
                         for (String line : enumeracije.getText().split(",")) {
@@ -302,7 +301,7 @@ public class DodajInterclassState implements State{
                         }
                     }
 
-                    EnumeracijaPainter enumeracijaPainter = new EnumeracijaPainter(enumeracija, P);
+                    EnumeracijaPainter enumeracijaPainter = new EnumeracijaPainter(enumeracija);
                     dv.addPainter(enumeracijaPainter);
 
                     MainFrame.getInstance().getClassyTree().addDiagramElement(item, enumeracija);
