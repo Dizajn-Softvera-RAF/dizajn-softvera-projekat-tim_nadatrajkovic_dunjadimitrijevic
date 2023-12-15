@@ -1,5 +1,7 @@
 package raf.dsw.classycraft.app.model.composite_implementation.diagramElementi;
 
+import raf.dsw.classycraft.app.Observer.Notification;
+import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.sadrzajInterclass.Atribut;
 import raf.dsw.classycraft.app.model.sadrzajInterclass.ClassContent;
@@ -68,6 +70,7 @@ public abstract class Interclass extends DiagramElement {
 
     public void setPocetnaTacka(Point pocetnaTacka) {
         this.pocetnaTacka = pocetnaTacka;
+        notifySubscribers(new Notification(this, NotificationType.MOVE)); //todo obavesti subscribera (interclass painter) da se pomerio interclass
     }
 
     public int getWidth() {

@@ -71,7 +71,7 @@ public class DiagramView extends JPanel implements ISubscriber {
     {
         ep.setSelektovano(false);
         this.selektovaniList.remove(ep);
-        //repaint(); // mozda i ne?
+        repaint();
     }
     public void ukloniSveIzSelektovanih()
     {
@@ -250,6 +250,10 @@ public class DiagramView extends JPanel implements ISubscriber {
                 //removeAll();
                 repaint();
                 //revalidate();
+            }
+            if(n.getNotificationType() == NotificationType.MOVE)
+            {
+                repaint();
             }
           //ovo je bilo pre
             //removeAll();

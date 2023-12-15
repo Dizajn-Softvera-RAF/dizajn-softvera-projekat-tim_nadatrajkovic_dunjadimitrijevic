@@ -1,10 +1,11 @@
 package raf.dsw.classycraft.app.view.painteri;
 
+import raf.dsw.classycraft.app.Observer.ISubscriber;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
 
 import java.awt.*;
 
-public abstract class ElementPainter{
+public abstract class ElementPainter /*implements ISubscriber*/ {
     //diagram
     protected DiagramElement diagramElement;
     protected boolean selektovano=false;

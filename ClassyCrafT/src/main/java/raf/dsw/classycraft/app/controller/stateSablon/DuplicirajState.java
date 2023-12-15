@@ -70,7 +70,7 @@ public class DuplicirajState implements State{
                     {
                         KlasaPainter klasaPainter=new KlasaPainter(novi_element);
                         dv.addPainter(klasaPainter);
-
+                        //novi_element.addSubscriber(dv);
                         MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
                     }
                     else if(novi_element instanceof Interfejs)
@@ -88,6 +88,7 @@ public class DuplicirajState implements State{
 
                         MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
                     }
+                    novi_element.addSubscriber(dv);
                     System.out.println("DUPLICIRAN");
                 }
                 else if(rez == 1)

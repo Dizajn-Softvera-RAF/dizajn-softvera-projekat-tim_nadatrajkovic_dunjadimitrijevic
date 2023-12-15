@@ -1,5 +1,7 @@
 package raf.dsw.classycraft.app.view.painteri;
 
+import raf.dsw.classycraft.app.Observer.Notification;
+import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Interclass;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Klasa;
@@ -12,7 +14,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class InterclassPainter extends ElementPainter {
-    private Point pocetnaTacka;
+    //private Point pocetnaTacka;
 
     protected ArrayList<Point> connectionPoints;  //nekako da cuva koji su zauzeti da ne pravi veze u istoj tacki
     protected int width,height; // negde treba izracunati i proslediti da se cuva i u modelu (jer zavisi od Graphics)
@@ -25,7 +27,7 @@ public abstract class InterclassPainter extends ElementPainter {
     public InterclassPainter(Interclass interclass)
     {
         super(interclass);
-        pocetnaTacka = interclass.getPocetnaTacka();
+        //pocetnaTacka = interclass.getPocetnaTacka();
         connectionPoints = new ArrayList<>();
     }
 
@@ -43,8 +45,24 @@ public abstract class InterclassPainter extends ElementPainter {
 //        return new Point(pocetnaTacka.x + width, pocetnaTacka.y + height);
 //    }
 
+
+//    @Override
+//    public void Update(Object notification) {
+//        if(notification instanceof Notification)
+//        {
+//            if(((Notification) notification).getObjectOfNotification() instanceof Interclass)
+//            {
+//                if(((Notification) notification).getNotificationType() == NotificationType.MOVE)
+//                {
+//                    this.draw();
+//                }
+//            }
+//        }
+//    }
+
     @Override
     public void draw(Graphics2D g) {
+        Point pocetnaTacka = ((Interclass)diagramElement).getPocetnaTacka();
 
         String ime=diagramElement.getName();
 
@@ -144,6 +162,7 @@ public abstract class InterclassPainter extends ElementPainter {
 
     @Override
     public boolean elementAt(Point p) {
+        Point pocetnaTacka = ((Interclass)diagramElement).getPocetnaTacka();
         if((p.x> pocetnaTacka.x && p.x< pocetnaTacka.x+width) && (p.y> pocetnaTacka.y && p.y< pocetnaTacka.y+height))
             return true;
         return false;
@@ -151,6 +170,7 @@ public abstract class InterclassPainter extends ElementPainter {
 
     private void dodajConnectonPoints()
     {
+        Point pocetnaTacka = ((Interclass)diagramElement).getPocetnaTacka();
         connectionPoints.clear();
         int xSkok=width/4;
         int ySkok=height/4;

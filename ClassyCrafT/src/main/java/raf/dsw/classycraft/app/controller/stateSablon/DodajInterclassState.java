@@ -195,6 +195,7 @@ public class DodajInterclassState implements State{
                     }
                     KlasaPainter klasaPainter=new KlasaPainter(klasa);
                     dv.addPainter(klasaPainter);
+                    klasa.addSubscriber(dv); // jel dv ili klasaPainter? mislila bih da je klasaPainter ali mi treba Graphics g za draw()..
 
                     MainFrame.getInstance().getClassyTree().addDiagramElement(item, klasa);
                 }
@@ -253,6 +254,7 @@ public class DodajInterclassState implements State{
 
                     InterfejsPainter interfejsPainter=new InterfejsPainter(interfejs);
                     dv.addPainter(interfejsPainter);
+                    interfejs.addSubscriber(dv);
 
                     MainFrame.getInstance().getClassyTree().addDiagramElement(item, interfejs);
 
@@ -303,6 +305,7 @@ public class DodajInterclassState implements State{
 
                     EnumeracijaPainter enumeracijaPainter = new EnumeracijaPainter(enumeracija);
                     dv.addPainter(enumeracijaPainter);
+                    enumeracija.addSubscriber(dv);
 
                     MainFrame.getInstance().getClassyTree().addDiagramElement(item, enumeracija);
                 }
