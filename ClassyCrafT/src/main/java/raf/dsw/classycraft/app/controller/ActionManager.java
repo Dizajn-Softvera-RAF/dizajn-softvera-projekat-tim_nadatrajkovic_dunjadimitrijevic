@@ -1,5 +1,7 @@
 package raf.dsw.classycraft.app.controller;
 
+import raf.dsw.classycraft.app.controller.akcijeDesniTulbar.*;
+
 import javax.swing.*;
 
 public class ActionManager {
@@ -9,6 +11,44 @@ public class ActionManager {
     private AddNodeAction addNodeAction;
     private AddAutorAction addAutorAction;
     private DeleteAction deleteAction;
+
+
+    private DodajConnectionAction dodajConnectionAction;
+    private DodajInterclassAction dodajInterclassAction;
+    private ObrisiAction obrisiAction;
+    private PromeniKlasuAction promeniKlasuAction;
+    private SelektujAction selektujAction;
+    private DuplicirajAction duplicirajAction;
+    private ZoomInAction zoomInAction;
+    private ZoomOutAction zoomOutAction;
+
+    public DodajConnectionAction getDodajConnectionAction() {
+        return dodajConnectionAction;
+    }
+
+
+    public DodajInterclassAction getDodajInterclassAction() {
+        return dodajInterclassAction;
+    }
+
+
+    public ObrisiAction getObrisiAction() {
+        return obrisiAction;
+    }
+
+
+    public PromeniKlasuAction getPromeniKlasuAction() {
+        return promeniKlasuAction;
+    }
+
+    public SelektujAction getSelektujAction() {
+        return selektujAction;
+    }
+    public DuplicirajAction getDuplicirajAction() {
+        return duplicirajAction;
+    }
+
+
     public ActionManager() {
         initialiseActions();
     }
@@ -42,6 +82,21 @@ public class ActionManager {
         addAutorAction = new AddAutorAction();
         deleteAction = new DeleteAction();
 
+        dodajConnectionAction=new DodajConnectionAction();
+        dodajInterclassAction=new DodajInterclassAction();
+        obrisiAction=new ObrisiAction();
+        promeniKlasuAction=new PromeniKlasuAction();
+        selektujAction=new SelektujAction();
+        duplicirajAction = new DuplicirajAction();
+        zoomInAction = new ZoomInAction();
+        zoomOutAction = new ZoomOutAction();
     }
 
+    public ZoomInAction getZoomInAction() {
+        return zoomInAction;
+    }
+
+    public ZoomOutAction getZoomOutAction() {
+        return zoomOutAction;
+    }
 }

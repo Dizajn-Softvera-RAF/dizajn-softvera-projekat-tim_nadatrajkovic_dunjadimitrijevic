@@ -47,7 +47,7 @@ public abstract class ClassyNode implements IPublisher {
 
     public void removeNode()
     {
-        notifySubscribers("brisi");
+        //this.notifySubscribers(new Notification(this, NotificationType.DELETE));
         this.parent=null;
 
         /*for (ISubscriber i:subscriberList) {
@@ -83,5 +83,12 @@ public abstract class ClassyNode implements IPublisher {
         for (ISubscriber listener : subscriberList) {
             listener.Update(notification);
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof ClassyNode)
+            return this.name.equals(((ClassyNode)obj).getName());
+        return false;
     }
 }

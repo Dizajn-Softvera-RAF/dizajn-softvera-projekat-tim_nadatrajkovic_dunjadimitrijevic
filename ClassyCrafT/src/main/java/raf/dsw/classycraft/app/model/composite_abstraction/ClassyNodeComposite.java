@@ -1,6 +1,9 @@
 package raf.dsw.classycraft.app.model.composite_abstraction;
 
 
+import raf.dsw.classycraft.app.Observer.Notification;
+import raf.dsw.classycraft.app.Observer.NotificationType;
+
 import java.util.ArrayList;
 
 public abstract class ClassyNodeComposite extends ClassyNode{
@@ -20,6 +23,7 @@ public abstract class ClassyNodeComposite extends ClassyNode{
 
         for (ClassyNode node:children) {
             node.removeNode();
+            this.notifySubscribers(new Notification(this, NotificationType.DELETE));
         }
 
         super.removeNode();

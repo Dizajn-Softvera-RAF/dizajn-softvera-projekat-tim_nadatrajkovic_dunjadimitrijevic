@@ -2,6 +2,7 @@ package raf.dsw.classycraft.app.controller;
 
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
+import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
 import raf.dsw.classycraft.app.model.composite_implementation.NodeType;
 import raf.dsw.classycraft.app.model.composite_implementation.Project;
 import raf.dsw.classycraft.app.model.composite_implementation.Package;
@@ -71,6 +72,10 @@ public class AddNodeAction extends AbstractClassyAction{
                 MainFrame.getInstance().getClassyTree().addChild(selected, NodeType.DIAGRAM);
                 return;
             }
+        }
+        else if(selected.getClassyNode() instanceof Diagram)
+        {
+            return;
         }
         else
         {

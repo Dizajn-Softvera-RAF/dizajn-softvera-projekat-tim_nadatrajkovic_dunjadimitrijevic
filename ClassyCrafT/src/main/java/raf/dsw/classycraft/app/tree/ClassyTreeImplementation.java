@@ -12,10 +12,15 @@ import raf.dsw.classycraft.app.tree.view.ClassyTreeView;
 import raf.dsw.classycraft.app.view.MainFrame;
 
 import javax.swing.*;
+import javax.swing.plaf.IconUIResource;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 public class ClassyTreeImplementation implements ClassyTree{
 
+    ClassyTreeItem root;
     private ClassyTreeView treeView;
     private DefaultTreeModel treeModel;
 //    private static int project_cnt; // ovi cnt sluze kao neko (privremeno?) resenje za imenovanje
@@ -23,9 +28,19 @@ public class ClassyTreeImplementation implements ClassyTree{
 //    private static int diagram_cnt;
     //private MessageGenerator messageGenerator = new MessageGenerator();
 
+
+
+    public ClassyTreeItem getRoot() {
+        return root;
+    }
+
+    public ClassyTreeView getTreeView() {
+        return treeView;
+    }
+
     @Override
     public ClassyTreeView generateTree(ProjectExplorer projectExplorer) {
-        ClassyTreeItem root = new ClassyTreeItem(projectExplorer);
+        root = new ClassyTreeItem(projectExplorer);
         treeModel = new DefaultTreeModel(root);
         treeView = new ClassyTreeView(treeModel);
         System.out.println("generate tree" + root.toString());
@@ -45,6 +60,8 @@ public class ClassyTreeImplementation implements ClassyTree{
 
         }
 
+
+
         ClassyNode new_node = createChild(parent.getClassyNode(), type);
         System.out.println(new_node);
         parent.add(new ClassyTreeItem(new_node));
@@ -52,6 +69,21 @@ public class ClassyTreeImplementation implements ClassyTree{
         treeView.expandPath(treeView.getSelectionPath());
         SwingUtilities.updateComponentTreeUI(treeView);
 
+    }
+
+    @Override
+    public void addDiagramElement(ClassyTreeItem parent, ClassyNode element)
+    {
+        System.out.println(element);
+        System.out.println("parent u addDiagramelement "+parent.getClassyNode().getName());
+        parent.add(new ClassyTreeItem(element));
+        ((ClassyNodeComposite) parent.getClassyNode()).addChild(element);
+        TreeNode[] nodes=parent.getPath();
+        System.out.println(nodes.toString());
+        TreePath tp=new TreePath(nodes);
+        treeView.expandPath(tp);//treeView.getSelectionPath());
+
+        SwingUtilities.updateComponentTreeUI(treeView);
     }
 
     @Override
@@ -84,5 +116,48 @@ public class ClassyTreeImplementation implements ClassyTree{
         return (ClassyTreeItem) treeView.getLastSelectedPathComponent();
     }
 
+    @Override
+    public ClassyTreeItem NadjiClassyTreePrekoClassyNode(ClassyNode node,ClassyTreeItem parent) {
+        if (parent.getClassyNode().equals(node))//ov
+        {
+            System.out.println("naso odgovarajuci1 " + parent.toString()); // nikad ne ulazi ovde
 
+            return parent;
+        }
+        if (parent.getChildCount() > 0) {
+            System.out.println("parent: "+ parent.getClassyNode().getName() + " decacnt: " + parent.getChildCount() + " trazimo node: "+ node.getName());
+            for (int i = 0; i < parent.getChildCount(); i++) {
+                TreeNode child = parent.getChildAt(i);
+                if (child instanceof ClassyTreeItem) {
+                    ClassyTreeItem childItem = (ClassyTreeItem) child;
+                    ClassyTreeItem trenutni=NadjiClassyTreePrekoClassyNode(node, childItem);
+                    if(trenutni==null)
+                        continue;
+                    return trenutni;
+                    /*
+                    if(NadjiClassyTreePrekoClassyNode(node, childItem) == null)
+                        continue;
+                    if (NadjiClassyTreePrekoClassyNode(node, childItem).getClassyNode().equals(node)) {
+                        return childItem;
+                    }*/
+//                    else
+//                    {
+//                        continue; // ovde zelim da predje na sledece dete iz petlje, nzm zasto ne bi registrovao ovaj continue?
+//                    }
+//                if (childItem.getClassyNode().equals(node)) {
+//                    System.out.println("naso odgovarajuci " + childItem.toString());
+//
+//                    return childItem;
+//                }
+                    //NadjiClassyTreePrekoClassyNode(node, childItem);
+                } else {
+                    System.out.println("tree node nije instance of classytreeitem" + node.getName());
+                }
+            }
+        } else {
+            System.out.println("nije naso odgovarajuci" + parent.getClassyNode().getName());
+            return null;
+        }
+        return null;
+    }
 }
