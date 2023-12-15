@@ -181,7 +181,7 @@ public class PromeniKlasuState implements State{
                             metodetf.setText(metodetf.getText() +";"+ classContent.toString());
                     }
                 }
-                int rez = JOptionPane.showConfirmDialog(MainFrame.getInstance(),inputs,"novaKlasa",JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+                int rez = JOptionPane.showConfirmDialog(MainFrame.getInstance(),inputs,"Menjanje sadrzaja klase",JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
 
                 if(rez == 0) //kliknuto ok -> sacuvaj promene u klasi i prikazi ih
                 {
@@ -250,7 +250,7 @@ public class PromeniKlasuState implements State{
                             metodetf.setText(metodetf.getText() +";"+ classContent.toString());
                     }
                 }
-                int rez = JOptionPane.showConfirmDialog(MainFrame.getInstance(),inputs,"novInterfejs",JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+                int rez = JOptionPane.showConfirmDialog(MainFrame.getInstance(),inputs,"Menjanje sadrzaja interfejsa",JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
                 if(rez == 0)
                 {
                     String novo_ime = nazivtf.getText();
@@ -296,7 +296,7 @@ public class PromeniKlasuState implements State{
                             enumeracijetf.setText(enumeracijetf.getText() +","+ classContent.toString());
                     }
                 }
-                int rez = JOptionPane.showConfirmDialog(MainFrame.getInstance(),inputs,"nova enumeracija",JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+                int rez = JOptionPane.showConfirmDialog(MainFrame.getInstance(),inputs,"Menjanje sadrzaja enumeracije",JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
                 if(rez == 0)
                 {
                     String novo_ime = nazivtf.getText();
