@@ -7,6 +7,8 @@ public class StateManager {
     private PromeniKlasuState promeniKlasuState;
     private  SelektujState selektujState;
     private DuplicirajState duplicirajState;
+    private ZoomInState zoomInState;
+    private ZoomOutState zoomOutState;
     private State currentState;
 
     public State getCurrentState() {
@@ -24,6 +26,8 @@ public class StateManager {
         promeniKlasuState=new PromeniKlasuState();
         selektujState=new SelektujState();
         duplicirajState = new DuplicirajState();
+        zoomInState = new ZoomInState();
+        zoomOutState = new ZoomOutState();
         currentState=dodajInterclassState;
     }
 
@@ -61,5 +65,15 @@ public class StateManager {
         this.currentState = duplicirajState;
 
         System.out.println("postavio currState na dupliciraj");
+    }
+
+    public void setZoomInState() {
+        this.currentState = zoomInState;
+
+        System.out.println("postavio currState na zumiraj");
+    }
+
+    public void setZoomOutState() {
+        this.currentState = zoomOutState;
     }
 }

@@ -276,6 +276,13 @@ public class PackageView extends JPanel implements ISubscriber {
     {
         stateManager.setDuplicirajState();
     }
+    public void StartZoomInState()
+    {
+        stateManager.setZoomInState();
+    }
+    public void StartZoomOutState() {
+        stateManager.setZoomOutState();
+    }
 
     public void misPritisnutmng(Point P, DiagramView dv)
     {
@@ -289,4 +296,6 @@ public class PackageView extends JPanel implements ISubscriber {
     {
         stateManager.getCurrentState().misOtpusten(P,dv);
     }
+
+
 }

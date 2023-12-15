@@ -71,14 +71,14 @@ public class DuplicirajState implements State{
                         KlasaPainter klasaPainter=new KlasaPainter(novi_element);
                         dv.addPainter(klasaPainter);
                         //novi_element.addSubscriber(dv);
-                        MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
+                        //MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
                     }
                     else if(novi_element instanceof Interfejs)
                     {
                         InterfejsPainter interfejsPainter=new InterfejsPainter(novi_element);
                         dv.addPainter(interfejsPainter);
 
-                        MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
+                        //MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
 
                     }
                     else if(novi_element instanceof Enumeracija)
@@ -86,9 +86,11 @@ public class DuplicirajState implements State{
                         EnumeracijaPainter enumeracijaPainter = new EnumeracijaPainter(novi_element);
                         dv.addPainter(enumeracijaPainter);
 
-                        MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
+                        //MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
                     }
                     novi_element.addSubscriber(dv);
+                    MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
+
                     System.out.println("DUPLICIRAN");
                 }
                 else if(rez == 1)

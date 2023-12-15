@@ -17,6 +17,7 @@ import raf.dsw.classycraft.app.view.painteri.KlasaPainter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,37 @@ public class DiagramView extends JPanel implements ISubscriber {
     //private Line2D trenutnaLinija=null;
     private Point p1,p2;
     public boolean pomeraMis=false;
+    private double zoomFactor = 1;
+    private double prevZoomFactor = 1;
+    private boolean zoomer = false;
 
+    private double xOffset = 0;
+    private double yOffset = 0;
+
+    public double getZoomFactor() {
+        return zoomFactor;
+    }
+
+    public void setZoomFactor(double zoomFactor) {
+        if(zoomFactor < 1.5 && zoomFactor > 0.5)
+            this.zoomFactor = zoomFactor;
+    }
+
+    public double getPrevZoomFactor() {
+        return prevZoomFactor;
+    }
+
+    public void setPrevZoomFactor(double prevZoomFactor) {
+        this.prevZoomFactor = prevZoomFactor;
+    }
+
+    public boolean isZoomer() {
+        return zoomer;
+    }
+
+    public void setZoomer(boolean zoomer) {
+        this.zoomer = zoomer;
+    }
 
 //    public Line2D getTrenutnaLinija() {
 //        return trenutnaLinija;
@@ -271,6 +302,33 @@ public class DiagramView extends JPanel implements ISubscriber {
         super.paintComponent(g);
         System.out.println("uso da peint component");
         Graphics2D g2=(Graphics2D) g;
+
+        // todo srediti
+        double xRel = MouseInfo.getPointerInfo().getLocation().getX() - getLocationOnScreen().getX();
+        double yRel = MouseInfo.getPointerInfo().getLocation().getY() - getLocationOnScreen().getY();
+
+        double zoomDiv = zoomFactor / prevZoomFactor;
+
+        xOffset = (zoomDiv) * (xOffset) + (1-zoomDiv) * xRel;
+        yOffset = (zoomDiv) * (yOffset) + (1-zoomDiv) * yRel;
+
+        AffineTransform at = new AffineTransform();
+
+        at.scale(zoomFactor, zoomFactor);
+
+        prevZoomFactor = zoomFactor;
+
+       // at.translate(xOffset,yOffset);
+        //g2.transform(at);
+        g2.transform(at);
+        //zoomer = false;
+//        if (zoomer) {
+//            AffineTransform at = new AffineTransform();
+//            at.scale(zoomFactor, zoomFactor);
+//            prevZoomFactor = zoomFactor;
+//            g2.transform(at);
+//            zoomer = false;
+//        }
         int fontSize=15;
         g2.setFont(new Font("TimesNewRoman",Font.PLAIN,fontSize));
 

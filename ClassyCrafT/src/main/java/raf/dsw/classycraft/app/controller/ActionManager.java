@@ -19,6 +19,8 @@ public class ActionManager {
     private PromeniKlasuAction promeniKlasuAction;
     private SelektujAction selektujAction;
     private DuplicirajAction duplicirajAction;
+    private ZoomInAction zoomInAction;
+    private ZoomOutAction zoomOutAction;
 
     public DodajConnectionAction getDodajConnectionAction() {
         return dodajConnectionAction;
@@ -86,6 +88,15 @@ public class ActionManager {
         promeniKlasuAction=new PromeniKlasuAction();
         selektujAction=new SelektujAction();
         duplicirajAction = new DuplicirajAction();
+        zoomInAction = new ZoomInAction();
+        zoomOutAction = new ZoomOutAction();
     }
 
+    public ZoomInAction getZoomInAction() {
+        return zoomInAction;
+    }
+
+    public ZoomOutAction getZoomOutAction() {
+        return zoomOutAction;
+    }
 }
