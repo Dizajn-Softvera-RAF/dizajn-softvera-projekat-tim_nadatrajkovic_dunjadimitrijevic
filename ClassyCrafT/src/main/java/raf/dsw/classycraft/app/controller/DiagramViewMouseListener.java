@@ -5,6 +5,8 @@ import raf.dsw.classycraft.app.view.MainFrame;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
 
 public class DiagramViewMouseListener extends MouseAdapter implements MouseMotionListener {
 
@@ -45,18 +47,41 @@ public class DiagramViewMouseListener extends MouseAdapter implements MouseMotio
     @Override
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
-        pocetneKoordinate=e.getPoint();
+        AffineTransform af=diagramView.getAf();
+        Point p=e.getPoint();
+        if(af!=null)
+        {
+            try {
+                af.inverseTransform(p,p);
+            } catch (NoninvertibleTransformException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        pocetneKoordinate=p;
         System.out.println("MOUSE PRESSED");
-        MainFrame.getInstance().getPackageView().misPritisnutmng(e.getPoint(),diagramView);
+        MainFrame.getInstance().getPackageView().misPritisnutmng(pocetneKoordinate,diagramView);
         diagramView.repaint();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
         super.mouseDragged(e);
+
+        AffineTransform af=diagramView.getAf();
+        Point p=e.getPoint();
+        if(af!=null)
+        {
+            try {
+                af.inverseTransform(p,p);
+            } catch (NoninvertibleTransformException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        pocetneKoordinate=p;
+
         System.out.println("MOUSE DRAGGED");
 //
-        MainFrame.getInstance().getPackageView().misPovucenmng(e.getPoint(),diagramView);
+        MainFrame.getInstance().getPackageView().misPovucenmng(pocetneKoordinate,diagramView);
         //diagramView.update();
         //diagramView.repaint();
 
@@ -64,7 +89,17 @@ public class DiagramViewMouseListener extends MouseAdapter implements MouseMotio
     @Override
     public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-        krajnjeKoordinate=e.getPoint();
+        AffineTransform af=diagramView.getAf();
+        Point p=e.getPoint();
+        if(af!=null)
+        {
+            try {
+                af.inverseTransform(p,p);
+            } catch (NoninvertibleTransformException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        krajnjeKoordinate=p;
         System.out.println("MOUSE RELEASED");
         MainFrame.getInstance().getPackageView().misOtpustenmng(krajnjeKoordinate,diagramView);
 

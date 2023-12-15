@@ -35,6 +35,12 @@ public class DiagramView extends JPanel implements ISubscriber {
     private double xOffset = 0;
     private double yOffset = 0;
 
+    private AffineTransform at=null;
+
+    public AffineTransform getAf() {
+        return at;
+    }
+
     public double getZoomFactor() {
         return zoomFactor;
     }
@@ -252,6 +258,19 @@ public class DiagramView extends JPanel implements ISubscriber {
 
         crtaSeLaso = false;
 
+        JScrollPane scrollPane = new JScrollPane(this, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        //scrollPane.createHorizontalScrollBar();
+        //scrollPane.createVerticalScrollBar();
+        scrollPane.setPreferredSize(this.getSize());
+
+//        JScrollPane scrollPane = new JScrollPane(this);
+//        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+//        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+//        this.setBounds(0, 0, this.getWidth(), this.getHeight());
+//        scrollPane.
+
         this.addMouseListener(diagramListener);
         this.addMouseMotionListener(diagramListener);
         repaint();
@@ -304,15 +323,15 @@ public class DiagramView extends JPanel implements ISubscriber {
         Graphics2D g2=(Graphics2D) g;
 
         // todo srediti
-        double xRel = MouseInfo.getPointerInfo().getLocation().getX() - getLocationOnScreen().getX();
-        double yRel = MouseInfo.getPointerInfo().getLocation().getY() - getLocationOnScreen().getY();
+//        double xRel = MouseInfo.getPointerInfo().getLocation().getX() - getLocationOnScreen().getX();
+//        double yRel = MouseInfo.getPointerInfo().getLocation().getY() - getLocationOnScreen().getY();
+//
+//        double zoomDiv = zoomFactor / prevZoomFactor;
+//
+//        xOffset = (zoomDiv) * (xOffset) + (1-zoomDiv) * xRel;
+//        yOffset = (zoomDiv) * (yOffset) + (1-zoomDiv) * yRel;
 
-        double zoomDiv = zoomFactor / prevZoomFactor;
-
-        xOffset = (zoomDiv) * (xOffset) + (1-zoomDiv) * xRel;
-        yOffset = (zoomDiv) * (yOffset) + (1-zoomDiv) * yRel;
-
-        AffineTransform at = new AffineTransform();
+        at = new AffineTransform();
 
         at.scale(zoomFactor, zoomFactor);
 
@@ -321,6 +340,7 @@ public class DiagramView extends JPanel implements ISubscriber {
        // at.translate(xOffset,yOffset);
         //g2.transform(at);
         g2.transform(at);
+
         //zoomer = false;
 //        if (zoomer) {
 //            AffineTransform at = new AffineTransform();
