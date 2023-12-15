@@ -17,6 +17,8 @@ public interface ClassyTree {
     void removeChild(ClassyTreeItem child);
     ClassyTreeItem getSelectedNode();
 
+    ClassyTreeView getTreeView();
+
     ClassyTreeItem NadjiClassyTreePrekoClassyNode(ClassyNode node, ClassyTreeItem parent);
 
     ClassyTreeItem getRoot();
