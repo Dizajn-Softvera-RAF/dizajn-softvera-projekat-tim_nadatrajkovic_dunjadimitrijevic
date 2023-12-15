@@ -63,8 +63,11 @@ public class DiagramView extends JPanel implements ISubscriber {
     }
     public void dodajUSelektovane(ElementPainter ep)
     {
-        selektovaniList.add(ep);
-        ep.setSelektovano(true);
+        if(!selektovaniList.contains(ep))
+        {
+            selektovaniList.add(ep);
+            ep.setSelektovano(true);
+        }
         repaint();
     }
     private void ukloniIzSelektovanih(ElementPainter ep)

@@ -12,6 +12,7 @@ public class SelektujState implements State{
     private boolean kliknutoNaElement = false;
     @Override
     public void misPritisnut(Point P, DiagramView dv) {
+        //System.out.println("FUNKY");
         klikTacka = P;
         //dv.ukloniSveIzSelektovanih(); // prvo isprazni listu selektovani
         kliknutoNaElement = false;
@@ -63,24 +64,25 @@ public class SelektujState implements State{
             }
             else
             {
-                // pomeraj selektovane
+                // pomeraj selektovane   -- ne radi za vise selektovanih
+                int pomeraj_x = P.x - klikTacka.x;
+                int pomeraj_y = P.y - klikTacka.y;
                 for(ElementPainter ep : dv.getSelektovaniList())
                 {
                     if(ep instanceof InterclassPainter)
                     {
                         Interclass interclass = (Interclass)ep.getDiagramElement();
-                        int pomeraj_x = P.x - klikTacka.x;
-                        int pomeraj_y = P.y - klikTacka.y;
+
 //                        int pomeraj_x = P.x - interclass.getPocetnaTacka().x;
 //                        int pomeraj_y = P.y - interclass.getPocetnaTacka().y;
                         Point nova_tacka = new Point(interclass.getPocetnaTacka().x + pomeraj_x, interclass.getPocetnaTacka().y + pomeraj_y);
-                        klikTacka.x += pomeraj_x;
-                        klikTacka.y += pomeraj_y;
                         //klikTacka = P;
                         interclass.setPocetnaTacka(nova_tacka);
                     }
 
                 }
+                klikTacka.x += pomeraj_x;
+                klikTacka.y += pomeraj_y;
             }
         }
 
