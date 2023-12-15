@@ -66,12 +66,17 @@ public class DodajConnectionState implements State{
                 interod = (Interclass) odakle.getDiagramElement();
                 interdo = (Interclass) dokle.getDiagramElement();
 
+                if(odakle == dokle)
+                {
+                    dv.setP1(null);
+                    dv.setP2(null);
+                    dv.repaint();
+                    return;
+                }
 
 
                 double minRastojanje = Integer.MAX_VALUE;
 
-
-                    // todo srediti i otkomentarisati posle da mogu da se crtaju veze
 //                for (Point po : odakle.getConnectionPoints()) {
 //                    for (Point pd : dokle.getConnectionPoints()) {
 //                        if (udaljenost(po, pd) < minRastojanje) {
@@ -138,7 +143,7 @@ public class DodajConnectionState implements State{
 
         dv.setP1(null);
         dv.setP2(null);
-
+        dv.repaint();
 
 
     }
