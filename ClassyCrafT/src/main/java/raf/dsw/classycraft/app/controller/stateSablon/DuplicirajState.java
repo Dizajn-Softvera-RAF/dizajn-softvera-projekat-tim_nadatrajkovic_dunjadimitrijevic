@@ -101,7 +101,7 @@ public class DuplicirajState implements State{
             }
 
         }
-
+        dv.ukloniSveIzSelektovanih();
     }
 
     @Override

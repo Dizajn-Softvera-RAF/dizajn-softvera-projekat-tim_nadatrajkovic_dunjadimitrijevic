@@ -112,6 +112,7 @@ public abstract class ConnectionPainter extends ElementPainter {
 //        Point odakle = ((Connection)this.getDiagramElement()).getOdTacka();
 //        Point dokle = ((Connection)this.getDiagramElement()).getDoTacka();
         g.drawLine(odakle.x,odakle.y,dokle.x,dokle.y);
+        g.setColor(Color.black);
 
         //g.setColor(Color.black);
 

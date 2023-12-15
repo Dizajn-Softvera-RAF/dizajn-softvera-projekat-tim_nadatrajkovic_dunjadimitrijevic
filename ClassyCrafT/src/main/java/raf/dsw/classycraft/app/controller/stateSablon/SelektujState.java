@@ -30,6 +30,7 @@ public class SelektujState implements State{
                 break;
             }
         }
+
         if(!dv.getSelektovaniList().isEmpty())
         {
             if(dv.getSelektovaniList().contains(kliknut))
@@ -48,6 +49,8 @@ public class SelektujState implements State{
                 dv.dodajUSelektovane(kliknut); // ako je kliknut neki element, dodace ga u listu
             }
         }
+        if(kliknut instanceof ConnectionPainter)
+            System.out.println("LISTA SELEKTOVANIH: " + dv.getSelektovaniList());
         // ako nije kliknut nijedan element, lista je svakako prazna
 
         //dv.setSelektovan(null); //ako je kliknuo u prazno

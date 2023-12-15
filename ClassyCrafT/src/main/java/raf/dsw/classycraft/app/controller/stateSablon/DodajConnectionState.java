@@ -106,33 +106,33 @@ public class DodajConnectionState implements State{
             }
             if (choice == 1)//generalizacija
             {
-//                Generalizacija generalizacija = new Generalizacija("generalizacija", dv.getDiagram(), interod, interdo);
-//
-//                GeneralizacijaPainter apainter = new GeneralizacijaPainter(generalizacija, odP, doP);
-//
-//
-//                dv.addPainter(apainter);
-//                MainFrame.getInstance().getClassyTree().addDiagramElement(item, generalizacija);
+                Generalizacija generalizacija = new Generalizacija("generalizacija", dv.getDiagram(), interod, interdo, odP, doP);
+
+                GeneralizacijaPainter apainter = new GeneralizacijaPainter(generalizacija);
+
+                dv.addPainter(apainter);
+                generalizacija.addSubscriber(dv);
+                MainFrame.getInstance().getClassyTree().addDiagramElement(item, generalizacija);
             }
             if (choice == 2)//komozicija
             {
-//                Kompozicija kompozicija = new Kompozicija("kompozicija", dv.getDiagram(), interod, interdo);
-//
-//                KompozicijaPainter kpainter = new KompozicijaPainter(kompozicija, odP, doP);
-//
-//
-//                dv.addPainter(kpainter);
-//                MainFrame.getInstance().getClassyTree().addDiagramElement(item, kompozicija);
+                Kompozicija kompozicija = new Kompozicija("kompozicija", dv.getDiagram(), interod, interdo, odP, doP);
+
+                KompozicijaPainter kpainter = new KompozicijaPainter(kompozicija);
+
+                dv.addPainter(kpainter);
+                kompozicija.addSubscriber(dv);
+                MainFrame.getInstance().getClassyTree().addDiagramElement(item, kompozicija);
             }
             if (choice == 3)//zavisnost
             {
-//                Zavisnost zavisnost = new Zavisnost("zavisnost", dv.getDiagram(), interod, interdo);
-//
-//                ZavisnostPainter kpainter = new ZavisnostPainter(zavisnost, odP, doP);
-//
-//
-//                dv.addPainter(kpainter);
-//                MainFrame.getInstance().getClassyTree().addDiagramElement(item, zavisnost);
+                Zavisnost zavisnost = new Zavisnost("zavisnost", dv.getDiagram(), interod, interdo, odP, doP);
+
+                ZavisnostPainter kpainter = new ZavisnostPainter(zavisnost);
+
+                dv.addPainter(kpainter);
+                zavisnost.addSubscriber(dv);
+                MainFrame.getInstance().getClassyTree().addDiagramElement(item, zavisnost);
             }
         }
 
