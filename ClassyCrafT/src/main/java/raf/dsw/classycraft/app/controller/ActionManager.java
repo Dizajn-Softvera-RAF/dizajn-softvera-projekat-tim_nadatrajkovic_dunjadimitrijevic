@@ -18,6 +18,9 @@ public class ActionManager {
     private ObrisiAction obrisiAction;
     private PromeniKlasuAction promeniKlasuAction;
     private SelektujAction selektujAction;
+    private DuplicirajAction duplicirajAction;
+    private ZoomInAction zoomInAction;
+    private ZoomOutAction zoomOutAction;
 
     public DodajConnectionAction getDodajConnectionAction() {
         return dodajConnectionAction;
@@ -40,6 +43,9 @@ public class ActionManager {
 
     public SelektujAction getSelektujAction() {
         return selektujAction;
+    }
+    public DuplicirajAction getDuplicirajAction() {
+        return duplicirajAction;
     }
 
 
@@ -81,7 +87,16 @@ public class ActionManager {
         obrisiAction=new ObrisiAction();
         promeniKlasuAction=new PromeniKlasuAction();
         selektujAction=new SelektujAction();
-
+        duplicirajAction = new DuplicirajAction();
+        zoomInAction = new ZoomInAction();
+        zoomOutAction = new ZoomOutAction();
     }
 
+    public ZoomInAction getZoomInAction() {
+        return zoomInAction;
+    }
+
+    public ZoomOutAction getZoomOutAction() {
+        return zoomOutAction;
+    }
 }

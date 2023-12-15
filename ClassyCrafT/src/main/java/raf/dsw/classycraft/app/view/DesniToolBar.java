@@ -17,6 +17,11 @@ public class DesniToolBar extends JToolBar {
         add(MainFrame.getInstance().getActionManager().getObrisiAction());
         add(MainFrame.getInstance().getActionManager().getPromeniKlasuAction());
         add(MainFrame.getInstance().getActionManager().getSelektujAction());
+        add(MainFrame.getInstance().getActionManager().getDuplicirajAction());
+        add(MainFrame.getInstance().getActionManager().getZoomInAction());
+        add(MainFrame.getInstance().getActionManager().getZoomOutAction());
+
+
 
     }
 }

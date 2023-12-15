@@ -4,16 +4,31 @@ import raf.dsw.classycraft.app.view.DiagramView;
 import raf.dsw.classycraft.app.view.MainFrame;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseWheelEvent;
+import java.awt.event.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
 
-public class DiagramViewMouseListener extends MouseAdapter {
+public class DiagramViewMouseListener extends MouseAdapter implements MouseMotionListener {
 
     private DiagramView diagramView;
     private Point pocetneKoordinate;
     private Point krajnjeKoordinate;
+
+    public Point getPocetneKoordinate() {
+        return pocetneKoordinate;
+    }
+
+    public void setPocetneKoordinate(Point pocetneKoordinate) {
+        this.pocetneKoordinate = pocetneKoordinate;
+    }
+
+    public Point getKrajnjeKoordinate() {
+        return krajnjeKoordinate;
+    }
+
+    public void setKrajnjeKoordinate(Point krajnjeKoordinate) {
+        this.krajnjeKoordinate = krajnjeKoordinate;
+    }
 
     public DiagramViewMouseListener(DiagramView diagramView) {
         super();
@@ -22,30 +37,70 @@ public class DiagramViewMouseListener extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        MainFrame.getInstance().getPackageView().misKliknutmng(e.getPoint(),diagramView);
-        //diagramView.update();
+//        //OVO JE NIJE BILO IZKOMENTARISANO,  prebacila sam ovo u mousePressed
+//        MainFrame.getInstance().getPackageView().misPritisnutmng(e.getPoint(),diagramView);
+//            //diagramView.update(); (ovo jeste)
+//        diagramView.repaint();
+    }
+
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        super.mousePressed(e);
+        AffineTransform af=diagramView.getAf();
+        Point p=e.getPoint();
+        if(af!=null)
+        {
+            try {
+                af.inverseTransform(p,p);
+            } catch (NoninvertibleTransformException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        pocetneKoordinate=p;
+        System.out.println("MOUSE PRESSED");
+        MainFrame.getInstance().getPackageView().misPritisnutmng(pocetneKoordinate,diagramView);
         diagramView.repaint();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
         super.mouseDragged(e);
-        MainFrame.getInstance().getPackageView().misPovucenmng(e.getPoint(),diagramView);
+
+        AffineTransform af=diagramView.getAf();
+        Point p=e.getPoint();
+        if(af!=null)
+        {
+            try {
+                af.inverseTransform(p,p);
+            } catch (NoninvertibleTransformException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        pocetneKoordinate=p;
+
+        System.out.println("MOUSE DRAGGED");
+//
+        MainFrame.getInstance().getPackageView().misPovucenmng(pocetneKoordinate,diagramView);
         //diagramView.update();
-        diagramView.repaint();
+        //diagramView.repaint();
 
     }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        super.mousePressed(e);
-        pocetneKoordinate=e.getPoint();
-    }
-
     @Override
     public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-        krajnjeKoordinate=e.getPoint();
+        AffineTransform af=diagramView.getAf();
+        Point p=e.getPoint();
+        if(af!=null)
+        {
+            try {
+                af.inverseTransform(p,p);
+            } catch (NoninvertibleTransformException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        krajnjeKoordinate=p;
+        System.out.println("MOUSE RELEASED");
         MainFrame.getInstance().getPackageView().misOtpustenmng(krajnjeKoordinate,diagramView);
 
     }
@@ -69,6 +124,11 @@ public class DiagramViewMouseListener extends MouseAdapter {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        super.mouseMoved(e);
+//        //super.mouseMoved(e);
+//        System.out.println("MOUSE MOVED");
+//        MainFrame.getInstance().getPackageView().misPovucenmng(e.getPoint(),diagramView);
+//        //diagramView.update();
+//        diagramView.repaint();
+//        System.out.println("uso u listener mmoved");
     }
 }

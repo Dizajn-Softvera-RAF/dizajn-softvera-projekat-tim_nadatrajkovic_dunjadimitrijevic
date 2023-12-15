@@ -20,6 +20,8 @@ public class DodajConnectionAction extends AbstractClassyAction {
         //
         // PackageView statemanager start state
         MainFrame.getInstance().getPackageView().StartDodajConnectionState();
+        //jel ovde stavi da nista nije selektovano
+
 
     }
 }
