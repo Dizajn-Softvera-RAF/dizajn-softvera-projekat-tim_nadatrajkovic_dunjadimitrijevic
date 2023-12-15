@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.view.painteri;
 
+import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Connection;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
 
 import java.awt.*;
@@ -9,13 +10,15 @@ public class KompozicijaPainter extends ConnectionPainter{
 
 
     Point cetvrtaTacka;
-    public KompozicijaPainter(DiagramElement diagramElement, Point odakle, Point dokle) {
-        super(diagramElement, odakle, dokle);
+    public KompozicijaPainter(DiagramElement diagramElement) {
+        super(diagramElement);
     }
 
     @Override
     public void draw(Graphics2D g) {
         super.draw(g);
+        Point odakle = ((Connection)this.getDiagramElement()).getOdTacka();
+        Point dokle = ((Connection)this.getDiagramElement()).getDoTacka();
         System.out.println("tacka od "+odakle+" tacka normale"+ tackaNormale);
 
         //g.drawRect(tackaNormale.x, tackaNormale.y,5,5);
@@ -35,6 +38,8 @@ public class KompozicijaPainter extends ConnectionPainter{
 
     @Override
     protected Point tackaPresekaDijagonala() {
+        Point odakle = ((Connection)this.getDiagramElement()).getOdTacka();
+        Point dokle = ((Connection)this.getDiagramElement()).getDoTacka();
         int x=odakle.x;
         int y=odakle.y;
         kNormale=-(1/k);
@@ -55,6 +60,8 @@ public class KompozicijaPainter extends ConnectionPainter{
 
     protected Point cetvrtaTacka()//za romb
     {
+        Point odakle = ((Connection)this.getDiagramElement()).getOdTacka();
+        Point dokle = ((Connection)this.getDiagramElement()).getDoTacka();
         int x=odakle.x;
         int y=odakle.y;
         double xNormala,yNormala;//(x-xnormala)^2+(y-ynormala)^2=d^2 izrazimo y preko x jer fja

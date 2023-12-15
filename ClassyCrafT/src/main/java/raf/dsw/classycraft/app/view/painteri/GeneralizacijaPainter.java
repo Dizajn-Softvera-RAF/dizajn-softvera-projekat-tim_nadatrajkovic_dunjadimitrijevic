@@ -1,17 +1,20 @@
 package raf.dsw.classycraft.app.view.painteri;
 
+import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Connection;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 
 public class GeneralizacijaPainter extends ConnectionPainter{
-    public GeneralizacijaPainter(DiagramElement diagramElement, Point odakle, Point dokle) {
-        super(diagramElement, odakle, dokle);
+    public GeneralizacijaPainter(DiagramElement diagramElement) {
+        super(diagramElement);
     }
 
     @Override
     protected Point tackaPresekaDijagonala() {
+        Point odakle = ((Connection)this.getDiagramElement()).getOdTacka();
+        Point dokle = ((Connection)this.getDiagramElement()).getDoTacka();
         int x=dokle.x;
         int y=dokle.y;
         kNormale=-(1/k);
@@ -33,6 +36,8 @@ public class GeneralizacijaPainter extends ConnectionPainter{
     @Override
     public void draw(Graphics2D g) {
         super.draw(g);
+        Point odakle = ((Connection)this.getDiagramElement()).getOdTacka();
+        Point dokle = ((Connection)this.getDiagramElement()).getDoTacka();
         System.out.println("tacka od "+odakle+" tacka normale"+ tackaNormale);
 
         //g.drawRect(tackaNormale.x, tackaNormale.y,5,5);

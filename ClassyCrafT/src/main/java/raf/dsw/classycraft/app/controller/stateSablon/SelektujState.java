@@ -1,7 +1,9 @@
 package raf.dsw.classycraft.app.controller.stateSablon;
 
+import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Connection;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Interclass;
 import raf.dsw.classycraft.app.view.DiagramView;
+import raf.dsw.classycraft.app.view.painteri.ConnectionPainter;
 import raf.dsw.classycraft.app.view.painteri.ElementPainter;
 import raf.dsw.classycraft.app.view.painteri.InterclassPainter;
 
@@ -64,7 +66,7 @@ public class SelektujState implements State{
             }
             else
             {
-                // pomeraj selektovane   -- ne radi za vise selektovanih
+                // pomeraj selektovane
                 int pomeraj_x = P.x - klikTacka.x;
                 int pomeraj_y = P.y - klikTacka.y;
                 for(ElementPainter ep : dv.getSelektovaniList())
@@ -78,7 +80,9 @@ public class SelektujState implements State{
                         Point nova_tacka = new Point(interclass.getPocetnaTacka().x + pomeraj_x, interclass.getPocetnaTacka().y + pomeraj_y);
                         //klikTacka = P;
                         interclass.setPocetnaTacka(nova_tacka);
+
                     }
+
 
                 }
                 klikTacka.x += pomeraj_x;

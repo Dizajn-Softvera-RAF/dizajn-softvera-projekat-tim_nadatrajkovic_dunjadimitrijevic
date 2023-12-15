@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.view.painteri;
 
+import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Connection;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
 
 import java.awt.*;
@@ -7,8 +8,8 @@ import java.awt.geom.GeneralPath;
 
 public class ZavisnostPainter extends ConnectionPainter{
 
-    public ZavisnostPainter(DiagramElement diagramElement, Point odakle, Point dokle) {
-        super(diagramElement, odakle, dokle);
+    public ZavisnostPainter(DiagramElement diagramElement) {
+        super(diagramElement);
     }
 
     @Override
@@ -17,6 +18,8 @@ public class ZavisnostPainter extends ConnectionPainter{
                 0, new float[]{9}, 0);
         g.setStroke(dashed);
         super.draw(g);
+        Point odakle = ((Connection)this.getDiagramElement()).getOdTacka();
+        Point dokle = ((Connection)this.getDiagramElement()).getDoTacka();
 
         System.out.println("tacka od "+odakle+" tacka normale"+ tackaNormale);
 
@@ -34,6 +37,8 @@ public class ZavisnostPainter extends ConnectionPainter{
 
     protected Point tackaPresekaDijagonala() //trazimo tacku preseka prave i kruznice poluprecinka dijagonala/2
     {
+        Point odakle = ((Connection)this.getDiagramElement()).getOdTacka();
+        Point dokle = ((Connection)this.getDiagramElement()).getDoTacka();
         int x=odakle.x;
         int y=odakle.y;
         kNormale=-(1/k);

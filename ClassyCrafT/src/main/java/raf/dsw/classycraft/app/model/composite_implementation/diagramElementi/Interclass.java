@@ -18,32 +18,38 @@ public abstract class Interclass extends DiagramElement {
     private Point krajnjaTacka;
     private int width;
     private int height;
-//    private int maxSlova; // ovo nam kao treba za width posle u painteru
-//    private int brSadrzaja; // ovo nam kao treba za heigth posle u peinteru
+    private ArrayList<Point> connectionPoints;  //nekako da cuva koji su zauzeti da ne pravi veze u istoj tacki
 
-//    private void izracunajDimenzije(){
-//        int maxSize=this.getName().length();
-//        for (ClassContent c: this.getClassContent()) {
-//            maxSize = Math.max(maxSize, c.toString().length());
-//        }
-//        maxSlova = maxSize;
-//    }
+    public ArrayList<Point> getConnectionPoints() {
+        return connectionPoints;
+    }
 
-//    private int brojSlova(String rec)
-//    {
-//        int duzina=0;
-//        for(int i=0;i<rec.length();i++) {
-//            int jedan=g.getFontMetrics().charWidth(rec.charAt(i));
-//            duzina+=jedan;
-//        }
-//        return duzina;
-//    }
+    public void setConnectionPoints(ArrayList<Point> connectionPoints) {
+        this.connectionPoints = connectionPoints;
+    }
 
     public Interclass(String name, ClassyNode parent, Point pocetnaTacka) {
         super(name, parent);
         vidljivost=InterclassVidljivost.PUBLIC;
         sadrzaj=new ArrayList<>();
         this.pocetnaTacka = pocetnaTacka;
+        connectionPoints = new ArrayList<>();
+    }
+
+    private void dodajConnectonPoints()
+    {
+        connectionPoints.clear();
+        int xSkok=width/4;
+        int ySkok=height/4;
+
+        for(int i=0;i<=4;i++)
+        {
+            for(int j=0;j<=4;j++)
+            {
+                if(!(j==1 && i==1))
+                    connectionPoints.add(new Point(pocetnaTacka.x+i*xSkok,pocetnaTacka.y+j*ySkok));
+            }
+        }
     }
 
 //    public Interclass(String name, ClassyNode parent, InterclassVidljivost vidljivost, Point pocetnaTacka) {
@@ -97,6 +103,7 @@ public abstract class Interclass extends DiagramElement {
         width = w;
         height = h;
         this.krajnjaTacka = new Point(pocetnaTacka.x + width, pocetnaTacka.y + height);
+        this.dodajConnectonPoints();
     }
 
     public InterclassVidljivost getVidljivost() {

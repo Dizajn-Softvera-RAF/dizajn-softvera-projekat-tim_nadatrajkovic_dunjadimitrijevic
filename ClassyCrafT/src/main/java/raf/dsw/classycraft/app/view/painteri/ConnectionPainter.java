@@ -1,12 +1,13 @@
 package raf.dsw.classycraft.app.view.painteri;
 
+import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Connection;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
 
 import java.awt.*;
 
 public abstract class ConnectionPainter extends ElementPainter {
-    Point odakle;
-    Point dokle;
+//    Point odakle;
+//    Point dokle;
 
     double n,k;
     double duzinaDiajgonale=20;
@@ -19,20 +20,21 @@ public abstract class ConnectionPainter extends ElementPainter {
 
     Point tackaZaRombiStrelicu1,tackaZaRombiStrelicu2;
 
-    public ConnectionPainter(DiagramElement diagramElement, Point odakle, Point dokle) {
+    public ConnectionPainter(DiagramElement diagramElement) {
         super(diagramElement);
-        this.odakle=odakle;
-        this.dokle=dokle;
-        napraviFju();
-        tackaNormale = tackaPresekaDijagonala(); //moze da bude kod od il do
-        postaviTackeRombaStrelice();
+//        this.odakle=odakle;
+//        this.dokle=dokle;
+//        napraviFju();
+//        tackaNormale = tackaPresekaDijagonala(); //moze da bude kod od il do
+//        postaviTackeRombaStrelice();
     }
 
     private void napraviFju()
     {
+        Point odakle = ((Connection)this.getDiagramElement()).getOdTacka();
+        Point dokle = ((Connection)this.getDiagramElement()).getDoTacka();
         k= (double) (odakle.y - dokle.y) /(odakle.x-dokle.x);
         n=odakle.y-k*odakle.x;
-
 
     }
 
@@ -85,11 +87,41 @@ public abstract class ConnectionPainter extends ElementPainter {
             g.setColor(Color.green);
         else
             g.setColor(Color.black);
+        double minRastojanje = Integer.MAX_VALUE;
 
+
+        Connection connection = (Connection)this.getDiagramElement();
+        Point odakle = null;
+        Point dokle = null;
+        for (Point po : connection.getInterclassOd().getConnectionPoints()) {
+            for (Point pd : connection.getInterclassDo().getConnectionPoints()) {
+                if (udaljenost(po, pd) < minRastojanje) {
+                    odakle = po;
+                    dokle = pd;
+                    minRastojanje=udaljenost(po,pd);
+                }
+            }
+
+        }
+        connection.setOdTacka(odakle);
+        connection.setDoTacka(dokle);
+        napraviFju();
+        tackaNormale = tackaPresekaDijagonala(); //moze da bude kod od il do
+        postaviTackeRombaStrelice();
+
+//        Point odakle = ((Connection)this.getDiagramElement()).getOdTacka();
+//        Point dokle = ((Connection)this.getDiagramElement()).getDoTacka();
         g.drawLine(odakle.x,odakle.y,dokle.x,dokle.y);
 
         //g.setColor(Color.black);
 
+    }
+    private double udaljenost(Point p1, Point p2)
+    {
+        double a2=(p1.x-p2.x)*(p1.x-p2.x);
+        double b2=(p1.y-p2.y)*(p1.y-p2.y);
+        System.out.println("udaljenost "+p1+" "+p2+" "+Math.sqrt(a2+b2));
+        return Math.sqrt(a2+b2);
     }
 
     @Override

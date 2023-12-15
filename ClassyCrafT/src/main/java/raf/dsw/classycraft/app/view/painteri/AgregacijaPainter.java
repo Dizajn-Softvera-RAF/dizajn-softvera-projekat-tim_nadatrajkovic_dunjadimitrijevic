@@ -1,6 +1,7 @@
 package raf.dsw.classycraft.app.view.painteri;
 
 import javafx.scene.shape.Shape;
+import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Connection;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
 
 import java.awt.*;
@@ -8,8 +9,8 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
 
 public class AgregacijaPainter extends ConnectionPainter {
-    public AgregacijaPainter(DiagramElement diagramElement, Point odakle, Point dokle) {
-        super(diagramElement, odakle, dokle);
+    public AgregacijaPainter(DiagramElement diagramElement) {
+        super(diagramElement);
     }
 
     Point cetvrtaTacka; //tacka za romb
@@ -17,6 +18,8 @@ public class AgregacijaPainter extends ConnectionPainter {
     @Override
     public void draw(Graphics2D g) {
         super.draw(g);
+        Point odakle = ((Connection)this.getDiagramElement()).getOdTacka();
+        Point dokle = ((Connection)this.getDiagramElement()).getDoTacka();
         System.out.println("tacka od "+odakle+" tacka normale"+ tackaNormale);
 
         //g.drawRect(tackaNormale.x, tackaNormale.y,5,5);
@@ -39,6 +42,8 @@ public class AgregacijaPainter extends ConnectionPainter {
 
     protected Point tackaPresekaDijagonala() //trazimo tacku preseka prave i kruznice poluprecinka dijagonala/2
     {
+        Point odakle = ((Connection)this.getDiagramElement()).getOdTacka();
+        Point dokle = ((Connection)this.getDiagramElement()).getDoTacka();
         int x=odakle.x;
         int y=odakle.y;
         kNormale=-(1/k);
@@ -74,6 +79,8 @@ public class AgregacijaPainter extends ConnectionPainter {
 
     protected Point cetvrtaTacka()//za romb
     {
+        Point odakle = ((Connection)this.getDiagramElement()).getOdTacka();
+        Point dokle = ((Connection)this.getDiagramElement()).getDoTacka();
         int x=odakle.x;
         int y=odakle.y;
         double xNormala,yNormala;//(x-xnormala)^2+(y-ynormala)^2=d^2 izrazimo y preko x jer fja
