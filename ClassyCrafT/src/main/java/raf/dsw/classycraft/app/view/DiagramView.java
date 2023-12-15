@@ -290,15 +290,27 @@ public class DiagramView extends JPanel implements ISubscriber {
         {
             //iz connection grane pokusad da radi observer
             Notification n=(Notification) notification;
+
+
+
             if(n.getNotificationType()== NotificationType.DELETE)
             {
                 if(n.getObjectOfNotification() instanceof DiagramElement)
                 {
                     DiagramElement brisani=(DiagramElement) n.getObjectOfNotification();
-                    for (ElementPainter ep:painterList) {
+
+                    Notification nt= new Notification(brisani,NotificationType.DELETE);
+                    brisani.removeSubscriber(this);
+                    brisani.notifySubscribers(nt);
+                    /*for (ElementPainter ep:painterList) {
                         if(ep.getDiagramElement().equals(brisani))
                             painterList.remove(ep);
-                    }
+                    }*/
+                }
+
+                if(n.getObjectOfNotification() instanceof ElementPainter)
+                {
+                    removePainter((ElementPainter) n.getObjectOfNotification());
                 }
                 //removeAll();
                 repaint();
@@ -377,6 +389,13 @@ public class DiagramView extends JPanel implements ISubscriber {
     {
 
         painterList.add(painter);
+        painter.addSubscriber(this);
+        repaint();
+    }
+
+    private void removePainter(ElementPainter painter)
+    {
+        painterList.remove(painter);
         repaint();
     }
 

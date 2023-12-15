@@ -47,7 +47,7 @@ public abstract class ClassyNode implements IPublisher {
 
     public void removeNode()
     {
-        this.notifySubscribers(new Notification(this, NotificationType.DELETE));
+        //this.notifySubscribers(new Notification(this, NotificationType.DELETE));
         this.parent=null;
 
         /*for (ISubscriber i:subscriberList) {
