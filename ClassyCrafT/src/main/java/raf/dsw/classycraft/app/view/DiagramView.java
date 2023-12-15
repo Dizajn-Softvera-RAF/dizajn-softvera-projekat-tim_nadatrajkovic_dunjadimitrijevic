@@ -7,10 +7,8 @@ import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.controller.DiagramViewMouseListener;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
-import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
-import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Interclass;
-import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Interfejs;
-import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Klasa;
+import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.*;
+import raf.dsw.classycraft.app.view.painteri.ConnectionPainter;
 import raf.dsw.classycraft.app.view.painteri.ElementPainter;
 import raf.dsw.classycraft.app.view.painteri.InterclassPainter;
 import raf.dsw.classycraft.app.view.painteri.KlasaPainter;
@@ -194,6 +192,20 @@ public class DiagramView extends JPanel implements ISubscriber {
                 Point r1 = ((Interclass)ep.getDiagramElement()).getKrajnjaTacka();
                 System.out.println("l1: " + l1+" r1: "+ r1);
                 if(doOverlap(l1, r1, gorelevo, doledesno))
+                {
+                    System.out.println("they DO OVERLAP");
+                    this.dodajUSelektovane(ep);
+                }
+                else
+                {
+                    System.out.println("they DONT overlap");
+                    this.ukloniIzSelektovanih(ep);
+                }
+            }
+            else if(ep instanceof ConnectionPainter)
+            {
+                Connection linija = (Connection)ep.getDiagramElement();
+                if(doOverlap(linija.getOdTacka(),linija.getDoTacka(), gorelevo, doledesno))
                 {
                     System.out.println("they DO OVERLAP");
                     this.dodajUSelektovane(ep);
