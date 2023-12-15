@@ -33,6 +33,8 @@ public class DiagramView extends JPanel implements ISubscriber {
     private double xOffset = 0;
     private double yOffset = 0;
 
+    private JScrollPane s= new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
     private AffineTransform at=null;
 
     public AffineTransform getAf() {
@@ -260,6 +262,8 @@ public class DiagramView extends JPanel implements ISubscriber {
         super();
         diagram = d;//ovaj diagram view je subscriber za dijagram jel? pa se apdejtuje kad dodamo nesto na dijagram i repaintuje sve
 
+        //this.setAutoscrolls(true);
+
         diagramListener=new DiagramViewMouseListener(this);
         painterList=new ArrayList<>();
 //        for (var child:diagram.getChildren()) {
@@ -270,12 +274,33 @@ public class DiagramView extends JPanel implements ISubscriber {
 
         crtaSeLaso = false;
 
-        JScrollPane scrollPane = new JScrollPane(this, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        //JScrollPane scrollPane = new JScrollPane(this, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+        //        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+
+        //this.setPreferredSize(new Dimension(this.getSize().width, this.getSize().height));
+//        s.setPreferredSize(new Dimension(this.getSize().width, this.getSize().height));
+//        ///s.setViewportView(this);
+//
+//        s.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+//        s.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+//
+//        //setPreferredSize(new Dimension(this.getSize().width,this.getSize().height));
+//        //
+//        // s.setBounds(0,0, 200,200);
+//
+//        s.setVisible(true);
+//
+//
+//        setLayout(null);
+//        add(s);
+//        s.setViewportView(MainFrame.getInstance().getPackageView());
+
+        System.out.println("napravilo scroll" + s.toString());
 
         //scrollPane.createHorizontalScrollBar();
         //scrollPane.createVerticalScrollBar();
-        scrollPane.setPreferredSize(this.getSize());
+        //scrollPane.setPreferredSize(this.getSize());
 
 //        JScrollPane scrollPane = new JScrollPane(this);
 //        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -343,6 +368,7 @@ public class DiagramView extends JPanel implements ISubscriber {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        //s.paint(g);
         System.out.println("uso da peint component");
         Graphics2D g2=(Graphics2D) g;
 
@@ -364,6 +390,10 @@ public class DiagramView extends JPanel implements ISubscriber {
        // at.translate(xOffset,yOffset);
         //g2.transform(at);
         g2.transform(at);
+
+        //this.setSize(new Dimension((int) (this.getWidth()*zoomFactor), (int) (this.getHeight()*zoomFactor)));
+
+
 
         //zoomer = false;
 //        if (zoomer) {

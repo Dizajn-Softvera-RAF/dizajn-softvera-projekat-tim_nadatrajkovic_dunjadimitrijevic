@@ -188,6 +188,25 @@ public class PackageView extends JPanel implements ISubscriber {
                     if (d.getParent() == paket) {
                         System.out.println("usao u 'jeste se dodalo na otvoreni paket' ");
                         DiagramView dv = new DiagramView(d);
+
+//                        JScrollPane s=new JScrollPane();
+//                        this.setPreferredSize(new Dimension(dv.getSize().width-50, dv.getSize().height-50));
+//                        s.setSize(new Dimension(dv.getSize().width, dv.getSize().height));
+//                        //s.setViewportView(this);
+//
+//                        s.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+//                        s.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+//
+//                        //setPreferredSize(new Dimension(this.getSize().width,this.getSize().height));
+//                        //
+//                        // s.setBounds(0,0, 200,200);
+//
+//                        add(s);
+//                        s.setVisible(true);
+//
+//                        setLayout(null);
+
+
                         //d.addSubscriber(this);
                         System.out.println(d.getSubscriberList());
                         d.addSubscriber(dv);
