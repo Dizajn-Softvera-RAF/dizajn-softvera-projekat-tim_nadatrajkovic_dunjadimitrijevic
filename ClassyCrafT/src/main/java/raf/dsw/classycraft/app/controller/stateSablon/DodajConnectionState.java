@@ -71,17 +71,17 @@ public class DodajConnectionState implements State{
                 double minRastojanje = Integer.MAX_VALUE;
 
 
-
-                for (Point po : odakle.getConnectionPoints()) {
-                    for (Point pd : dokle.getConnectionPoints()) {
-                        if (udaljenost(po, pd) < minRastojanje) {
-                            odP = po;
-                            doP = pd;
-                            minRastojanje=udaljenost(po,pd);
-                        }
-                    }
-
-                }
+                    // todo srediti i otkomentarisati posle da mogu da se crtaju veze
+//                for (Point po : odakle.getConnectionPoints()) {
+//                    for (Point pd : dokle.getConnectionPoints()) {
+//                        if (udaljenost(po, pd) < minRastojanje) {
+//                            odP = po;
+//                            doP = pd;
+//                            minRastojanje=udaljenost(po,pd);
+//                        }
+//                    }
+//
+//                }
 
                 break;
             }
@@ -95,49 +95,49 @@ public class DodajConnectionState implements State{
 
             if (choice == 0)//agregacija
             {
-                Agregacija agregacija = new Agregacija("agregacija", dv.getDiagram(), interod, interdo);
+                Agregacija agregacija = new Agregacija("agregacija", dv.getDiagram(), interod, interdo, odP, doP);
 
-                AgregacijaPainter apainter = new AgregacijaPainter(agregacija, odP, doP);
-
+                AgregacijaPainter apainter = new AgregacijaPainter(agregacija);
 
                 dv.addPainter(apainter);
+                agregacija.addSubscriber(dv);
                 MainFrame.getInstance().getClassyTree().addDiagramElement(item, agregacija);
 
             }
             if (choice == 1)//generalizacija
             {
-                Generalizacija generalizacija = new Generalizacija("generalizacija", dv.getDiagram(), interod, interdo);
-
-                GeneralizacijaPainter apainter = new GeneralizacijaPainter(generalizacija, odP, doP);
-
-
-                dv.addPainter(apainter);
-                MainFrame.getInstance().getClassyTree().addDiagramElement(item, generalizacija);
+//                Generalizacija generalizacija = new Generalizacija("generalizacija", dv.getDiagram(), interod, interdo);
+//
+//                GeneralizacijaPainter apainter = new GeneralizacijaPainter(generalizacija, odP, doP);
+//
+//
+//                dv.addPainter(apainter);
+//                MainFrame.getInstance().getClassyTree().addDiagramElement(item, generalizacija);
             }
             if (choice == 2)//komozicija
             {
-                Kompozicija kompozicija = new Kompozicija("kompozicija", dv.getDiagram(), interod, interdo);
-
-                KompozicijaPainter kpainter = new KompozicijaPainter(kompozicija, odP, doP);
-
-
-                dv.addPainter(kpainter);
-                MainFrame.getInstance().getClassyTree().addDiagramElement(item, kompozicija);
+//                Kompozicija kompozicija = new Kompozicija("kompozicija", dv.getDiagram(), interod, interdo);
+//
+//                KompozicijaPainter kpainter = new KompozicijaPainter(kompozicija, odP, doP);
+//
+//
+//                dv.addPainter(kpainter);
+//                MainFrame.getInstance().getClassyTree().addDiagramElement(item, kompozicija);
             }
             if (choice == 3)//zavisnost
             {
-                Zavisnost zavisnost = new Zavisnost("zavisnost", dv.getDiagram(), interod, interdo);
-
-                ZavisnostPainter kpainter = new ZavisnostPainter(zavisnost, odP, doP);
-
-
-                dv.addPainter(kpainter);
-                MainFrame.getInstance().getClassyTree().addDiagramElement(item, zavisnost);
+//                Zavisnost zavisnost = new Zavisnost("zavisnost", dv.getDiagram(), interod, interdo);
+//
+//                ZavisnostPainter kpainter = new ZavisnostPainter(zavisnost, odP, doP);
+//
+//
+//                dv.addPainter(kpainter);
+//                MainFrame.getInstance().getClassyTree().addDiagramElement(item, zavisnost);
             }
         }
 
-            dv.setP1(null);
-            dv.setP2(null);
+        dv.setP1(null);
+        dv.setP2(null);
 
 
 

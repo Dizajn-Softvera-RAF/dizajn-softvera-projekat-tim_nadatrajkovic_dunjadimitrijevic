@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public abstract class InterclassPainter extends ElementPainter {
     //private Point pocetnaTacka;
 
-    protected ArrayList<Point> connectionPoints;  //nekako da cuva koji su zauzeti da ne pravi veze u istoj tacki
+    //protected ArrayList<Point> connectionPoints;  //nekako da cuva koji su zauzeti da ne pravi veze u istoj tacki
     protected int width,height; // negde treba izracunati i proslediti da se cuva i u modelu (jer zavisi od Graphics)
 
 
@@ -28,7 +28,7 @@ public abstract class InterclassPainter extends ElementPainter {
     {
         super(interclass);
         //pocetnaTacka = interclass.getPocetnaTacka();
-        connectionPoints = new ArrayList<>();
+        //connectionPoints = new ArrayList<>();
     }
 
 //    public InterclassPainter(DiagramElement diagramElement, Point p) {
@@ -128,11 +128,15 @@ public abstract class InterclassPainter extends ElementPainter {
 
 
         width=maxSize+2*velicinaFonta;
+        ((Interclass) diagramElement).setWidth(width);
 
         //System.out.println("maxsize i width "+maxSize+" "+width);
 
         height= koordinatePoljaInterklase.y - pocetnaTacka.y;
+        ((Interclass) diagramElement).setHeight(height);
+
         ((Interclass) diagramElement).setKrajnjaTacka(width, height);
+
 //        ((Interclass) diagramElement).setWidth(width); // todo - pitanje da li nam treba ovo...
 //        ((Interclass) diagramElement).setHeight(height);
 
@@ -156,7 +160,7 @@ public abstract class InterclassPainter extends ElementPainter {
         //g.fillRect(pocetnaTacka.x, pocetnaTacka.y, width, height);
         g.setStroke(new BasicStroke(2));
 
-        dodajConnectonPoints();
+        //dodajConnectonPoints();
 
     }
 
@@ -168,26 +172,26 @@ public abstract class InterclassPainter extends ElementPainter {
         return false;
     }
 
-    private void dodajConnectonPoints()
-    {
-        Point pocetnaTacka = ((Interclass)diagramElement).getPocetnaTacka();
-        connectionPoints.clear();
-        int xSkok=width/4;
-        int ySkok=height/4;
+//    private void dodajConnectonPoints()
+//    {
+//        Point pocetnaTacka = ((Interclass)diagramElement).getPocetnaTacka();
+//        connectionPoints.clear();
+//        int xSkok=width/4;
+//        int ySkok=height/4;
+//
+//        for(int i=0;i<=4;i++)
+//        {
+//            for(int j=0;j<=4;j++)
+//            {
+//                if(!(j==1 && i==1))
+//                    connectionPoints.add(new Point(pocetnaTacka.x+i*xSkok,pocetnaTacka.y+j*ySkok));
+//            }
+//        }
+//    }
 
-        for(int i=0;i<=4;i++)
-        {
-            for(int j=0;j<=4;j++)
-            {
-                if(!(j==1 && i==1))
-                    connectionPoints.add(new Point(pocetnaTacka.x+i*xSkok,pocetnaTacka.y+j*ySkok));
-            }
-        }
-    }
-
-    public ArrayList<Point> getConnectionPoints() {
-        return connectionPoints;
-    }
+//    public ArrayList<Point> getConnectionPoints() {
+//        return connectionPoints;
+//    }
     protected int duzinaReci(String rec, Graphics2D g)
     {
         int duzina=0;
