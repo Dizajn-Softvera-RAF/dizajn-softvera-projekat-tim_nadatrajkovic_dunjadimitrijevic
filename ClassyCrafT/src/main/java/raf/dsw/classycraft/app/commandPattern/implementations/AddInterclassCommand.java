@@ -1,6 +1,7 @@
-package raf.dsw.classycraft.app.controller.stateSablon;
+package raf.dsw.classycraft.app.commandPattern.implementations;
 
-import raf.dsw.classycraft.app.commandPattern.implementations.AddInterclassCommand;
+import raf.dsw.classycraft.app.commandPattern.AbstractCommand;
+import raf.dsw.classycraft.app.controller.AbstractClassyAction;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.*;
 import raf.dsw.classycraft.app.model.message.MessageType;
@@ -8,9 +9,11 @@ import raf.dsw.classycraft.app.model.sadrzajInterclass.Atribut;
 import raf.dsw.classycraft.app.model.sadrzajInterclass.ClanEnumeracije;
 import raf.dsw.classycraft.app.model.sadrzajInterclass.Metoda;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
+import raf.dsw.classycraft.app.tree.view.ClassyTreeView;
 import raf.dsw.classycraft.app.view.DiagramView;
 import raf.dsw.classycraft.app.view.MainFrame;
 import raf.dsw.classycraft.app.view.painteri.EnumeracijaPainter;
+import raf.dsw.classycraft.app.view.painteri.InterclassPainter;
 import raf.dsw.classycraft.app.view.painteri.InterfejsPainter;
 import raf.dsw.classycraft.app.view.painteri.KlasaPainter;
 
@@ -19,7 +22,20 @@ import java.awt.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DodajInterclassState implements State{
+public class AddInterclassCommand extends AbstractCommand {
+
+    private DiagramView dv;
+    private Point P;
+
+    private InterclassPainter interclassPainter;
+    private Interclass interclass;
+
+
+
+    public AddInterclassCommand(DiagramView dv, Interclass interclass) {
+        this.dv = dv;
+        this.interclass = interclass;
+    }
 
     private Metoda napraviMetoduOdStringa(String line)
     {
@@ -71,6 +87,7 @@ public class DodajInterclassState implements State{
         System.out.println("line je prazna - metoda");
         return null;
     }
+
     private Atribut napraviAtributOdStringa(String line)
     {
         Pattern pattern = Pattern.compile("\\s*[+~-]\\s*[a-zA-z0-9_]+\\s*:\\s*[a-zA-z0-9_]+\\s*", Pattern.CASE_INSENSITIVE);
@@ -127,16 +144,14 @@ public class DodajInterclassState implements State{
         return null;
     }
 
-
     @Override
-    public void misPritisnut(Point P, DiagramView dv) {
-
-        Interclass napravljenaInterklasa=null;
-
-
+    public void doCommand() {
+        //@Override
+        //public void misPritisnut(Point P, DiagramView dv) {
+/*
         Object[] options = {"Klasa","Interfejs","Enum"};
         int choice = JOptionPane.showOptionDialog(MainFrame.getInstance(),"Izaberi klasu, interfejs ili enum", "Nova interklasa",JOptionPane.YES_OPTION,JOptionPane.QUESTION_MESSAGE,null, options, options[0]);
-                //MainFrame.getInstance(),"Izaberi klasu, interfejs ili enum", "Nova interklasa", JOptionPane., JOptionPane.QUESTION_MESSAGE,null, options, options[0]);
+        //MainFrame.getInstance(),"Izaberi klasu, interfejs ili enum", "Nova interklasa", JOptionPane., JOptionPane.QUESTION_MESSAGE,null, options, options[0]);
         ClassyTreeItem item= MainFrame.getInstance().getClassyTree().NadjiClassyTreePrekoClassyNode(dv.getDiagram(),MainFrame.getInstance().getClassyTree().getRoot());
         if(choice == 0)//crta klasu
         {
@@ -173,7 +188,7 @@ public class DodajInterclassState implements State{
                 }
                 else
                 {
-                    napravljenaInterklasa = new Klasa(s, dv.getDiagram(), P);
+                    Klasa klasa = new Klasa(s, dv.getDiagram(), P);
                     //+ime: String
                     //Pattern polja_patern = Pattern.compile("\\s*[+~-]\\s*[a-zA-z0-9_]+\\s*:\\s*[a-zA-z0-9_]+\\s*", Pattern.CASE_INSENSITIVE);
 
@@ -183,7 +198,7 @@ public class DodajInterclassState implements State{
                         {
                             Atribut atribut = napraviAtributOdStringa(line);
                             if(atribut != null)
-                                napravljenaInterklasa.addClassContent(atribut);
+                                klasa.addClassContent(atribut);
                         }
                     }
 
@@ -193,17 +208,15 @@ public class DodajInterclassState implements State{
                             //System.out.println("linija1 " + line);
                             Metoda metoda = napraviMetoduOdStringa(line);
                             if(metoda != null)
-                                napravljenaInterklasa.addClassContent(metoda);
+                                klasa.addClassContent(metoda);
                         }
                     }
-                    /*KlasaPainter klasaPainter=new KlasaPainter(klasa);
-                    dv.addPainter(klasaPainter);
+                    interclassPainter=new KlasaPainter(klasa);
+                    dv.addPainter(interclassPainter);
                     klasa.addSubscriber(dv); // jel dv ili klasaPainter? mislila bih da je klasaPainter ali mi treba Graphics g za draw()..
 
                     MainFrame.getInstance().getClassyTree().addDiagramElement(item, klasa);
-                    */
                 }
-
             }
             else if (rez == 1)
             {
@@ -237,7 +250,7 @@ public class DodajInterclassState implements State{
                 }
                 else
                 {
-                    napravljenaInterklasa = new Interfejs(s,dv.getDiagram(), P);
+                    Interfejs interfejs = new Interfejs(s,dv.getDiagram(), P);
                     //System.out.println("metode " + metodeta.getText());
 
 //            Pattern patern = Pattern.compile(
@@ -253,16 +266,16 @@ public class DodajInterclassState implements State{
                             System.out.println("linija1 " + line);
                             Metoda metoda = napraviMetoduOdStringa(line);
                             if(metoda != null)
-                                napravljenaInterklasa.addClassContent(metoda);
+                                interfejs.addClassContent(metoda);
                         }
                     }
 
-                    /*InterfejsPainter interfejsPainter=new InterfejsPainter(napravljenaInterklasa);
-                    dv.addPainter(interfejsPainter);
-                    napravljenaInterklasa.addSubscriber(dv);
+                    interclassPainter=new InterfejsPainter(interfejs);
+                    dv.addPainter(interclassPainter);
+                    interfejs.addSubscriber(dv);
 
-                    MainFrame.getInstance().getClassyTree().addDiagramElement(item, napravljenaInterklasa);
-                    */
+                    MainFrame.getInstance().getClassyTree().addDiagramElement(item, interfejs);
+
                 }
             }
             else if(rez == 1)
@@ -295,48 +308,65 @@ public class DodajInterclassState implements State{
                 {
                     ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("Potrebno je uneti ime da bi se enumeracija kreirala", MessageType.WARNING);
                 }
-                else {
-                    napravljenaInterklasa = new Enumeracija(s, dv.getDiagram(), P);
-                    if (!enumeracije.getText().trim().equals("")) {
+                else
+                {
+                    Enumeracija enumeracija = new Enumeracija(s,dv.getDiagram(), P);
+                    if(!enumeracije.getText().trim().equals(""))
+                    {
                         for (String line : enumeracije.getText().split(",")) {
                             //System.out.println("linija1 " + line);
                             ClanEnumeracije clanEnumeracije = napraviClanEnumaOdStringa(line);
-                            if (clanEnumeracije != null)
-                                napravljenaInterklasa.addClassContent(clanEnumeracije);
+                            if(clanEnumeracije != null)
+                                enumeracija.addClassContent(clanEnumeracije);
                         }
                     }
 
-                    /*EnumeracijaPainter enumeracijaPainter = new EnumeracijaPainter(enumeracija);
-                    dv.addPainter(enumeracijaPainter);
+                    interclassPainter = new EnumeracijaPainter(enumeracija);
+                    dv.addPainter(interclassPainter);
                     enumeracija.addSubscriber(dv);
 
                     MainFrame.getInstance().getClassyTree().addDiagramElement(item, enumeracija);
-                    */
                 }
             }
             else if(rez == 1)
             {
                 System.out.println("Kliknut Cancel kod dodavanja enumeracije");
             }
+        }*/
+
+
+        if(interclass instanceof Klasa)
+        {
+            interclassPainter = new KlasaPainter(interclass);
         }
-
-
-        if(napravljenaInterklasa!=null) {
-            AddInterclassCommand addInterclassCommand = new AddInterclassCommand(dv,napravljenaInterklasa);
-
-            dv.getCommandManager().addCommand(addInterclassCommand);
-            //ovde dodamo u dv-u kao addCommand
+        if(interclass instanceof Interfejs)
+        {
+            interclassPainter = new InterfejsPainter(interclass);
         }
+        if(interclass instanceof Enumeracija)
+        {
+            interclassPainter = new EnumeracijaPainter(interclass);
+        }
+        dv.addPainter(interclassPainter);
+        interclass.addSubscriber(dv);
+
+
+        ClassyTreeItem item= MainFrame.getInstance().getClassyTree().NadjiClassyTreePrekoClassyNode(dv.getDiagram(),MainFrame.getInstance().getClassyTree().getRoot());
+        MainFrame.getInstance().getClassyTree().addDiagramElement(item, interclass);
+
 
 
     }
 
     @Override
-    public void misPovucen(Point P, DiagramView dv) {
-    }
+    public void undoCommand() {
+        dv.getPainterList().remove(interclassPainter);
+        dv.repaint();
 
-    @Override
-    public void misOtpusten(Point P, DiagramView dv) {
+        ClassyTreeView treeView=MainFrame.getInstance().getClassyTree().getTreeView();
+        ClassyTreeItem item= MainFrame.getInstance().getClassyTree().NadjiClassyTreePrekoClassyNode(interclassPainter.getDiagramElement(),MainFrame.getInstance().getClassyTree().getRoot());
+        item.removeFromParent();
 
+        SwingUtilities.updateComponentTreeUI(treeView);
     }
 }

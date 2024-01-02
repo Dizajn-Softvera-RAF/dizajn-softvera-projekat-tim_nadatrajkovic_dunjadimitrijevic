@@ -4,14 +4,12 @@ import jdk.jfr.consumer.RecordedClass;
 import raf.dsw.classycraft.app.Observer.ISubscriber;
 import raf.dsw.classycraft.app.Observer.Notification;
 import raf.dsw.classycraft.app.Observer.NotificationType;
+import raf.dsw.classycraft.app.commandPattern.CommandManager;
 import raf.dsw.classycraft.app.controller.DiagramViewMouseListener;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.*;
-import raf.dsw.classycraft.app.view.painteri.ConnectionPainter;
-import raf.dsw.classycraft.app.view.painteri.ElementPainter;
-import raf.dsw.classycraft.app.view.painteri.InterclassPainter;
-import raf.dsw.classycraft.app.view.painteri.KlasaPainter;
+import raf.dsw.classycraft.app.view.painteri.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +21,8 @@ public class DiagramView extends JPanel implements ISubscriber {
 
     //ovde crta dijagram eto
     private Diagram diagram;
+
+    private CommandManager commandManager;
     //private Line2D trenutnaLinija=null;
     private Point p1,p2;
     public boolean pomeraMis=false;
@@ -264,6 +264,8 @@ public class DiagramView extends JPanel implements ISubscriber {
 
         //this.setAutoscrolls(true);
 
+        commandManager=new CommandManager();
+
         diagramListener=new DiagramViewMouseListener(this);
         painterList=new ArrayList<>();
 //        for (var child:diagram.getChildren()) {
@@ -415,6 +417,9 @@ public class DiagramView extends JPanel implements ISubscriber {
 
         //ovde crta liniju za veze
 
+        commandManager.dalMozeRedo();
+        commandManager.dalMozeUndo();
+
     }
 //    private void addDiagramChildPainter(DiagramElement de)
 //    {
@@ -429,6 +434,9 @@ public class DiagramView extends JPanel implements ISubscriber {
 
     public void addPainter(ElementPainter painter)
     {
+        //jel se ovde dodaje command u manager
+
+
 
         painterList.add(painter);
         painter.addSubscriber(this);
@@ -464,5 +472,9 @@ public class DiagramView extends JPanel implements ISubscriber {
 
     public void setP2(Point p2) {
         this.p2 = p2;
+    }
+
+    public CommandManager getCommandManager() {
+        return commandManager;
     }
 }

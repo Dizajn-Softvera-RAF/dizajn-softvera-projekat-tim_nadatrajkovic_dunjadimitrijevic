@@ -221,6 +221,15 @@ public class PackageView extends JPanel implements ISubscriber {
 
     }
 
+    public DiagramView trenutniDv()
+    {
+        DiagramView dv=(DiagramView) tabbedPane.getSelectedComponent();
+        if(dv!=null)
+            return dv;
+        System.out.println("null je");
+        return null;
+    }
+
     //funkcije za stateManager
     public void StartDodajConnectionState()
     {

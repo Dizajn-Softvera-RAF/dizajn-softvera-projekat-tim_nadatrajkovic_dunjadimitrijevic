@@ -12,6 +12,9 @@ public class ActionManager {
     private AddAutorAction addAutorAction;
     private DeleteAction deleteAction;
 
+    private UndoAction undoAction;
+    private RedoAction redoAction;
+
 
     private DodajConnectionAction dodajConnectionAction;
     private DodajInterclassAction dodajInterclassAction;
@@ -21,6 +24,7 @@ public class ActionManager {
     private DuplicirajAction duplicirajAction;
     private ZoomInAction zoomInAction;
     private ZoomOutAction zoomOutAction;
+
 
     public DodajConnectionAction getDodajConnectionAction() {
         return dodajConnectionAction;
@@ -74,6 +78,14 @@ public class ActionManager {
         return deleteAction;
     }
 
+    public UndoAction getUndoAction() {
+        return undoAction;
+    }
+
+    public RedoAction getRedoAction() {
+        return redoAction;
+    }
+
     private void initialiseActions()
     {
         exitAction = new ExitAction();
@@ -81,6 +93,8 @@ public class ActionManager {
         addNodeAction = new AddNodeAction();
         addAutorAction = new AddAutorAction();
         deleteAction = new DeleteAction();
+        undoAction = new UndoAction();
+        redoAction = new RedoAction();
 
         dodajConnectionAction=new DodajConnectionAction();
         dodajInterclassAction=new DodajInterclassAction();

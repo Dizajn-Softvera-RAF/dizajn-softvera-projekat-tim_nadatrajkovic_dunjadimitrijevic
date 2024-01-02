@@ -68,4 +68,26 @@ public class ApplicationFramework {
     public void setLoggerFactory(LoggerFactory loggerFactory) {
         this.loggerFactory = loggerFactory;
     }
+
+
+
+
+    public void disableUndoAction() {
+        MainFrame.getInstance().getActionManager().getUndoAction().setEnabled(false);
+
+    }
+
+    public void disableRedoAction() {
+        MainFrame.getInstance().getActionManager().getRedoAction().setEnabled(false);
+
+    }
+    public void enableRedoAction() {
+        MainFrame.getInstance().getActionManager().getRedoAction().setEnabled(true);
+
+
+    }
+    public void enableUndoAction() {
+        MainFrame.getInstance().getActionManager().getUndoAction().setEnabled(true);
+
+    }
 }
