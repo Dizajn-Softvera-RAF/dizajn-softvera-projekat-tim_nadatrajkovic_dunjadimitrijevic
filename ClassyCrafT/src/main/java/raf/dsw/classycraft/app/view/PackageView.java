@@ -93,20 +93,29 @@ public class PackageView extends JPanel implements ISubscriber {
         tabbedPane.removeAll();
         for(var child : paket.getChildren())
         {
-            if(child instanceof Diagram)
-            {
+            if(child instanceof Diagram) {
                 var diagram = (Diagram) child;
-                DiagramView dw = new DiagramView(diagram);
-                diagram.addSubscriber(dw);
-                tabbedPane.add(diagram.getName(), dw);
+                DiagramView dv = null;
+                boolean created = false;
+                for (DiagramView d : diagramViews)
+                {
+                    if(d.getDiagram().getName().equals(child.getName()))
+                    {
+                        dv = d;
+                        created = true;
+                        break;
+                    }
+                }
+                if(!created)
+                {
+                    dv = new DiagramView(diagram);
+                    diagram.addSubscriber(dv);
+                    diagramViews.add(dv);
+                }
+                tabbedPane.add(diagram.getName(), dv);
             }
         }
 
-        // setListeners
-
-//        for (DiagramView dv : diagramViews) {
-//            this.getTabbedPane().addTab(dv.getDiagram().getName(), dv);
-//        }
     }
 
     private void hideComponents() {
@@ -136,39 +145,6 @@ public class PackageView extends JPanel implements ISubscriber {
                 node.addSubscriber(this);
                 //---------------------------
 
-                //ClassyNodeComposite cp = (ClassyNodeComposite) paket;
-                //diagramViews = new ArrayList<>();
-//                for (ClassyNode c : cp.getChildren()) {
-//                    if (c instanceof Diagram) {
-//                        //((Diagram)c).addSubscriber(this); // ?
-//                        DiagramView dw = new DiagramView((Diagram) c);
-//                        //dw.Update(new Notification(c, NotificationType.SHOWDIAGRAM));
-//                        c.addSubscriber(dw);
-//                        //tabs.add(dw);
-//                        //cp.addSubscriber(dw); // jel mi treba ovo?
-//                        //diagramViews.add(dw);
-//                    }
-//
-//                }
-  /*ovo je bilo pokusaj da se popravi ono sa tabovima ne znam da li radi sa tim ili bez toga, meni je radlo 
-                ClassyNodeComposite cp = (ClassyNodeComposite) paket;
-                //tabNames = new ArrayList<>();
-
-
-                for (ClassyNode c : cp.getChildren()) {
-                    if (c instanceof Diagram) {
-                        //((Diagram)c).addSubscriber(this); // ?
-                        DiagramView dw = new DiagramView((Diagram) c);
-                        //dw.Update(new Notification(c, NotificationType.SHOWDIAGRAM));
-                        c.addSubscriber(dw);
-                        //tabs.add(dw);
-                        //cp.addSubscriber(dw); // jel mi treba ovo?
-                        tabNames.add(dw);
-                    }
-
-                }
-
-*/
                 createTabs();
                 this.setProjectNaziv(((Project) node).getName());
                 this.setAutor(((Project) node).getImeAutora());
@@ -188,7 +164,7 @@ public class PackageView extends JPanel implements ISubscriber {
                     if (d.getParent() == paket) {
                         System.out.println("usao u 'jeste se dodalo na otvoreni paket' ");
                         DiagramView dv = new DiagramView(d);
-
+                        diagramViews.add(dv);
 //                        JScrollPane s=new JScrollPane();
 //                        this.setPreferredSize(new Dimension(dv.getSize().width-50, dv.getSize().height-50));
 //                        s.setSize(new Dimension(dv.getSize().width, dv.getSize().height));
@@ -217,9 +193,6 @@ public class PackageView extends JPanel implements ISubscriber {
                     }
 
 
-                    //tabs.add(dw);
-
-
                 }
             } else if (((Notification) notification).getNotificationType() == NotificationType.DELETE) {
                 if (((Notification) notification).getObjectOfNotification() instanceof Project) {
@@ -245,25 +218,6 @@ public class PackageView extends JPanel implements ISubscriber {
             }
 
         }
-//        else if(notification.toString().equals("brisi"))
-//        {
-////            //removeAll();
-////            //tabs.remove(DiagramView);
-////            repaint();
-////            revalidate();
-//        }
-//        else if(notification instanceof String) // sredi ove notifikacije, da se zna sta je sta
-//        {
-//            //setProjectNaziv(notification.toString());
-//        }
-//        else if(notification instanceof Diagram)
-//        {
-//            //DiagramView dw = new DiagramView();
-//            //this.getTabs().addTab(((Diagram) notification).getName(), dw);
-//            //MainFrame.getInstance().getPackageView().getTabs().addTab(((Diagram) notification).getName(), dw);
-//            //((Diagram)notification).addSubscriber(dw);
-//        }
-
 
     }
 
