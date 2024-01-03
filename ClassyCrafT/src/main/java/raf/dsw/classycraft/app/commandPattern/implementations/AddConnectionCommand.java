@@ -17,14 +17,16 @@ public class AddConnectionCommand extends AbstractCommand {
     private ConnectionPainter connectionPainter;
     private Connection connection;
 
-    public AddConnectionCommand(DiagramView dv, Connection connection) {
+    public AddConnectionCommand(DiagramView dv, Connection connection,ConnectionPainter connectionPainter) {
         this.dv = dv;
         this.connection = connection;
+        this.connectionPainter=connectionPainter;
     }
 
     @Override
     public void doCommand() {
 
+        /*
         if(connection instanceof Agregacija)
         {
             connectionPainter = new AgregacijaPainter(connection);
@@ -40,7 +42,7 @@ public class AddConnectionCommand extends AbstractCommand {
         if(connection instanceof Generalizacija)
         {
             connectionPainter = new GeneralizacijaPainter(connection);
-        }
+        }*/
 
         dv.addPainter(connectionPainter);
         connection.addSubscriber(dv);

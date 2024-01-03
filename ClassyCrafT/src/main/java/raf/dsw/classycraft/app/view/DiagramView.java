@@ -443,9 +443,23 @@ public class DiagramView extends JPanel implements ISubscriber {
         repaint();
     }
 
-    private void removePainter(ElementPainter painter)
+    public void removePainter(ElementPainter painter)
     {
+        /*if(!painterList.contains(painter))
+        {
+            for (ElementPainter ep:painterList) {
+
+                if(painter.getDiagramElement().equals(ep.getDiagramElement()))
+                {
+                    painter=ep;
+                }
+            }
+        }
+*/
         painterList.remove(painter);
+
+
+
         repaint();
     }
 

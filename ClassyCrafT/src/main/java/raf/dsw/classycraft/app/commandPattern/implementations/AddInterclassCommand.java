@@ -32,9 +32,10 @@ public class AddInterclassCommand extends AbstractCommand {
 
 
 
-    public AddInterclassCommand(DiagramView dv, Interclass interclass) {
+    public AddInterclassCommand(DiagramView dv, Interclass interclass, InterclassPainter interclassPainter) {
         this.dv = dv;
         this.interclass = interclass;
+        this.interclassPainter=interclassPainter;
     }
 
     /*private Metoda napraviMetoduOdStringa(String line)
@@ -334,7 +335,7 @@ public class AddInterclassCommand extends AbstractCommand {
             }
         }*/
 
-
+/*
         if(interclass instanceof Klasa)
         {
             interclassPainter = new KlasaPainter(interclass);
@@ -347,6 +348,8 @@ public class AddInterclassCommand extends AbstractCommand {
         {
             interclassPainter = new EnumeracijaPainter(interclass);
         }
+
+ */
         dv.addPainter(interclassPainter);
         interclass.addSubscriber(dv);
 
