@@ -154,7 +154,27 @@ public class DodajConnectionState implements State{
         dv.setP2(null);
 
         if(veza!=null) {
-            AddConnectionCommand addConnectionCommand = new AddConnectionCommand(dv,veza);
+            ConnectionPainter connectionPainter=null;
+
+            if(veza instanceof Agregacija)
+            {
+                connectionPainter = new AgregacijaPainter(veza);
+            }
+            if(veza instanceof Zavisnost)
+            {
+                connectionPainter = new ZavisnostPainter(veza);
+            }
+            if(veza instanceof Kompozicija)
+            {
+                connectionPainter = new KompozicijaPainter(veza);
+            }
+            if(veza instanceof Generalizacija)
+            {
+                connectionPainter = new GeneralizacijaPainter(veza);
+            }
+
+
+            AddConnectionCommand addConnectionCommand = new AddConnectionCommand(dv,veza,connectionPainter);
 
             dv.getCommandManager().addCommand(addConnectionCommand);
             //ovde dodamo u dv-u kao addCommand

@@ -11,6 +11,7 @@ import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.view.DiagramView;
 import raf.dsw.classycraft.app.view.MainFrame;
 import raf.dsw.classycraft.app.view.painteri.EnumeracijaPainter;
+import raf.dsw.classycraft.app.view.painteri.InterclassPainter;
 import raf.dsw.classycraft.app.view.painteri.InterfejsPainter;
 import raf.dsw.classycraft.app.view.painteri.KlasaPainter;
 
@@ -322,7 +323,23 @@ public class DodajInterclassState implements State{
 
 
         if(napravljenaInterklasa!=null) {
-            AddInterclassCommand addInterclassCommand = new AddInterclassCommand(dv,napravljenaInterklasa);
+            InterclassPainter interclassPainter=null;
+            if(napravljenaInterklasa instanceof Klasa)
+            {
+                interclassPainter = new KlasaPainter(napravljenaInterklasa);
+            }
+            if(napravljenaInterklasa instanceof Interfejs)
+            {
+                interclassPainter = new InterfejsPainter(napravljenaInterklasa);
+            }
+            if(napravljenaInterklasa instanceof Enumeracija)
+            {
+                interclassPainter = new EnumeracijaPainter(napravljenaInterklasa);
+            }
+
+
+
+            AddInterclassCommand addInterclassCommand = new AddInterclassCommand(dv,napravljenaInterklasa,interclassPainter);
 
             dv.getCommandManager().addCommand(addInterclassCommand);
             //ovde dodamo u dv-u kao addCommand
