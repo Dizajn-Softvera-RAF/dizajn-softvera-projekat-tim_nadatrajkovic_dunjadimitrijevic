@@ -37,7 +37,7 @@ public class AddInterclassCommand extends AbstractCommand {
         this.interclass = interclass;
     }
 
-    private Metoda napraviMetoduOdStringa(String line)
+    /*private Metoda napraviMetoduOdStringa(String line)
     {
         Pattern pattern = Pattern.compile(
                 "\\s*[+~-]\\s*[a-zA-z0-9_]+\\s*\\(((\\s*[a-zA-z0-9_]+\\s+[a-zA-z0-9_]+\\s*)(,\\s*[a-zA-z0-9_]+\\s+[a-zA-z0-9_]+)*)*\\s*\\)\\s*:\\s*[a-zA-z0-9_]+\\s*", Pattern.CASE_INSENSITIVE);
@@ -142,7 +142,7 @@ public class AddInterclassCommand extends AbstractCommand {
         }
         System.out.println("line je prazna - clan enumeracije");
         return null;
-    }
+    }*/
 
     @Override
     public void doCommand() {
@@ -353,8 +353,6 @@ public class AddInterclassCommand extends AbstractCommand {
 
         ClassyTreeItem item= MainFrame.getInstance().getClassyTree().NadjiClassyTreePrekoClassyNode(dv.getDiagram(),MainFrame.getInstance().getClassyTree().getRoot());
         MainFrame.getInstance().getClassyTree().addDiagramElement(item, interclass);
-
-
 
     }
 
