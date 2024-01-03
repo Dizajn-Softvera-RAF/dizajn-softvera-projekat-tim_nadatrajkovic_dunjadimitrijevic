@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.controller.stateSablon;
 
+import raf.dsw.classycraft.app.commandPattern.implementations.DuplicateCommand;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.*;
 import raf.dsw.classycraft.app.model.sadrzajInterclass.ClassContent;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
@@ -64,6 +65,13 @@ public class DuplicirajState implements State{
                 {
                     DiagramElement selectedInterclass = kliknut.getDiagramElement();
                     Interclass novi_element = duplicirajElement(selectedInterclass, P);
+
+                    DuplicateCommand duplicateCommand = new DuplicateCommand(dv,novi_element);
+                    dv.getCommandManager().addCommand(duplicateCommand);
+
+
+
+                    /*
                     ClassyTreeItem item= MainFrame.getInstance().getClassyTree().NadjiClassyTreePrekoClassyNode(dv.getDiagram(),MainFrame.getInstance().getClassyTree().getRoot());
 
                     if(novi_element instanceof Klasa)
@@ -88,10 +96,12 @@ public class DuplicirajState implements State{
 
                         //MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
                     }
-                    novi_element.addSubscriber(dv);
+
+                     */
+                    /*novi_element.addSubscriber(dv);
                     MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
 
-                    System.out.println("DUPLICIRAN");
+                    System.out.println("DUPLICIRAN");*/
                 }
                 else if(rez == 1)
                 {
