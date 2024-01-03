@@ -1,5 +1,7 @@
 package raf.dsw.classycraft.app.commandPattern.implementations;
 
+import raf.dsw.classycraft.app.Observer.Notification;
+import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.commandPattern.AbstractCommand;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.tree.view.ClassyTreeView;
@@ -18,15 +20,19 @@ public class DeleteCommand extends AbstractCommand {
 
     public DeleteCommand(DiagramView dv) {
         this.dv = dv;
-        dvPainteriSelektovani=dv.getSelektovaniList();
+        dvPainteriSelektovani=new ArrayList<>(dv.getSelektovaniList());
     }
 
     @Override
     public void doCommand() {
+        System.out.println("doso da redo delete "+dvPainteriSelektovani.size());
         for(ElementPainter ep : dvPainteriSelektovani)
         {
-            dv.getPainterList().remove(ep);
-            dv.repaint();
+            System.out.println("doCommand delete "+dvPainteriSelektovani.size());
+            dv.removePainter(ep);
+            //ep.notifySubscribers(new Notification(ep, NotificationType.DELETE));
+            //ep.notifySubscribers();
+            //dv.repaint();
 
             ClassyTreeView treeView= MainFrame.getInstance().getClassyTree().getTreeView();
             ClassyTreeItem item= MainFrame.getInstance().getClassyTree().NadjiClassyTreePrekoClassyNode(ep.getDiagramElement(),MainFrame.getInstance().getClassyTree().getRoot());
@@ -40,11 +46,15 @@ public class DeleteCommand extends AbstractCommand {
 
     @Override
     public void undoCommand() {
+        System.out.println("doso da undo delete "+dvPainteriSelektovani.size());
         for(ElementPainter ep : dvPainteriSelektovani)
         {
+            System.out.println("undoCommand delete "+dvPainteriSelektovani.size());
+
             //nacrta ih
             dv.addPainter(ep);
             ep.getDiagramElement().addSubscriber(dv);
+            //dv.repaint();
 
 
             ClassyTreeItem item= MainFrame.getInstance().getClassyTree().NadjiClassyTreePrekoClassyNode(dv.getDiagram(),MainFrame.getInstance().getClassyTree().getRoot());

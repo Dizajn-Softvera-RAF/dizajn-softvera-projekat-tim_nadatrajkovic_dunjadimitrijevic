@@ -443,7 +443,7 @@ public class DiagramView extends JPanel implements ISubscriber {
         repaint();
     }
 
-    private void removePainter(ElementPainter painter)
+    public void removePainter(ElementPainter painter)
     {
         painterList.remove(painter);
         repaint();
