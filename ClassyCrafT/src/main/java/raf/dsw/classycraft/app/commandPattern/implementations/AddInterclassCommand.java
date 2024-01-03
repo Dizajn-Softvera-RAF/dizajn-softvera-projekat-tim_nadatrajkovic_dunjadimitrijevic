@@ -32,12 +32,13 @@ public class AddInterclassCommand extends AbstractCommand {
 
 
 
-    public AddInterclassCommand(DiagramView dv, Interclass interclass) {
+    public AddInterclassCommand(DiagramView dv, Interclass interclass, InterclassPainter interclassPainter) {
         this.dv = dv;
         this.interclass = interclass;
+        this.interclassPainter=interclassPainter;
     }
 
-    private Metoda napraviMetoduOdStringa(String line)
+    /*private Metoda napraviMetoduOdStringa(String line)
     {
         Pattern pattern = Pattern.compile(
                 "\\s*[+~-]\\s*[a-zA-z0-9_]+\\s*\\(((\\s*[a-zA-z0-9_]+\\s+[a-zA-z0-9_]+\\s*)(,\\s*[a-zA-z0-9_]+\\s+[a-zA-z0-9_]+)*)*\\s*\\)\\s*:\\s*[a-zA-z0-9_]+\\s*", Pattern.CASE_INSENSITIVE);
@@ -142,7 +143,7 @@ public class AddInterclassCommand extends AbstractCommand {
         }
         System.out.println("line je prazna - clan enumeracije");
         return null;
-    }
+    }*/
 
     @Override
     public void doCommand() {
@@ -334,7 +335,7 @@ public class AddInterclassCommand extends AbstractCommand {
             }
         }*/
 
-
+/*
         if(interclass instanceof Klasa)
         {
             interclassPainter = new KlasaPainter(interclass);
@@ -347,14 +348,14 @@ public class AddInterclassCommand extends AbstractCommand {
         {
             interclassPainter = new EnumeracijaPainter(interclass);
         }
+
+ */
         dv.addPainter(interclassPainter);
         interclass.addSubscriber(dv);
 
 
         ClassyTreeItem item= MainFrame.getInstance().getClassyTree().NadjiClassyTreePrekoClassyNode(dv.getDiagram(),MainFrame.getInstance().getClassyTree().getRoot());
         MainFrame.getInstance().getClassyTree().addDiagramElement(item, interclass);
-
-
 
     }
 

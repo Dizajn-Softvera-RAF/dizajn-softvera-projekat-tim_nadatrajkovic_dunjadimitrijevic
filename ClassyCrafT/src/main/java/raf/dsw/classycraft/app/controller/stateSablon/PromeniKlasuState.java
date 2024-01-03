@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.controller.stateSablon;
 
+import raf.dsw.classycraft.app.commandPattern.implementations.EditInterclassCommand;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.*;
 import raf.dsw.classycraft.app.model.message.MessageType;
@@ -9,10 +10,7 @@ import raf.dsw.classycraft.app.model.sadrzajInterclass.ClassContent;
 import raf.dsw.classycraft.app.model.sadrzajInterclass.Metoda;
 import raf.dsw.classycraft.app.view.DiagramView;
 import raf.dsw.classycraft.app.view.MainFrame;
-import raf.dsw.classycraft.app.view.painteri.ElementPainter;
-import raf.dsw.classycraft.app.view.painteri.EnumeracijaPainter;
-import raf.dsw.classycraft.app.view.painteri.InterfejsPainter;
-import raf.dsw.classycraft.app.view.painteri.KlasaPainter;
+import raf.dsw.classycraft.app.view.painteri.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +19,38 @@ import java.util.regex.Pattern;
 
 public class PromeniKlasuState implements State{
     //private Point pocetnaTacka;
+
+    private Interclass nepromenjenaInterclass;
+    private Interclass promenjenaInterclass;
+    private InterclassPainter zvanicnaInterclass;
+
+    private Interclass duplicirajElement(Interclass original)
+    {
+        Interclass novi_element = null;
+        Point P = original.getPocetnaTacka();
+        if(original instanceof Klasa)
+        {
+            novi_element = new Klasa(original.getName(), original.getParent(), P);
+
+        }
+        else if(original instanceof Interfejs)
+        {
+            novi_element = new Interfejs(original.getName(), original.getParent(), P);
+
+        }
+        else if(original instanceof Enumeracija)
+        {
+            novi_element = new Enumeracija(original.getName(), original.getParent(), P);
+        }
+        if(novi_element != null)
+        {
+            for (ClassContent classContent : ((Interclass) original).getClassContent()) {
+                novi_element.addClassContent(classContent);
+            }
+        }
+
+        return novi_element;
+    }
     private ClanEnumeracije napraviClanEnumaOdStringa(String line)
     {
         Pattern pattern = Pattern.compile("\\s*[a-zA-z0-9_]+\\s*", Pattern.CASE_INSENSITIVE);
@@ -147,8 +177,12 @@ public class PromeniKlasuState implements State{
                 break;
             }
         }
-        if(kliknut != null)
+        if(kliknut != null && kliknut instanceof InterclassPainter)
         {
+            nepromenjenaInterclass = duplicirajElement((Interclass) kliknut.getDiagramElement());
+            promenjenaInterclass = duplicirajElement((Interclass) kliknut.getDiagramElement());
+            zvanicnaInterclass = (InterclassPainter) kliknut;
+            boolean sacuvaj_promene = false;
             if(kliknut instanceof KlasaPainter)
             {
                 Klasa klasa = (Klasa)kliknut.getDiagramElement();
@@ -192,9 +226,9 @@ public class PromeniKlasuState implements State{
                     }
                     else
                     {
-                        klasa.setName(novo_ime);
+                        promenjenaInterclass.setName(novo_ime);
                         //sada radi tako sto obrise sve elemente iz
-                        klasa.getClassContent().clear();
+                        promenjenaInterclass.getClassContent().clear();
                         if(!poljatf.getText().trim().equals(""))
                         {
                             for(String line : poljatf.getText().split(";"))
@@ -206,7 +240,7 @@ public class PromeniKlasuState implements State{
 
                                 if(atribut != null/* && !klasa.getClassContent().contains(atribut)*/);
                                 {
-                                    klasa.addClassContent(atribut); //ovo dodaje i sta treba i sta ne treba (i stara i nova polja)
+                                    promenjenaInterclass.addClassContent(atribut); //ovo dodaje i sta treba i sta ne treba (i stara i nova polja)
                                 }
                             }
                         }
@@ -215,16 +249,17 @@ public class PromeniKlasuState implements State{
                             for (String line : metodetf.getText().split(";")) {
                                 Metoda metoda = napraviMetoduOdStringa(line);
                                 if(metoda != null)
-                                    klasa.addClassContent(metoda);
+                                    promenjenaInterclass.addClassContent(metoda);
                             }
                         }
+                        sacuvaj_promene = true;
                     }
                 }
                 else if(rez == 1) //kliknuto cancel -> nemoj da sacuvas promene
                 {
                     // nista valjda?
                 }
-                dv.repaint(); // jel ovo ovde ili treba nekako drugacije?
+                //dv.repaint(); // jel ovo ovde ili treba nekako drugacije?
                 // da li nama painter slusa diagramelement?
             }
             else if (kliknut instanceof InterfejsPainter)
@@ -259,19 +294,20 @@ public class PromeniKlasuState implements State{
                         ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("Potrebno je uneti ime interfejsa", MessageType.WARNING);
                     }
                     else {
-                        interfejs.setName(novo_ime);
-                        interfejs.getClassContent().clear();
+                        promenjenaInterclass.setName(novo_ime);
+                        promenjenaInterclass.getClassContent().clear();
                         if(!metodetf.getText().trim().equals(""))
                         {
                             for (String line : metodetf.getText().split(";")) {
                                 Metoda metoda = napraviMetoduOdStringa(line);
                                 if(metoda != null)
-                                    interfejs.addClassContent(metoda);
+                                    promenjenaInterclass.addClassContent(metoda);
                             }
                         }
+                        sacuvaj_promene = true;
                     }
                 }
-                dv.repaint();
+                //dv.repaint();
             }
             else if(kliknut instanceof EnumeracijaPainter)
             {
@@ -305,24 +341,27 @@ public class PromeniKlasuState implements State{
                         ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("Potrebno je uneti ime enumeracije", MessageType.WARNING);
                     }
                     else {
-                        enumeracija.setName(novo_ime);
-                        enumeracija.getClassContent().clear();
+                        promenjenaInterclass.setName(novo_ime);
+                        promenjenaInterclass.getClassContent().clear();
                         if(!enumeracijetf.getText().trim().equals(""))
                         {
                             for (String line : enumeracijetf.getText().split(",")) {
                                 ClanEnumeracije clanEnumeracije = napraviClanEnumaOdStringa(line);
                                 if(clanEnumeracije != null)
-                                    enumeracija.addClassContent(clanEnumeracije);
+                                    promenjenaInterclass.addClassContent(clanEnumeracije);
                             }
                         }
+                        sacuvaj_promene = true;
                     }
                 }
-                dv.repaint();
+
+                //dv.repaint();
+            }
+            if(sacuvaj_promene)
+            {
+                EditInterclassCommand editInterclassCommand = new EditInterclassCommand(dv, nepromenjenaInterclass, promenjenaInterclass, zvanicnaInterclass);
+                dv.getCommandManager().addCommand(editInterclassCommand);
             }
         }
-//        else
-//        {
-//            //nista
-//        }
     }
 }

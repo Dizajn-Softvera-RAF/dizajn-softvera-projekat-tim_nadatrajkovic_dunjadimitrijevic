@@ -280,4 +280,7 @@ public class PackageView extends JPanel implements ISubscriber {
     }
 
 
+    public StateManager getStateManager() {
+        return stateManager;
+    }
 }

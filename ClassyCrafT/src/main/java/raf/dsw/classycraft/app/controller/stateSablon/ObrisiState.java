@@ -1,6 +1,8 @@
 package raf.dsw.classycraft.app.controller.stateSablon;
 
 import javafx.scene.control.TreeView;
+import raf.dsw.classycraft.app.commandPattern.implementations.DeleteCommand;
+import raf.dsw.classycraft.app.commandPattern.implementations.DuplicateCommand;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Interclass;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.tree.view.ClassyTreeView;
@@ -112,7 +114,13 @@ public class ObrisiState implements State{
 
     @Override
     public void misOtpusten(Point P, DiagramView dv) {
-        for(ElementPainter ep : dv.getSelektovaniList())
+
+        if(!dv.getSelektovaniList().isEmpty()) {
+            System.out.println("uso da doda u deletecommand "+ dv.getSelektovaniList().toString());
+            DeleteCommand deleteCommand = new DeleteCommand(dv);
+            dv.getCommandManager().addCommand(deleteCommand);
+        }
+        /*for(ElementPainter ep : dv.getSelektovaniList())
         {
             dv.getPainterList().remove(ep);
             dv.repaint();
@@ -125,5 +133,7 @@ public class ObrisiState implements State{
 
         }
         dv.removeLasso();
+
+         */
     }
 }

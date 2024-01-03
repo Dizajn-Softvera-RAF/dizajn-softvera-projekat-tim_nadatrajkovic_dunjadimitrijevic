@@ -32,6 +32,7 @@ public class CommandManager {
             commands.remove(currentCommand);
         commands.add(command);
         doCommand();
+        dajListuKomandi();
     }
 
     /*
@@ -46,6 +47,7 @@ public class CommandManager {
         if(currentCommand==commands.size()){
             ApplicationFramework.getInstance().disableRedoAction();
         }
+        dajListuKomandi();
     }
 
     /*
@@ -59,6 +61,15 @@ public class CommandManager {
         }
         if(currentCommand==0){
             ApplicationFramework.getInstance().disableUndoAction();
+        }
+        dajListuKomandi();
+    }
+
+    public void dajListuKomandi()
+    {
+        System.out.println(currentCommand);
+        for (AbstractCommand a:commands) {
+            System.out.println("clan liste komandi "+a.toString());
         }
     }
 

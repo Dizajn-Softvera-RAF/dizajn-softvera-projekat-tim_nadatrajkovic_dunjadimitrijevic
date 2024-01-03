@@ -1,5 +1,7 @@
 package raf.dsw.classycraft.app.controller.stateSablon;
 
+import raf.dsw.classycraft.app.commandPattern.implementations.AddConnectionCommand;
+import raf.dsw.classycraft.app.commandPattern.implementations.AddInterclassCommand;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.*;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.view.DiagramView;
@@ -92,6 +94,8 @@ public class DodajConnectionState implements State{
             }
         }
 
+        Connection veza=null;
+
         if(nasoKliknutu) {
 
             Object[] options = {"Agregacia", "Generalizacija", "Kompozicija", "Zavisnost"};
@@ -100,50 +104,83 @@ public class DodajConnectionState implements State{
 
             if (choice == 0)//agregacija
             {
-                Agregacija agregacija = new Agregacija("agregacija", dv.getDiagram(), interod, interdo, odP, doP);
+                veza = new Agregacija("agregacija", dv.getDiagram(), interod, interdo, odP, doP);
 
-                AgregacijaPainter apainter = new AgregacijaPainter(agregacija);
+                /*AgregacijaPainter apainter = new AgregacijaPainter(agregacija);
 
                 dv.addPainter(apainter);
                 agregacija.addSubscriber(dv);
                 MainFrame.getInstance().getClassyTree().addDiagramElement(item, agregacija);
-
+                 */
             }
             if (choice == 1)//generalizacija
             {
-                Generalizacija generalizacija = new Generalizacija("generalizacija", dv.getDiagram(), interod, interdo, odP, doP);
+                veza = new Generalizacija("generalizacija", dv.getDiagram(), interod, interdo, odP, doP);
 
-                GeneralizacijaPainter apainter = new GeneralizacijaPainter(generalizacija);
+                /*GeneralizacijaPainter apainter = new GeneralizacijaPainter(generalizacija);
 
                 dv.addPainter(apainter);
                 generalizacija.addSubscriber(dv);
                 MainFrame.getInstance().getClassyTree().addDiagramElement(item, generalizacija);
+                */
             }
             if (choice == 2)//komozicija
             {
-                Kompozicija kompozicija = new Kompozicija("kompozicija", dv.getDiagram(), interod, interdo, odP, doP);
-
+                veza = new Kompozicija("kompozicija", dv.getDiagram(), interod, interdo, odP, doP);
+                /*
                 KompozicijaPainter kpainter = new KompozicijaPainter(kompozicija);
 
                 dv.addPainter(kpainter);
                 kompozicija.addSubscriber(dv);
                 MainFrame.getInstance().getClassyTree().addDiagramElement(item, kompozicija);
+
+                 */
             }
             if (choice == 3)//zavisnost
             {
-                Zavisnost zavisnost = new Zavisnost("zavisnost", dv.getDiagram(), interod, interdo, odP, doP);
-
+                veza = new Zavisnost("zavisnost", dv.getDiagram(), interod, interdo, odP, doP);
+/*
                 ZavisnostPainter kpainter = new ZavisnostPainter(zavisnost);
 
                 dv.addPainter(kpainter);
                 zavisnost.addSubscriber(dv);
                 MainFrame.getInstance().getClassyTree().addDiagramElement(item, zavisnost);
+
+ */
             }
         }
 
         dv.setP1(null);
         dv.setP2(null);
-        dv.repaint();
+
+        if(veza!=null) {
+            ConnectionPainter connectionPainter=null;
+
+            if(veza instanceof Agregacija)
+            {
+                connectionPainter = new AgregacijaPainter(veza);
+            }
+            if(veza instanceof Zavisnost)
+            {
+                connectionPainter = new ZavisnostPainter(veza);
+            }
+            if(veza instanceof Kompozicija)
+            {
+                connectionPainter = new KompozicijaPainter(veza);
+            }
+            if(veza instanceof Generalizacija)
+            {
+                connectionPainter = new GeneralizacijaPainter(veza);
+            }
+
+
+            AddConnectionCommand addConnectionCommand = new AddConnectionCommand(dv,veza,connectionPainter);
+
+            dv.getCommandManager().addCommand(addConnectionCommand);
+            //ovde dodamo u dv-u kao addCommand
+        }
+
+        //dv.repaint();
 
 
     }
