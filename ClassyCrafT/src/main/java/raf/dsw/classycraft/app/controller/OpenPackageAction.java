@@ -1,22 +1,11 @@
 package raf.dsw.classycraft.app.controller;
 
-import javafx.util.Pair;
-import raf.dsw.classycraft.app.Observer.Notification;
-import raf.dsw.classycraft.app.Observer.NotificationType;
-import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
-import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
 import raf.dsw.classycraft.app.model.composite_implementation.Package;
-import raf.dsw.classycraft.app.model.composite_implementation.Project;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
-import raf.dsw.classycraft.app.view.DiagramView;
 import raf.dsw.classycraft.app.view.MainFrame;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 public class OpenPackageAction implements MouseListener {
     public OpenPackageAction() {

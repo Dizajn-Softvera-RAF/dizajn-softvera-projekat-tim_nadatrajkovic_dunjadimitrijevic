@@ -312,7 +312,111 @@ public class DiagramView extends JPanel implements ISubscriber {
 
         this.addMouseListener(diagramListener);
         this.addMouseMotionListener(diagramListener);
+
+        if(painterList.isEmpty())
+            createElements();
+
         repaint();
+    }
+
+    private void createElements()
+    {
+        for(var child : diagram.getChildren())
+        {
+            if(child instanceof Interclass) {
+                var interclass = (Interclass) child;
+                InterclassPainter ip = null;
+                boolean created = false;
+                for (ElementPainter peinter : painterList)
+                {
+                    if(peinter.getDiagramElement().getName().equals(interclass.getName()))
+                    {
+                        ip = (InterclassPainter)peinter;
+                        ip.addSubscriber(this);
+                        created = true;
+                        break;
+                    }
+                }
+                if(!created)
+                {
+                    if(child instanceof Klasa)
+                    {
+                        ip = new KlasaPainter((Klasa)child);
+                        child.addSubscriber(ip);
+                        //this.addPainter(ip);
+                        painterList.add(ip);
+                    }
+                    if(child instanceof Interfejs)
+                    {
+                        ip = new InterfejsPainter((Interfejs)child);
+                        child.addSubscriber(ip);
+                        //this.addPainter(ip);
+                        painterList.add(ip);
+                    }
+                    if(child instanceof Enumeracija)
+                    {
+                        ip = new EnumeracijaPainter((Enumeracija)child);
+                        child.addSubscriber(ip);
+                        //this.addPainter(ip);
+                        painterList.add(ip);
+                    }
+                    if (ip != null) {
+                        ip.addSubscriber(this);
+                    }
+                }
+            }
+
+            if(child instanceof Connection) {
+                var connection = (Connection) child;
+                ConnectionPainter cp = null;
+                boolean created = false;
+                for (ElementPainter peinter : painterList)
+                {
+                    if(peinter.getDiagramElement()==connection)
+                    {
+                        cp = (ConnectionPainter) peinter;
+                        cp.addSubscriber(this);
+                        created = true;
+                        break;
+                    }
+                }
+                if(!created)
+                {
+                    if(child instanceof Agregacija)
+                    {
+                        cp = new AgregacijaPainter((Agregacija)child);
+                        child.addSubscriber(cp);
+                        //this.addPainter(ip);
+                        painterList.add(cp);
+                    }
+                    if(child instanceof Kompozicija)
+                    {
+                        cp = new KompozicijaPainter((Kompozicija)child);
+                        child.addSubscriber(cp);
+                        //this.addPainter(ip);
+                        painterList.add(cp);
+                    }
+                    if(child instanceof Generalizacija)
+                    {
+                        cp = new GeneralizacijaPainter((Generalizacija)child);
+                        child.addSubscriber(cp);
+                        //this.addPainter(ip);
+                        painterList.add(cp);
+                    }
+                    if(child instanceof Zavisnost)
+                    {
+                        cp = new ZavisnostPainter((Zavisnost)child);
+                        child.addSubscriber(cp);
+                        //this.addPainter(ip);
+                        painterList.add(cp);
+                    }
+                    if (cp != null) {
+                        cp.addSubscriber(this);
+                    }
+                }
+            }
+        }
+
     }
 
     public Diagram getDiagram() {

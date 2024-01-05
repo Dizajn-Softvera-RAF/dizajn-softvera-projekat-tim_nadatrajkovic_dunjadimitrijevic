@@ -4,19 +4,13 @@ import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
 import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
 import raf.dsw.classycraft.app.model.composite_implementation.NodeType;
-import raf.dsw.classycraft.app.model.composite_implementation.Project;
 import raf.dsw.classycraft.app.model.composite_implementation.Package;
 import raf.dsw.classycraft.app.model.message.MessageType;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
-import raf.dsw.classycraft.app.view.AboutUsWindow;
-import raf.dsw.classycraft.app.view.AddPackageChildWindow;
 import raf.dsw.classycraft.app.view.MainFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class AddNodeAction extends AbstractClassyAction{
     private NodeType type;

@@ -1,13 +1,8 @@
 package raf.dsw.classycraft.app.controller;
 
-import com.sun.tools.javac.Main;
-import raf.dsw.classycraft.app.core.ApplicationFramework;
-import raf.dsw.classycraft.app.core.ClassyRepositoryImplementation;
-import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
 import raf.dsw.classycraft.app.model.composite_implementation.Package;
 import raf.dsw.classycraft.app.model.composite_implementation.NodeType;
-import raf.dsw.classycraft.app.tree.ClassyTreeImplementation;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.view.MainFrame;
 

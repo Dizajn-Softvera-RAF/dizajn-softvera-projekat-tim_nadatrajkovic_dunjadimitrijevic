@@ -1,20 +1,12 @@
 package raf.dsw.classycraft.app.controller;
 
-import javafx.util.Pair;
-import raf.dsw.classycraft.app.Observer.IPublisher;
-import raf.dsw.classycraft.app.Observer.ISubscriber;
-import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
-import raf.dsw.classycraft.app.model.composite_implementation.Package;
 import raf.dsw.classycraft.app.model.composite_implementation.Project;
 import raf.dsw.classycraft.app.view.AddAutorWindow;
-import raf.dsw.classycraft.app.view.MainFrame;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ChangeNameAction implements ActionListener{ //IPublisher {
 

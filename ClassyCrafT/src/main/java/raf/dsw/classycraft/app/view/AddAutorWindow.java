@@ -1,17 +1,11 @@
 package raf.dsw.classycraft.app.view;
 
 import raf.dsw.classycraft.app.controller.ChangeNameAction;
-import raf.dsw.classycraft.app.controller.PackageChildAction;
-import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
-import raf.dsw.classycraft.app.model.composite_implementation.Package;
 import raf.dsw.classycraft.app.model.composite_implementation.Project;
-import raf.dsw.classycraft.app.model.message.MessageType;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 
 public class AddAutorWindow extends JDialog {

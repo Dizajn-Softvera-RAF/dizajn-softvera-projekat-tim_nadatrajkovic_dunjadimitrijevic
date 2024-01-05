@@ -5,7 +5,6 @@ import raf.dsw.classycraft.app.Observer.Notification;
 import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.controller.stateSablon.StateManager;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
-import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
 import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
 import raf.dsw.classycraft.app.model.composite_implementation.Package;
 import raf.dsw.classycraft.app.model.composite_implementation.Project;

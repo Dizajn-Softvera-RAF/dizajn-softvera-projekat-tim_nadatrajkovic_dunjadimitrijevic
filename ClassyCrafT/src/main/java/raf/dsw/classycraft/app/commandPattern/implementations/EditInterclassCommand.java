@@ -1,7 +1,6 @@
 package raf.dsw.classycraft.app.commandPattern.implementations;
 
 import raf.dsw.classycraft.app.commandPattern.AbstractCommand;
-import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Interclass;
 import raf.dsw.classycraft.app.view.DiagramView;
 import raf.dsw.classycraft.app.view.painteri.InterclassPainter;
@@ -21,14 +20,14 @@ public class EditInterclassCommand extends AbstractCommand {
     @Override
     public void doCommand() {
         theInterclass.getDiagramElement().setName(changedInterclass.getName());
-        ((Interclass)theInterclass.getDiagramElement()).setSadrzaj(changedInterclass.getClassContent());
+        ((Interclass)theInterclass.getDiagramElement()).setSadrzaj(changedInterclass.getSadrzaj());
         dv.repaint();
     }
 
     @Override
     public void undoCommand() {
         theInterclass.getDiagramElement().setName(originalInterclass.getName());
-        ((Interclass)theInterclass.getDiagramElement()).setSadrzaj(originalInterclass.getClassContent());
+        ((Interclass)theInterclass.getDiagramElement()).setSadrzaj(originalInterclass.getSadrzaj());
         dv.repaint();
     }
 }

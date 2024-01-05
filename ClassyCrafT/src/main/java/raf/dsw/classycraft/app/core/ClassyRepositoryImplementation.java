@@ -1,19 +1,15 @@
 package raf.dsw.classycraft.app.core;
 
-import com.sun.tools.javac.Main;
-import org.w3c.dom.Node;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.composite_implementation.NodeType;
-import raf.dsw.classycraft.app.model.composite_implementation.Project;
 import raf.dsw.classycraft.app.model.composite_implementation.Package;
+import raf.dsw.classycraft.app.model.composite_implementation.Project;
 import raf.dsw.classycraft.app.model.composite_implementation.ProjectExplorer;
 import raf.dsw.classycraft.app.model.message.MessageType;
 import raf.dsw.classycraft.app.tree.factoryNodes.AbstractNodeFactory;
 import raf.dsw.classycraft.app.tree.factoryNodes.DiagramNodeFactory;
 import raf.dsw.classycraft.app.tree.factoryNodes.PackageNodeFactory;
 import raf.dsw.classycraft.app.tree.factoryNodes.ProjectNodeFactory;
-import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
-import raf.dsw.classycraft.app.view.MainFrame;
 
 public class ClassyRepositoryImplementation implements ClassyRepository{
     private ProjectExplorer root;

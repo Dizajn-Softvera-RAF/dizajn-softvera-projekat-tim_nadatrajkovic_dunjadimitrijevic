@@ -12,6 +12,9 @@ public class ActionManager {
     private AddAutorAction addAutorAction;
     private DeleteAction deleteAction;
 
+    private SaveAction saveAction;
+    private LoadAction loadAction;
+
     private UndoAction undoAction;
     private RedoAction redoAction;
 
@@ -86,6 +89,14 @@ public class ActionManager {
         return redoAction;
     }
 
+    public SaveAction getSaveAction() {
+        return saveAction;
+    }
+
+    public LoadAction getLoadAction() {
+        return loadAction;
+    }
+
     private void initialiseActions()
     {
         exitAction = new ExitAction();
@@ -93,6 +104,9 @@ public class ActionManager {
         addNodeAction = new AddNodeAction();
         addAutorAction = new AddAutorAction();
         deleteAction = new DeleteAction();
+        saveAction = new SaveAction();
+        loadAction = new LoadAction();
+
         undoAction = new UndoAction();
         redoAction = new RedoAction();
 

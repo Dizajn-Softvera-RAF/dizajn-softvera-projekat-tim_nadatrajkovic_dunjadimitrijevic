@@ -1,19 +1,26 @@
 package raf.dsw.classycraft.app.model.composite_implementation;
 
-import raf.dsw.classycraft.app.Observer.IPublisher;
-import raf.dsw.classycraft.app.Observer.ISubscriber;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import raf.dsw.classycraft.app.Observer.Notification;
 import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
 
 import java.util.ArrayList;
-import java.util.List;
 
+@JsonTypeName("paket")
 public class Package extends ClassyNodeComposite {
     public static int brojacPaketa=1;
     public Package(String name, ClassyNode parent) {
         super(name, parent);
+    }
+
+    @JsonCreator
+    public Package(@JsonProperty("type") String type, @JsonProperty("name") String name, @JsonProperty("children") ArrayList<ClassyNode> children) {
+        super(name, null);
+        this.setChildren(children);
     }
 
     public Package(ClassyNode parent)

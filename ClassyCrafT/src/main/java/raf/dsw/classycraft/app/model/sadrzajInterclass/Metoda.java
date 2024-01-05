@@ -1,10 +1,14 @@
 package raf.dsw.classycraft.app.model.sadrzajInterclass;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.InterclassVidljivost;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonTypeName("metoda")
 public class Metoda extends ClassContent{
 
     private List<Atribut> parametriFunkcije;
@@ -12,6 +16,15 @@ public class Metoda extends ClassContent{
         super(naziv, vidljivost, tip);
         parametriFunkcije = new ArrayList<>(); //jel su ovo parametri?
     }
+    @JsonCreator
+    public Metoda(@JsonProperty("type") String type,@JsonProperty("naziv") String naziv,@JsonProperty("vidljivost") InterclassVidljivost vidljivost,
+                  @JsonProperty("tip") String tip,@JsonProperty("parametriFunkcije") List<Atribut> parametriFunkcije) {
+        super(naziv, vidljivost, tip);
+        this.parametriFunkcije = parametriFunkcije;
+    }
+
+
+
     public void addParametarFunkcije(Atribut p)
     {
         parametriFunkcije.add(p);
@@ -42,5 +55,9 @@ public class Metoda extends ClassContent{
         pocetak.append(":");
         pocetak.append(tip);
         return pocetak.toString();
+    }
+
+    public void setParametriFunkcije(List<Atribut> parametriFunkcije) {
+        this.parametriFunkcije = parametriFunkcije;
     }
 }

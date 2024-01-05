@@ -1,23 +1,37 @@
 package raf.dsw.classycraft.app.model.composite_implementation.diagramElementi;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import raf.dsw.classycraft.app.Observer.Notification;
 import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
-import raf.dsw.classycraft.app.model.sadrzajInterclass.Atribut;
 import raf.dsw.classycraft.app.model.sadrzajInterclass.ClassContent;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Interfejs.class, name = "interfejs"),
+        @JsonSubTypes.Type(value = Klasa.class, name = "klasa"),
+        @JsonSubTypes.Type(value = Enumeracija.class, name = "enumeracija"),
+})
+@JsonTypeName("interclass")
 public abstract class Interclass extends DiagramElement {
 
-    List<ClassContent> sadrzaj;
-    InterclassVidljivost vidljivost;
+    protected List<ClassContent> sadrzaj;
+    protected InterclassVidljivost vidljivost;
     private Point pocetnaTacka;
     private Point krajnjaTacka;
-    private int width;
-    private int height;
+    private int width=-1;
+    private int height=-1;
+    @JsonIgnore
     private ArrayList<Point> connectionPoints;  //nekako da cuva koji su zauzeti da ne pravi veze u istoj tacki
 
     public ArrayList<Point> getConnectionPoints() {
@@ -28,12 +42,15 @@ public abstract class Interclass extends DiagramElement {
         this.connectionPoints = connectionPoints;
     }
 
+    //dal treba konstruktor da se smanji zbor serijalizacije??
     public Interclass(String name, ClassyNode parent, Point pocetnaTacka) {
         super(name, parent);
         vidljivost=InterclassVidljivost.PUBLIC;
         sadrzaj=new ArrayList<>();
         this.pocetnaTacka = pocetnaTacka;
         connectionPoints = new ArrayList<>();
+        //if(this.getHeight()!=-1 && this.getWidth()!=-1)
+        dodajConnectonPoints();
     }
 
     private void dodajConnectonPoints()
@@ -114,7 +131,7 @@ public abstract class Interclass extends DiagramElement {
         this.vidljivost = vidljivost;
     }
 
-    public List<ClassContent> getClassContent() {
+    public List<ClassContent> getSadrzaj() {
         return sadrzaj;
     }
 
@@ -123,4 +140,12 @@ public abstract class Interclass extends DiagramElement {
     }
     //public abstract void changeClassContent(ClassContent classContentkoji, ClassContent novi);
 
+    //geteri i seteri za ostala polja treba zbog serijalizacije
+    /*public List<ClassContent> getSadrzaj() {
+        return sadrzaj;
+    }*/
+
+    public void setKrajnjaTacka(Point krajnjaTacka) {
+        this.krajnjaTacka = krajnjaTacka;
+    }
 }

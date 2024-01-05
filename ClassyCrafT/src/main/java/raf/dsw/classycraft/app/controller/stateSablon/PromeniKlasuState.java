@@ -44,7 +44,7 @@ public class PromeniKlasuState implements State{
         }
         if(novi_element != null)
         {
-            for (ClassContent classContent : ((Interclass) original).getClassContent()) {
+            for (ClassContent classContent : ((Interclass) original).getSadrzaj()) {
                 novi_element.addClassContent(classContent);
             }
         }
@@ -199,7 +199,7 @@ public class PromeniKlasuState implements State{
                         metodetf
                 };
                 nazivtf.setText(klasa.getName());
-                for (ClassContent classContent:klasa.getClassContent()) {
+                for (ClassContent classContent:klasa.getSadrzaj()) {
                     if(classContent instanceof Atribut)
                     {
                         if(poljatf.getText().equals(""))
@@ -228,14 +228,14 @@ public class PromeniKlasuState implements State{
                     {
                         promenjenaInterclass.setName(novo_ime);
                         //sada radi tako sto obrise sve elemente iz
-                        promenjenaInterclass.getClassContent().clear();
+                        promenjenaInterclass.getSadrzaj().clear();
                         if(!poljatf.getText().trim().equals(""))
                         {
                             for(String line : poljatf.getText().split(";"))
                             {
                                 Atribut atribut = napraviAtributOdStringa(line);
                                 if(atribut != null)
-                                    System.out.println("atribut: "+ atribut.toString() + " jel u klasi: " + klasa.getClassContent().contains(atribut)); // ovo vraca false - mozda treba da overideujem contains?
+                                    System.out.println("atribut: "+ atribut.toString() + " jel u klasi: " + klasa.getSadrzaj().contains(atribut)); // ovo vraca false - mozda treba da overideujem contains?
                                 // vidi kako ovo - da li da obrisem sve atribute prvo, pa onda sve iz tf da dodajem (i stare i sad dodate)
 
                                 if(atribut != null/* && !klasa.getClassContent().contains(atribut)*/);
@@ -276,7 +276,7 @@ public class PromeniKlasuState implements State{
                         metodetf
                 };
                 nazivtf.setText(interfejs.getName());
-                for (ClassContent classContent:interfejs.getClassContent()) {
+                for (ClassContent classContent:interfejs.getSadrzaj()) {
                     if(classContent instanceof Metoda)
                     {
                         if(metodetf.getText().equals(""))
@@ -295,7 +295,7 @@ public class PromeniKlasuState implements State{
                     }
                     else {
                         promenjenaInterclass.setName(novo_ime);
-                        promenjenaInterclass.getClassContent().clear();
+                        promenjenaInterclass.getSadrzaj().clear();
                         if(!metodetf.getText().trim().equals(""))
                         {
                             for (String line : metodetf.getText().split(";")) {
@@ -323,7 +323,7 @@ public class PromeniKlasuState implements State{
                         enumeracijetf
                 };
                 nazivtf.setText(enumeracija.getName());
-                for (ClassContent classContent:enumeracija.getClassContent()) {
+                for (ClassContent classContent:enumeracija.getSadrzaj()) {
                     if(classContent instanceof ClanEnumeracije)
                     {
                         if(enumeracijetf.getText().equals(""))
@@ -342,7 +342,7 @@ public class PromeniKlasuState implements State{
                     }
                     else {
                         promenjenaInterclass.setName(novo_ime);
-                        promenjenaInterclass.getClassContent().clear();
+                        promenjenaInterclass.getSadrzaj().clear();
                         if(!enumeracijetf.getText().trim().equals(""))
                         {
                             for (String line : enumeracijetf.getText().split(",")) {

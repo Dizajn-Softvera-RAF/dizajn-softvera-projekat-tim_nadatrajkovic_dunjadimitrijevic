@@ -1,23 +1,38 @@
 package raf.dsw.classycraft.app.model.composite_implementation;
 
-import javafx.util.Pair;
-import raf.dsw.classycraft.app.Observer.IPublisher;
-import raf.dsw.classycraft.app.Observer.ISubscriber;
+import com.fasterxml.jackson.annotation.*;
 import raf.dsw.classycraft.app.Observer.Notification;
 import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
 
 import java.util.ArrayList;
-import java.util.List;
 
+@JsonTypeName("project")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Project extends ClassyNodeComposite { //implements ISubscriber { mozda je on zapravo publisher na settext
+
+
+    @JsonIgnore
+    transient protected String filePath;
+    @JsonIgnore
+    transient protected boolean changed = true;
 
     private String imeAutora;
 
     private static int brojacProjekata=1;
+
+
     public Project(String name, ClassyNode parent) {
         super(name, parent);
+        imeAutora="";
+    }
+
+    @JsonCreator
+    public Project(@JsonProperty("type") String tip, @JsonProperty("name") String name, @JsonProperty("children") ArrayList<ClassyNode> children, @JsonProperty("imeAutora") String imeAutora) {
+        super(name, null);
+        this.setChildren(children);
+        this.imeAutora=imeAutora;
     }
 
     public Project(ClassyNode parent)
@@ -53,4 +68,19 @@ public class Project extends ClassyNodeComposite { //implements ISubscriber { mo
         System.out.println("promenio ime autora "+this.imeAutora);
     }
 
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public boolean isChanged() {
+        return changed;
+    }
+
+    public void setChanged(boolean changed) {
+        this.changed = changed;
+    }
 }

@@ -1,17 +1,12 @@
 package raf.dsw.classycraft.app.view.painteri;
 
-import raf.dsw.classycraft.app.Observer.Notification;
-import raf.dsw.classycraft.app.Observer.NotificationType;
-import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Interclass;
-import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Klasa;
 import raf.dsw.classycraft.app.model.sadrzajInterclass.Atribut;
 import raf.dsw.classycraft.app.model.sadrzajInterclass.ClanEnumeracije;
 import raf.dsw.classycraft.app.model.sadrzajInterclass.ClassContent;
 import raf.dsw.classycraft.app.model.sadrzajInterclass.Metoda;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 public abstract class InterclassPainter extends ElementPainter {
     //private Point pocetnaTacka;
@@ -80,7 +75,7 @@ public abstract class InterclassPainter extends ElementPainter {
         boolean imaAtribut = false, imaMetoda = false;
         //int linijaY = pocetnaTacka.y;
 
-        for (ClassContent c: interclass.getClassContent()) {
+        for (ClassContent c: interclass.getSadrzaj()) {
 
             if (c instanceof Atribut)
             {
@@ -96,7 +91,7 @@ public abstract class InterclassPainter extends ElementPainter {
             //linijaY= koordinatePoljaInterklase.y+velicinaFonta/2;
         }
 
-        for (ClassContent c: interclass.getClassContent()) {
+        for (ClassContent c: interclass.getSadrzaj()) {
 
             if(c instanceof Metoda)
             {
@@ -113,7 +108,7 @@ public abstract class InterclassPainter extends ElementPainter {
 //            g.drawLine(pocetnaTacka.x, linijaY, pocetnaTacka.x+width,linijaY);
 //        }
 
-        for (ClassContent c: interclass.getClassContent()) {
+        for (ClassContent c: interclass.getSadrzaj()) {
 
             if (c instanceof ClanEnumeracije)
             {
