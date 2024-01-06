@@ -1,9 +1,6 @@
 package raf.dsw.classycraft.app.model.composite_implementation.diagramElementi;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.*;
 import raf.dsw.classycraft.app.Observer.Notification;
 import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
@@ -23,6 +20,7 @@ import java.util.List;
         @JsonSubTypes.Type(value = Enumeracija.class, name = "enumeracija"),
 })
 @JsonTypeName("interclass")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public abstract class Interclass extends DiagramElement {
 
     protected List<ClassContent> sadrzaj;

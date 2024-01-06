@@ -14,8 +14,10 @@ public class Zavisnost extends Connection{
     }
 
     @JsonCreator
-    public Zavisnost(@JsonProperty("type") String type, @JsonProperty("name") String name, @JsonProperty("odTacka") Point odTacka, @JsonProperty("doTacka") Point doTacka,
-                      @JsonProperty("interclassOd") Interclass odakle, @JsonProperty("interclassDo") Interclass dokle) {
+    public Zavisnost(@JsonProperty("type") String type, @JsonProperty("name") String name,
+                     @JsonProperty("odTacka") Point odTacka, @JsonProperty("doTacka") Point doTacka,
+                      @JsonProperty("interclassOd") Interclass odakle,
+                     @JsonProperty("interclassDo") Interclass dokle) {
         super(name, null, odakle,dokle,odTacka,doTacka);
 
     }

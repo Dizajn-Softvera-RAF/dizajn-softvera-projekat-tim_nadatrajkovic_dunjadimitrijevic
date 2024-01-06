@@ -1,9 +1,6 @@
 package raf.dsw.classycraft.app.model.composite_implementation.diagramElementi;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.*;
 import raf.dsw.classycraft.app.Observer.ISubscriber;
 import raf.dsw.classycraft.app.Observer.Notification;
 import raf.dsw.classycraft.app.Observer.NotificationType;
@@ -22,21 +19,23 @@ import java.awt.*;
         @JsonSubTypes.Type(value = Zavisnost.class, name = "zavisnost"),
 })
 @JsonTypeName("connection")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public abstract class Connection extends DiagramElement implements ISubscriber {
     Point odTacka;
     Point doTacka;
 
 
-    Interclass InterclassOd;
-    Interclass InterclassDo;
+    Interclass interclassOd;
+    Interclass interclassDo;
 
     //isto i ovde valjda treba da se smanji konstruktor zbog seijalizacije
-    public Connection(String name, ClassyNode parent, Interclass odInterclass, Interclass doInterclass, Point odTacka, Point doTacka) {
+    public Connection(String name, ClassyNode parent, Interclass odInterclass,
+                      Interclass doInterclass, Point odTacka, Point doTacka) {
         super(name, parent);
-        InterclassOd=odInterclass;
-        odInterclass.addSubscriber(this);
-        InterclassDo=doInterclass;
-        doInterclass.addSubscriber(this);
+        interclassOd =odInterclass;
+        interclassOd.addSubscriber(this);
+        interclassDo =doInterclass;
+        interclassDo.addSubscriber(this);
         this.odTacka = odTacka;
         this.doTacka = doTacka;
     }
@@ -58,22 +57,28 @@ public abstract class Connection extends DiagramElement implements ISubscriber {
         this.doTacka = doTacka;
     }
 
+    @Override
+    public void setParent(ClassyNode parent) {
+        super.setParent(parent);
+
+    }
+
     public Interclass getInterclassOd() {
-        return InterclassOd;
+        return interclassOd;
 
     }
 
     public void setInterclassOd(Interclass interclassOd) {
-        InterclassOd = interclassOd;
+        this.interclassOd = interclassOd;
         notifySubscribers(new Notification(this, NotificationType.MOVE));
     }
 
     public Interclass getInterclassDo() {
-        return InterclassDo;
+        return interclassDo;
     }
 
     public void setInterclassDo(Interclass interclassDo) {
-        InterclassDo = interclassDo;
+        this.interclassDo = interclassDo;
         notifySubscribers(new Notification(this, NotificationType.MOVE));
     }
 

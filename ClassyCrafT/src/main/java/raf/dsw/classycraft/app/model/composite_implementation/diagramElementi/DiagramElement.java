@@ -16,6 +16,7 @@ import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
         @JsonSubTypes.Type(value = Connection.class, name = "connection"),
 })
 @JsonTypeName("diagramElement")
+
 public abstract class DiagramElement extends ClassyNode {
     @JsonIgnore
     transient String neki;  //zacrveni se inace ako nema nikakvo polje
