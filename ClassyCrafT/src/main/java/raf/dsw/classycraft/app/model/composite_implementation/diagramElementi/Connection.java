@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.model.composite_implementation.diagramElementi;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
@@ -24,6 +25,8 @@ import java.awt.*;
 public abstract class Connection extends DiagramElement implements ISubscriber {
     Point odTacka;
     Point doTacka;
+
+
     Interclass InterclassOd;
     Interclass InterclassDo;
 

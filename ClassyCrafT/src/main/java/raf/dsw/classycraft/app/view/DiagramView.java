@@ -332,7 +332,7 @@ public class DiagramView extends JPanel implements ISubscriber {
                     if(peinter.getDiagramElement().getName().equals(interclass.getName()))
                     {
                         ip = (InterclassPainter)peinter;
-                        ip.addSubscriber(this);
+                        //ip.addSubscriber(this);
                         created = true;
                         break;
                     }
@@ -342,27 +342,29 @@ public class DiagramView extends JPanel implements ISubscriber {
                     if(child instanceof Klasa)
                     {
                         ip = new KlasaPainter((Klasa)child);
-                        child.addSubscriber(ip);
+                        //child.addSubscriber(ip); //treba : child.addSubscriber(this);
                         //this.addPainter(ip);
-                        painterList.add(ip);
+                        //painterList.add(ip);
                     }
                     if(child instanceof Interfejs)
                     {
                         ip = new InterfejsPainter((Interfejs)child);
-                        child.addSubscriber(ip);
+                        //child.addSubscriber(ip);
                         //this.addPainter(ip);
-                        painterList.add(ip);
+                        //painterList.add(ip);
                     }
                     if(child instanceof Enumeracija)
                     {
                         ip = new EnumeracijaPainter((Enumeracija)child);
-                        child.addSubscriber(ip);
+                        //child.addSubscriber(ip);
                         //this.addPainter(ip);
-                        painterList.add(ip);
+                        //painterList.add(ip);
                     }
                     if (ip != null) {
-                        ip.addSubscriber(this);
+                        this.addPainter(ip);
+                        //ip.addSubscriber(this);
                     }
+                    child.addSubscriber(this);
                 }
             }
 
@@ -375,7 +377,7 @@ public class DiagramView extends JPanel implements ISubscriber {
                     if(peinter.getDiagramElement()==connection)
                     {
                         cp = (ConnectionPainter) peinter;
-                        cp.addSubscriber(this);
+                        //cp.addSubscriber(this);
                         created = true;
                         break;
                     }
@@ -385,34 +387,36 @@ public class DiagramView extends JPanel implements ISubscriber {
                     if(child instanceof Agregacija)
                     {
                         cp = new AgregacijaPainter((Agregacija)child);
-                        child.addSubscriber(cp);
+                        //child.addSubscriber(cp);
                         //this.addPainter(ip);
-                        painterList.add(cp);
+                        //painterList.add(cp);
                     }
                     if(child instanceof Kompozicija)
                     {
                         cp = new KompozicijaPainter((Kompozicija)child);
-                        child.addSubscriber(cp);
+                        //child.addSubscriber(cp);
                         //this.addPainter(ip);
-                        painterList.add(cp);
+                        //painterList.add(cp);
                     }
                     if(child instanceof Generalizacija)
                     {
                         cp = new GeneralizacijaPainter((Generalizacija)child);
-                        child.addSubscriber(cp);
+                        //child.addSubscriber(cp);
                         //this.addPainter(ip);
-                        painterList.add(cp);
+                        //painterList.add(cp);
                     }
                     if(child instanceof Zavisnost)
                     {
                         cp = new ZavisnostPainter((Zavisnost)child);
-                        child.addSubscriber(cp);
+                        //child.addSubscriber(cp);
                         //this.addPainter(ip);
-                        painterList.add(cp);
+                        //painterList.add(cp);
                     }
                     if (cp != null) {
-                        cp.addSubscriber(this);
+                        this.addPainter(cp);
+                        //cp.addSubscriber(this);
                     }
+                    child.addSubscriber(this);
                 }
             }
         }
