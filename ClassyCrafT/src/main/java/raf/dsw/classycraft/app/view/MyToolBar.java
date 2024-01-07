@@ -20,6 +20,8 @@ public class MyToolBar extends JToolBar {
         add(MainFrame.getInstance().getActionManager().getSaveAction());
         add(MainFrame.getInstance().getActionManager().getLoadAction());
 
+        add(MainFrame.getInstance().getActionManager().getSaveImageAction());
+
 
     }
 }

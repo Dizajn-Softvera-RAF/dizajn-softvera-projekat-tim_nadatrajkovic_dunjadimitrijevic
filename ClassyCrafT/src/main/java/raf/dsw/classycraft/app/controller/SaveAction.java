@@ -2,6 +2,7 @@ package raf.dsw.classycraft.app.controller;
 
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.model.composite_implementation.Project;
+import raf.dsw.classycraft.app.model.message.MessageType;
 import raf.dsw.classycraft.app.view.MainFrame;
 
 import javax.swing.*;
@@ -15,14 +16,18 @@ public class SaveAction extends AbstractClassyAction{
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
                 KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         //putValue(SMALL_ICON, loadIcon("/images/plus.png"));
-        putValue(NAME, "Save action");
-        putValue(SHORT_DESCRIPTION, "Save action");
+        putValue(NAME, "Save project");
+        putValue(SHORT_DESCRIPTION, "Save project");
     }
 
     public void actionPerformed(ActionEvent arg0) {
         JFileChooser jfc = new JFileChooser();
 
-        if (!(MainFrame.getInstance().getClassyTree().getSelectedNode().getClassyNode() instanceof Project)) return;
+        if (!(MainFrame.getInstance().getClassyTree().getSelectedNode().getClassyNode() instanceof Project))
+        {
+            ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("Nije izabran projekat", MessageType.ERROR);
+            return;
+        }
 
         Project project = (Project) MainFrame.getInstance().getClassyTree().getSelectedNode().getClassyNode();
         File projectFile = null;
@@ -41,9 +46,13 @@ public class SaveAction extends AbstractClassyAction{
 
         }
 
+        if(projectFile == null)
+            projectFile = new File(project.getFilePath());
 
         ApplicationFramework.getInstance().getSerializer()
                 .saveProject(project,projectFile);
+
+        ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("Projekat je sacuvan.", MessageType.INFO);
 
         project.setChanged(false);
     }

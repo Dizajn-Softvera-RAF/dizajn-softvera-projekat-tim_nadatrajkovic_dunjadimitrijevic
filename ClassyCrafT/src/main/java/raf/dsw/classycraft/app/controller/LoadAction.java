@@ -15,8 +15,8 @@ public class LoadAction extends AbstractClassyAction {
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
                 KeyEvent.VK_L, ActionEvent.CTRL_MASK));
         //putValue(SMALL_ICON, loadIcon("/images/plus.png"));
-        putValue(NAME, "Load");
-        putValue(SHORT_DESCRIPTION, "Load");
+        putValue(NAME, "Open project");
+        putValue(SHORT_DESCRIPTION, "Open project");
     }
 
     public void actionPerformed(ActionEvent arg0) {

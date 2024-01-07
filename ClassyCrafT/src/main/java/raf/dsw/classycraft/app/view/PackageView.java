@@ -229,6 +229,17 @@ public class PackageView extends JPanel implements ISubscriber {
         return null;
     }
 
+    public DiagramView diagramViewOfDiagram(Diagram diagram)
+    {
+        for (DiagramView dv : diagramViews)
+            if(dv.getDiagram().getName().equals(diagram.getName()))
+            {
+                return dv;
+        }
+        return new DiagramView(diagram);
+        //if(diagramViews.contains())
+    }
+
     //funkcije za stateManager
     public void StartDodajConnectionState()
     {

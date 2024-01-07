@@ -15,6 +15,8 @@ public class ActionManager {
     private SaveAction saveAction;
     private LoadAction loadAction;
 
+    private SaveImageAction saveImageAction;
+
     private UndoAction undoAction;
     private RedoAction redoAction;
 
@@ -96,6 +98,8 @@ public class ActionManager {
     public LoadAction getLoadAction() {
         return loadAction;
     }
+    public SaveImageAction getSaveImageAction()
+    {return saveImageAction;}
 
     private void initialiseActions()
     {
@@ -106,6 +110,7 @@ public class ActionManager {
         deleteAction = new DeleteAction();
         saveAction = new SaveAction();
         loadAction = new LoadAction();
+        saveImageAction = new SaveImageAction();
 
         undoAction = new UndoAction();
         redoAction = new RedoAction();

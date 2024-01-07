@@ -6,14 +6,19 @@ import raf.dsw.classycraft.app.Observer.Notification;
 import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.commandPattern.CommandManager;
 import raf.dsw.classycraft.app.controller.DiagramViewMouseListener;
+import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.*;
+import raf.dsw.classycraft.app.model.message.MessageType;
 import raf.dsw.classycraft.app.view.painteri.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -471,6 +476,19 @@ public class DiagramView extends JPanel implements ISubscriber {
             //removeAll();
             //repaint();
             //revalidate();
+        }
+    }
+
+    public void saveDiagramAsImage(String filePath) {
+        BufferedImage image = new BufferedImage(getWidth(),getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = image.createGraphics();
+        paint(g2);
+        try{
+            ImageIO.write(image, "png", new File(filePath));
+            ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("dijagram je sacuvan kao slika, putanja do fajla: " + filePath, MessageType.INFO);
+            //System.out.println("dijagram je sacuvan kao slika, putanja do fajla: " + filePath);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

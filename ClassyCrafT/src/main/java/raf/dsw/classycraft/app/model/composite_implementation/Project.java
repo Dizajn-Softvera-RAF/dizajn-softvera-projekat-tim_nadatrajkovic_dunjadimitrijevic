@@ -13,10 +13,10 @@ import java.util.ArrayList;
 public class Project extends ClassyNodeComposite { //implements ISubscriber { mozda je on zapravo publisher na settext
 
 
+    //@JsonIgnore
+    /*transient*/ protected String filePath;
     @JsonIgnore
-    transient protected String filePath;
-    @JsonIgnore
-    transient protected boolean changed = true;
+    transient protected boolean changed = true; // todo videti kako ovo da sredimo (ovako se uvek pali JFileChooser)
 
     private String imeAutora;
 
@@ -28,11 +28,18 @@ public class Project extends ClassyNodeComposite { //implements ISubscriber { mo
         imeAutora="";
     }
 
+//    @JsonCreator
+//    public Project(@JsonProperty("type") String tip, @JsonProperty("name") String name, @JsonProperty("children") ArrayList<ClassyNode> children, @JsonProperty("imeAutora") String imeAutora) {
+//        super(name, null);
+//        this.setChildren(children);
+//        this.imeAutora=imeAutora;
+//    }
     @JsonCreator
-    public Project(@JsonProperty("type") String tip, @JsonProperty("name") String name, @JsonProperty("children") ArrayList<ClassyNode> children, @JsonProperty("imeAutora") String imeAutora) {
+    public Project(@JsonProperty("type") String tip, @JsonProperty("name") String name, @JsonProperty("children") ArrayList<ClassyNode> children, @JsonProperty("imeAutora") String imeAutora, @JsonProperty("filePath") String filePath) {
         super(name, null);
         this.setChildren(children);
         this.imeAutora=imeAutora;
+        this.filePath = filePath;
     }
 
     public Project(ClassyNode parent)
@@ -51,11 +58,13 @@ public class Project extends ClassyNodeComposite { //implements ISubscriber { mo
                 this.getChildren().add(p);
             }
         }
+        this.setChanged(true);
     }
 
     @Override
     public void removeChild(ClassyNode child) {
         //TODO
+        this.setChanged(true);
     }
 
     public String getImeAutora() {
@@ -66,6 +75,7 @@ public class Project extends ClassyNodeComposite { //implements ISubscriber { mo
         this.imeAutora = imeAutora;
         notifySubscribers(new Notification(this, NotificationType.RENAME));
         System.out.println("promenio ime autora "+this.imeAutora);
+        setChanged(true);
     }
 
     public String getFilePath() {
