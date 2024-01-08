@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.controller.stateSablon;
 
+import raf.dsw.classycraft.app.commandPattern.implementations.AddConnectionCommand;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.*;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.view.DiagramView;
@@ -32,14 +33,8 @@ public class DodajConnectionState implements State{
 
     @Override
     public void misPovucen(Point P, DiagramView dv) {
-        //System.out.println("zasto ne detektuje ovo "+P.toString());
-
         dv.setP2(P);
         dv.repaint();
-
-
-        //System.out.println("detektuje pomeranje misa "+P.toString());
-
     }
 
     @Override
@@ -62,7 +57,6 @@ public class DodajConnectionState implements State{
 
                 //ovde sad pravi vezu
 
-
                 interod = (Interclass) odakle.getDiagramElement();
                 interdo = (Interclass) dokle.getDiagramElement();
 
@@ -73,24 +67,11 @@ public class DodajConnectionState implements State{
                     dv.repaint();
                     return;
                 }
-
-
-                double minRastojanje = Integer.MAX_VALUE;
-
-//                for (Point po : odakle.getConnectionPoints()) {
-//                    for (Point pd : dokle.getConnectionPoints()) {
-//                        if (udaljenost(po, pd) < minRastojanje) {
-//                            odP = po;
-//                            doP = pd;
-//                            minRastojanje=udaljenost(po,pd);
-//                        }
-//                    }
-//
-//                }
-
                 break;
             }
         }
+
+        Connection veza=null;
 
         if(nasoKliknutu) {
 
@@ -100,60 +81,52 @@ public class DodajConnectionState implements State{
 
             if (choice == 0)//agregacija
             {
-                Agregacija agregacija = new Agregacija("agregacija", dv.getDiagram(), interod, interdo, odP, doP);
-
-                AgregacijaPainter apainter = new AgregacijaPainter(agregacija);
-
-                dv.addPainter(apainter);
-                agregacija.addSubscriber(dv);
-                MainFrame.getInstance().getClassyTree().addDiagramElement(item, agregacija);
-
+                veza = new Agregacija("agregacija", dv.getDiagram(), interod, interdo, odP, doP);
             }
             if (choice == 1)//generalizacija
             {
-                Generalizacija generalizacija = new Generalizacija("generalizacija", dv.getDiagram(), interod, interdo, odP, doP);
-
-                GeneralizacijaPainter apainter = new GeneralizacijaPainter(generalizacija);
-
-                dv.addPainter(apainter);
-                generalizacija.addSubscriber(dv);
-                MainFrame.getInstance().getClassyTree().addDiagramElement(item, generalizacija);
+                veza = new Generalizacija("generalizacija", dv.getDiagram(), interod, interdo, odP, doP);
             }
             if (choice == 2)//komozicija
             {
-                Kompozicija kompozicija = new Kompozicija("kompozicija", dv.getDiagram(), interod, interdo, odP, doP);
+                veza = new Kompozicija("kompozicija", dv.getDiagram(), interod, interdo, odP, doP);
 
-                KompozicijaPainter kpainter = new KompozicijaPainter(kompozicija);
-
-                dv.addPainter(kpainter);
-                kompozicija.addSubscriber(dv);
-                MainFrame.getInstance().getClassyTree().addDiagramElement(item, kompozicija);
             }
             if (choice == 3)//zavisnost
             {
-                Zavisnost zavisnost = new Zavisnost("zavisnost", dv.getDiagram(), interod, interdo, odP, doP);
-
-                ZavisnostPainter kpainter = new ZavisnostPainter(zavisnost);
-
-                dv.addPainter(kpainter);
-                zavisnost.addSubscriber(dv);
-                MainFrame.getInstance().getClassyTree().addDiagramElement(item, zavisnost);
+                veza = new Zavisnost("zavisnost", dv.getDiagram(), interod, interdo, odP, doP);
             }
         }
 
         dv.setP1(null);
         dv.setP2(null);
-        dv.repaint();
+
+        if(veza!=null) {
+            ConnectionPainter connectionPainter=null;
+
+            if(veza instanceof Agregacija)
+            {
+                connectionPainter = new AgregacijaPainter(veza);
+            }
+            if(veza instanceof Zavisnost)
+            {
+                connectionPainter = new ZavisnostPainter(veza);
+            }
+            if(veza instanceof Kompozicija)
+            {
+                connectionPainter = new KompozicijaPainter(veza);
+            }
+            if(veza instanceof Generalizacija)
+            {
+                connectionPainter = new GeneralizacijaPainter(veza);
+            }
 
 
-    }
+            AddConnectionCommand addConnectionCommand = new AddConnectionCommand(dv,veza,connectionPainter);
 
-    private double udaljenost(Point p1, Point p2)
-    {
+            dv.getCommandManager().addCommand(addConnectionCommand);
+            //ovde dodamo u dv-u kao addCommand
+        }
 
-        double a2=(p1.x-p2.x)*(p1.x-p2.x);
-        double b2=(p1.y-p2.y)*(p1.y-p2.y);
-        System.out.println("udaljenost "+p1+" "+p2+" "+Math.sqrt(a2+b2));
-        return Math.sqrt(a2+b2);
     }
 }

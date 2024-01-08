@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.core;
 
+import raf.dsw.classycraft.app.JsonSerializer;
 import raf.dsw.classycraft.app.model.log_factory.Logger;
 import raf.dsw.classycraft.app.model.log_factory.LoggerFactory;
 import raf.dsw.classycraft.app.model.message.MessageGenerator;
@@ -13,6 +14,7 @@ public class ApplicationFramework {
 
     //buduca polja za model celog projekta
     private ClassyRepository classyRepository;
+    private JsonSerializer serializer;
 
     private MessageGenerator messageGenerator;
     private LoggerFactory loggerFactory;
@@ -34,6 +36,7 @@ public class ApplicationFramework {
         messageGenerator.addSubscriber(MainFrame.getInstance());
         messageGenerator.addSubscriber(loggerConsole);
         //messageGenerator.GenerateMessage("proba poruke", MessageType.ERROR);
+        serializer=new JsonSerializer();
 
         classyTree = new ClassyTreeImplementation();
         MainFrame.getInstance().setVisible(true);
@@ -67,5 +70,31 @@ public class ApplicationFramework {
 
     public void setLoggerFactory(LoggerFactory loggerFactory) {
         this.loggerFactory = loggerFactory;
+    }
+
+
+
+
+    public void disableUndoAction() {
+        MainFrame.getInstance().getActionManager().getUndoAction().setEnabled(false);
+
+    }
+
+    public void disableRedoAction() {
+        MainFrame.getInstance().getActionManager().getRedoAction().setEnabled(false);
+
+    }
+    public void enableRedoAction() {
+        MainFrame.getInstance().getActionManager().getRedoAction().setEnabled(true);
+
+
+    }
+    public void enableUndoAction() {
+        MainFrame.getInstance().getActionManager().getUndoAction().setEnabled(true);
+
+    }
+
+    public Serializer getSerializer() {
+        return serializer;
     }
 }

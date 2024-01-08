@@ -2,8 +2,6 @@ package raf.dsw.classycraft.app.controller;
 
 import raf.dsw.classycraft.app.controller.akcijeDesniTulbar.*;
 
-import javax.swing.*;
-
 public class ActionManager {
 
     private ExitAction exitAction;
@@ -11,6 +9,16 @@ public class ActionManager {
     private AddNodeAction addNodeAction;
     private AddAutorAction addAutorAction;
     private DeleteAction deleteAction;
+
+    private SaveAction saveAction;
+    private LoadAction loadAction;
+    private SavePatternAction savePatternAction;
+    private LoadPatternAction loadPatternAction;
+
+    private SaveImageAction saveImageAction;
+
+    private UndoAction undoAction;
+    private RedoAction redoAction;
 
 
     private DodajConnectionAction dodajConnectionAction;
@@ -21,6 +29,7 @@ public class ActionManager {
     private DuplicirajAction duplicirajAction;
     private ZoomInAction zoomInAction;
     private ZoomOutAction zoomOutAction;
+
 
     public DodajConnectionAction getDodajConnectionAction() {
         return dodajConnectionAction;
@@ -58,10 +67,6 @@ public class ActionManager {
     }
     public AboutUsAction getAboutUsAction(){return aboutUsAction;}
 
-//    public PackageChildAction getPackageChildAction() {
-//        return packageChildAction;
-//    }
-
     public AddNodeAction getAddNodeAction() {
         return addNodeAction;
     }
@@ -74,6 +79,33 @@ public class ActionManager {
         return deleteAction;
     }
 
+    public UndoAction getUndoAction() {
+        return undoAction;
+    }
+
+    public RedoAction getRedoAction() {
+        return redoAction;
+    }
+
+    public SaveAction getSaveAction() {
+        return saveAction;
+    }
+
+    public LoadAction getLoadAction() {
+        return loadAction;
+    }
+
+    public SavePatternAction getSavePatternAction() {
+        return savePatternAction;
+    }
+
+    public LoadPatternAction getLoadPatternAction() {
+        return loadPatternAction;
+    }
+
+    public SaveImageAction getSaveImageAction()
+    {return saveImageAction;}
+
     private void initialiseActions()
     {
         exitAction = new ExitAction();
@@ -81,6 +113,14 @@ public class ActionManager {
         addNodeAction = new AddNodeAction();
         addAutorAction = new AddAutorAction();
         deleteAction = new DeleteAction();
+        saveAction = new SaveAction();
+        loadAction = new LoadAction();
+        savePatternAction = new SavePatternAction();
+        loadPatternAction = new LoadPatternAction();
+        saveImageAction = new SaveImageAction();
+
+        undoAction = new UndoAction();
+        redoAction = new RedoAction();
 
         dodajConnectionAction=new DodajConnectionAction();
         dodajInterclassAction=new DodajInterclassAction();

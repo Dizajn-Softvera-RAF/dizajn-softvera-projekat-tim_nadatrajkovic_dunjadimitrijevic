@@ -1,6 +1,5 @@
 package raf.dsw.classycraft.app.tree.controller;
 
-import raf.dsw.classycraft.app.model.composite_implementation.Project;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 
 import javax.swing.*;

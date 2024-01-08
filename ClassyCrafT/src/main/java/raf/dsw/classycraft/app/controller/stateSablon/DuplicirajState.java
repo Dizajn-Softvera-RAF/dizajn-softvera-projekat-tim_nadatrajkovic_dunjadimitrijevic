@@ -1,15 +1,14 @@
 package raf.dsw.classycraft.app.controller.stateSablon;
 
+import raf.dsw.classycraft.app.commandPattern.implementations.DuplicateCommand;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.*;
 import raf.dsw.classycraft.app.model.sadrzajInterclass.ClassContent;
-import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.view.DiagramView;
 import raf.dsw.classycraft.app.view.MainFrame;
 import raf.dsw.classycraft.app.view.painteri.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Optional;
 
 public class DuplicirajState implements State{
     private Interclass duplicirajElement(DiagramElement de, Point P)
@@ -31,7 +30,7 @@ public class DuplicirajState implements State{
         }
         if(novi_element != null)
         {
-            for (ClassContent classContent : ((Interclass) de).getClassContent()) {
+            for (ClassContent classContent : ((Interclass) de).getSadrzaj()) {
                 novi_element.addClassContent(classContent);
             }
         }
@@ -64,42 +63,15 @@ public class DuplicirajState implements State{
                 {
                     DiagramElement selectedInterclass = kliknut.getDiagramElement();
                     Interclass novi_element = duplicirajElement(selectedInterclass, P);
-                    ClassyTreeItem item= MainFrame.getInstance().getClassyTree().NadjiClassyTreePrekoClassyNode(dv.getDiagram(),MainFrame.getInstance().getClassyTree().getRoot());
 
-                    if(novi_element instanceof Klasa)
-                    {
-                        KlasaPainter klasaPainter=new KlasaPainter(novi_element);
-                        dv.addPainter(klasaPainter);
-                        //novi_element.addSubscriber(dv);
-                        //MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
-                    }
-                    else if(novi_element instanceof Interfejs)
-                    {
-                        InterfejsPainter interfejsPainter=new InterfejsPainter(novi_element);
-                        dv.addPainter(interfejsPainter);
-
-                        //MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
-
-                    }
-                    else if(novi_element instanceof Enumeracija)
-                    {
-                        EnumeracijaPainter enumeracijaPainter = new EnumeracijaPainter(novi_element);
-                        dv.addPainter(enumeracijaPainter);
-
-                        //MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
-                    }
-                    novi_element.addSubscriber(dv);
-                    MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
-
-                    System.out.println("DUPLICIRAN");
+                    DuplicateCommand duplicateCommand = new DuplicateCommand(dv,novi_element);
+                    dv.getCommandManager().addCommand(duplicateCommand);
                 }
                 else if(rez == 1)
                 {
                     dv.ukloniSveIzSelektovanih();
                 }
-
             }
-
         }
         dv.ukloniSveIzSelektovanih();
     }

@@ -1,18 +1,36 @@
 package raf.dsw.classycraft.app.model.composite_abstraction;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import raf.dsw.classycraft.app.Observer.IPublisher;
 import raf.dsw.classycraft.app.Observer.ISubscriber;
 import raf.dsw.classycraft.app.Observer.Notification;
 import raf.dsw.classycraft.app.Observer.NotificationType;
+import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = ClassyNodeComposite.class, name = "classyNodeComposite"),
+        @JsonSubTypes.Type(value = DiagramElement.class, name = "diagramElement"),
+        //@JsonSubTypes.Type(value = Cat.class, name = "cat")
+})
 public abstract class ClassyNode implements IPublisher {
-    List<ISubscriber> subscriberList;
+
+
+
+    @JsonIgnore
+    transient List<ISubscriber> subscriberList;
 
     private String name;
-    private ClassyNode parent;
+    @JsonIgnore
+    transient private ClassyNode parent;
 
     public List<ISubscriber> getSubscriberList() {
         return subscriberList;

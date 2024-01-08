@@ -1,7 +1,17 @@
 package raf.dsw.classycraft.app.model.sadrzajInterclass;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.InterclassVidljivost;
-
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Atribut.class, name = "atribut"),
+        @JsonSubTypes.Type(value = ClanEnumeracije.class, name = "clanEnumeracije"),
+        @JsonSubTypes.Type(value = Metoda.class, name = "metoda"),
+})
 public abstract class ClassContent {
     protected String naziv;
     protected InterclassVidljivost vidljivost;
@@ -57,4 +67,6 @@ public abstract class ClassContent {
     public void setTip(String tip) {
         this.tip = tip;
     }
+
+
 }

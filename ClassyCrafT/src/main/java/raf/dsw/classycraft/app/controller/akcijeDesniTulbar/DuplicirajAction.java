@@ -13,9 +13,6 @@ public class DuplicirajAction extends AbstractClassyAction {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-//        (1 selektovani element se posle klika na dugme duplicira u dva ista elementa)
-        // ideja: uzmem selektovane (to se vljd cuva u dv), ako ima samo jedan selektovani u listi - dupliciram ga
         MainFrame.getInstance().getPackageView().StartDuplicirajState();
-        //MainFrame.getInstance().getPackageView();
     }
 }

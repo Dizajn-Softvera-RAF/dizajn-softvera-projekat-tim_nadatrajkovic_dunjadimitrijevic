@@ -1,12 +1,10 @@
 package raf.dsw.classycraft.app.view.painteri;
 
-import javafx.scene.shape.Shape;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Connection;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;
-import java.awt.geom.Path2D;
 
 public class AgregacijaPainter extends ConnectionPainter {
     public AgregacijaPainter(DiagramElement diagramElement) {
@@ -22,8 +20,6 @@ public class AgregacijaPainter extends ConnectionPainter {
         Point dokle = ((Connection)this.getDiagramElement()).getDoTacka();
         System.out.println("tacka od "+odakle+" tacka normale"+ tackaNormale);
 
-        //g.drawRect(tackaNormale.x, tackaNormale.y,5,5);
-        //int stranica=7;
         GeneralPath putRomba=new GeneralPath();
 
         putRomba.moveTo(odakle.x,odakle.y);
@@ -48,15 +44,6 @@ public class AgregacijaPainter extends ConnectionPainter {
         int y=odakle.y;
         kNormale=-(1/k);
         System.out.println("k i knormale "+ k+ " "+kNormale);
-        //nNormale=odakle.x*(k*k+1)/k+n;
-        //if(k>0)//nisam sigurna kako ovo radi al kao treba da ga makne za pola dijagonale ka unutra
-        //nNormale+=duzinaDiajgonale/2;
-        //else
-        //  nNormale-=duzinaDiajgonale/2;
-
-//        double xNormala=k*(nNormale+n)/(k*k+1);
-//        double yNormala=xNormala*kNormale+nNormale;
-//        return new Point((int) xNormala, (int) yNormala);
 //
         double xNormala,yNormala;//(x-xnormala)^2+(y-ynormala)^2=d^2 izrazimo y preko x jer fja
         //na kraju xnormala=+- d/sqrt(k^2+1)+x
@@ -93,6 +80,4 @@ public class AgregacijaPainter extends ConnectionPainter {
         yNormala=xNormala*k+n;
         return new Point((int) xNormala, (int) yNormala);
     }
-
-
 }

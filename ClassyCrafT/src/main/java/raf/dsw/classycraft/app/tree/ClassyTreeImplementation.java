@@ -1,14 +1,18 @@
 package raf.dsw.classycraft.app.tree;
 
+//import raf.dsw.classycraft.app.controller.DeserializerCrtac;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
+import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
 import raf.dsw.classycraft.app.model.composite_implementation.NodeType;
+import raf.dsw.classycraft.app.model.composite_implementation.Project;
 import raf.dsw.classycraft.app.model.composite_implementation.ProjectExplorer;
 import raf.dsw.classycraft.app.model.message.MessageGenerator;
 import raf.dsw.classycraft.app.model.message.MessageType;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.tree.view.ClassyTreeView;
+import raf.dsw.classycraft.app.view.DiagramView;
 import raf.dsw.classycraft.app.view.MainFrame;
 
 import javax.swing.*;
@@ -160,4 +164,69 @@ public class ClassyTreeImplementation implements ClassyTree{
         }
         return null;
     }
+//    @Override
+//    public void loadPattern(Diagram node)
+//    {
+//
+//    }
+
+    @Override
+    public void loadPattern(Diagram node)
+    {
+        ClassyTreeItem diagramItem = getSelectedNode();
+        prolazDeca(node, diagramItem);
+        ClassyTreeItem root1 = (ClassyTreeItem) (treeModel.getRoot());
+        TreeNode[] nodes=root1.getPath();
+        System.out.println(nodes.toString());
+        TreePath tp=new TreePath(nodes);
+        treeView.expandPath(tp);//treeView.getSelectionPath());
+        SwingUtilities.updateComponentTreeUI(treeView);
+    }
+
+    @Override
+    public void loadProject(Project node) {
+
+        ClassyTreeItem loadedProject = new ClassyTreeItem(node);
+        //treeModel.getRoot()
+        //MainFrame.getInstance().getClassyTree()
+        //this.addChild(loadedProject, NodeType.PROJECT);
+
+
+        ClassyTreeItem root1 = (ClassyTreeItem) (treeModel.getRoot());
+        root1.add(loadedProject);
+
+        ClassyNodeComposite classyNode = (ClassyNodeComposite) root1.getClassyNode();
+        classyNode.addChild(node);
+        node.setParent(root1.getClassyNode());
+
+        prolazDeca(node,loadedProject);
+
+        TreeNode[] nodes=root1.getPath();
+        System.out.println(nodes.toString());
+        TreePath tp=new TreePath(nodes);
+        treeView.expandPath(tp);//treeView.getSelectionPath());
+        SwingUtilities.updateComponentTreeUI(treeView);
+
+        //DeserializerCrtac deserializerCrtac=new DeserializerCrtac();
+
+
+        //treeView.expandPath(treeView.getSelectionPath());
+        //SwingUtilities.updateComponentTreeUI(treeView);
+    }
+
+    private void prolazDeca(ClassyNode node,ClassyTreeItem nodeItem)
+    {
+        if(!(node instanceof ClassyNodeComposite))
+            return;
+
+        for (ClassyNode c :((ClassyNodeComposite)node).getChildren())
+        {
+            c.setParent(node);
+            ClassyTreeItem item = new ClassyTreeItem(c);
+            nodeItem.add(item);
+
+            prolazDeca(c,item);
+        }
+    }
+
 }

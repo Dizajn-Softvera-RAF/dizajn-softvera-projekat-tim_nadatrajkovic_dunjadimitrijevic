@@ -1,9 +1,7 @@
 package raf.dsw.classycraft.app.view;
 
-import raf.dsw.classycraft.app.controller.ExitAction;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 public class MyMenyBar extends JMenuBar {
@@ -23,8 +21,6 @@ public class MyMenyBar extends JMenuBar {
         editMenu.add(aboutusItem);
         add(editMenu);
 
-
-        //aboutusItem.add(MainFrame.getInstance().getActionManager().getAboutUsAction());
         aboutusItem.addActionListener(MainFrame.getInstance().getActionManager().getAboutUsAction());
     }
 

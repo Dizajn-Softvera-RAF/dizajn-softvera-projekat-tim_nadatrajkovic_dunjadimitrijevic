@@ -1,8 +1,10 @@
 package raf.dsw.classycraft.app.model.composite_implementation;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
 
+@JsonTypeName("projectExplorer")
 public class ProjectExplorer extends ClassyNodeComposite {
 
 
@@ -19,9 +21,6 @@ public class ProjectExplorer extends ClassyNodeComposite {
                 this.getChildren().add(project);
             }
         }
-//        if(child == null || !(child instanceof Project))
-//            return;
-//        this.getChildren().add((Project) child);
     }
 
     @Override

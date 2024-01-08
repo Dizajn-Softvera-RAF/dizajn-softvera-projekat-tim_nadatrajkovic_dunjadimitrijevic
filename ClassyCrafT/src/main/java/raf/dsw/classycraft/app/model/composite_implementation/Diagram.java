@@ -1,17 +1,42 @@
 package raf.dsw.classycraft.app.model.composite_implementation;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import raf.dsw.classycraft.app.Observer.IPublisher;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
 
+import java.util.ArrayList;
+
 //a neki static brojac za default ime
 
+@JsonTypeName("diagram")
 public class Diagram extends ClassyNodeComposite implements IPublisher {
 
-    public static int brojacDijagrama=1;
+    private static int brojacDijagrama=1;
+
+    public static int getBrojacDijagrama() {
+        return brojacDijagrama;
+    }
+    public static void smanjiBrojac()
+    {
+        brojacDijagrama--;
+    }
+    public static void setBrojacDijagrama(int brojacDijagrama) {
+        Diagram.brojacDijagrama = brojacDijagrama;
+    }
+
     public Diagram(String name, ClassyNode parent) {
         super(name, parent);
+    }
+
+    @JsonCreator
+    public Diagram(@JsonProperty("type") String type, @JsonProperty("name") String name, @JsonProperty("children") ArrayList<ClassyNode> children) {
+        super(name, null);
+        this.setChildren(children);
+        brojacDijagrama++;
     }
 
     @Override
@@ -28,5 +53,11 @@ public class Diagram extends ClassyNodeComposite implements IPublisher {
         super("dijagram"+brojacDijagrama,parent);
         brojacDijagrama++;
     }
-
+    public void copyPattern(Diagram pattern)
+    {
+        for(var child:pattern.getChildren())
+        {
+            this.addChild(child);
+        }
+    }
 }

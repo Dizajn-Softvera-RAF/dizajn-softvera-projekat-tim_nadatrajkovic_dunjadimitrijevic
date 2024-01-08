@@ -4,35 +4,32 @@ import jdk.jfr.consumer.RecordedClass;
 import raf.dsw.classycraft.app.Observer.ISubscriber;
 import raf.dsw.classycraft.app.Observer.Notification;
 import raf.dsw.classycraft.app.Observer.NotificationType;
+import raf.dsw.classycraft.app.commandPattern.CommandManager;
 import raf.dsw.classycraft.app.controller.DiagramViewMouseListener;
+import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.*;
-import raf.dsw.classycraft.app.view.painteri.ConnectionPainter;
-import raf.dsw.classycraft.app.view.painteri.ElementPainter;
-import raf.dsw.classycraft.app.view.painteri.InterclassPainter;
-import raf.dsw.classycraft.app.view.painteri.KlasaPainter;
+import raf.dsw.classycraft.app.model.message.MessageType;
+import raf.dsw.classycraft.app.view.painteri.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DiagramView extends JPanel implements ISubscriber {
-
-    //ovde crta dijagram eto
     private Diagram diagram;
-    //private Line2D trenutnaLinija=null;
+
+    private CommandManager commandManager;
     private Point p1,p2;
-    public boolean pomeraMis=false;
     private double zoomFactor = 1;
     private double prevZoomFactor = 1;
     private boolean zoomer = false;
-
-    private double xOffset = 0;
-    private double yOffset = 0;
-
     private JScrollPane s= new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
     private AffineTransform at=null;
@@ -50,39 +47,12 @@ public class DiagramView extends JPanel implements ISubscriber {
             this.zoomFactor = zoomFactor;
     }
 
-    public double getPrevZoomFactor() {
-        return prevZoomFactor;
-    }
-
-    public void setPrevZoomFactor(double prevZoomFactor) {
-        this.prevZoomFactor = prevZoomFactor;
-    }
-
-    public boolean isZoomer() {
-        return zoomer;
-    }
 
     public void setZoomer(boolean zoomer) {
         this.zoomer = zoomer;
     }
 
-//    public Line2D getTrenutnaLinija() {
-//        return trenutnaLinija;
-//    }
-//
-//    public void setTrenutnaLinija(Line2D trenutnaLinija) {
-//        this.trenutnaLinija = trenutnaLinija;
-//    }
-
-    public void setPocetakLinije(Point p)
-    {
-        p1=p;
-    }
-
-
-
     private DiagramViewMouseListener diagramListener;
-
 
     public List<ElementPainter> getPainterList() {
         return painterList;
@@ -140,12 +110,6 @@ public class DiagramView extends JPanel implements ISubscriber {
             System.out.println("drugi uslov");
             return false;
         }
-
-        // If one rectangle is above other
-//        if (r1.y > l2.y || r2.y > l1.y) {
-//            System.out.println("treci uslov");
-//            return false;
-//        }
 
         // If one rectangle is above other
         if (r1.y < l2.y || r2.y < l1.y) {
@@ -219,23 +183,7 @@ public class DiagramView extends JPanel implements ISubscriber {
                 }
             }
         }
-
-            //System.out.println("trenutni painter " + ep.getDiagramElement().getName());
-
-            // treba dodati za veze
-
-
     }
-//        for (ElementPainter ep:painterList) {
-//            //if(ep.elementAt(p2))
-////            {
-////                dv.dodajUSelektovane(ep); // ako je kliknut neki element, dodace ga u listu
-////                System.out.println("naso selektovan "+ep.toString());
-////                return;
-////            }
-//        }
-//        //g.drawRect(p1.x,p1.y,width ,height);
-//        repaint();
 
     public void removeLasso()
     {
@@ -243,74 +191,103 @@ public class DiagramView extends JPanel implements ISubscriber {
         crtaSeLaso = false;
         repaint();
     }
-    private ElementPainter selektovan;
-
-//    public ElementPainter getSelektovan() {
-//        return selektovan;
-//    }
-//
-//    public void setSelektovan(ElementPainter selektovan) {
-//        if(this.selektovan!=null)
-//            this.selektovan.setSelektovano(false);
-//        this.selektovan = selektovan;
-//        if(this.selektovan!=null)
-//            this.selektovan.setSelektovano(true);
-//        repaint();
-//    }
 
     public DiagramView(Diagram d) {
         super();
-        diagram = d;//ovaj diagram view je subscriber za dijagram jel? pa se apdejtuje kad dodamo nesto na dijagram i repaintuje sve
-
-        //this.setAutoscrolls(true);
+        diagram = d;//ovaj diagram view je subscriber za dijagram pa se apdejtuje kad dodamo nesto na dijagram i repaintuje sve
+        commandManager=new CommandManager();
 
         diagramListener=new DiagramViewMouseListener(this);
         painterList=new ArrayList<>();
-//        for (var child:diagram.getChildren()) {
-//
-//
-//        }
         selektovaniList = new ArrayList<>();
 
         crtaSeLaso = false;
-
-        //JScrollPane scrollPane = new JScrollPane(this, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-        //        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
-
-        //this.setPreferredSize(new Dimension(this.getSize().width, this.getSize().height));
-//        s.setPreferredSize(new Dimension(this.getSize().width, this.getSize().height));
-//        ///s.setViewportView(this);
-//
-//        s.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-//        s.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-//
-//        //setPreferredSize(new Dimension(this.getSize().width,this.getSize().height));
-//        //
-//        // s.setBounds(0,0, 200,200);
-//
-//        s.setVisible(true);
-//
-//
-//        setLayout(null);
-//        add(s);
-//        s.setViewportView(MainFrame.getInstance().getPackageView());
-
-        System.out.println("napravilo scroll" + s.toString());
-
-        //scrollPane.createHorizontalScrollBar();
-        //scrollPane.createVerticalScrollBar();
-        //scrollPane.setPreferredSize(this.getSize());
-
-//        JScrollPane scrollPane = new JScrollPane(this);
-//        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-//        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-//        this.setBounds(0, 0, this.getWidth(), this.getHeight());
-//        scrollPane.
-
         this.addMouseListener(diagramListener);
         this.addMouseMotionListener(diagramListener);
+
+        if(painterList.isEmpty())
+            createElements();
+
         repaint();
+    }
+
+    private void createElements()
+    {
+        for(var child : diagram.getChildren())
+        {
+            if(child instanceof Interclass) {
+                var interclass = (Interclass) child;
+                InterclassPainter ip = null;
+                boolean created = false;
+                for (ElementPainter peinter : painterList)
+                {
+                    if(peinter.getDiagramElement().getName().equals(interclass.getName()))
+                    {
+                        ip = (InterclassPainter)peinter;
+                        created = true;
+                        break;
+                    }
+                }
+                if(!created)
+                {
+                    if(child instanceof Klasa)
+                    {
+                        ip = new KlasaPainter((Klasa)child);
+                    }
+                    if(child instanceof Interfejs)
+                    {
+                        ip = new InterfejsPainter((Interfejs)child);
+                    }
+                    if(child instanceof Enumeracija)
+                    {
+                        ip = new EnumeracijaPainter((Enumeracija)child);
+                    }
+                    if (ip != null) {
+                        this.addPainter(ip);
+                    }
+                    child.addSubscriber(this);
+                }
+            }
+
+            if(child instanceof Connection) {
+                var connection = (Connection) child;
+                ConnectionPainter cp = null;
+                boolean created = false;
+                for (ElementPainter peinter : painterList)
+                {
+                    if(peinter.getDiagramElement()==connection)
+                    {
+                        cp = (ConnectionPainter) peinter;
+                        created = true;
+                        break;
+                    }
+                }
+                if(!created)
+                {
+                    if(child instanceof Agregacija)
+                    {
+                        cp = new AgregacijaPainter((Agregacija)child);
+                    }
+                    if(child instanceof Kompozicija)
+                    {
+                        cp = new KompozicijaPainter((Kompozicija)child);
+                    }
+                    if(child instanceof Generalizacija)
+                    {
+                        cp = new GeneralizacijaPainter((Generalizacija)child);
+                    }
+                    if(child instanceof Zavisnost)
+                    {
+                        cp = new ZavisnostPainter((Zavisnost)child);
+                    }
+                    if (cp != null) {
+                        this.addPainter(cp);
+                    }
+                    child.addSubscriber(this);
+                }
+            }
+        }
+
     }
 
     public Diagram getDiagram() {
@@ -325,10 +302,7 @@ public class DiagramView extends JPanel implements ISubscriber {
     public void Update(Object notification) {
         if(notification instanceof Notification)
         {
-            //iz connection grane pokusad da radi observer
             Notification n=(Notification) notification;
-
-
 
             if(n.getNotificationType()== NotificationType.DELETE)
             {
@@ -339,36 +313,41 @@ public class DiagramView extends JPanel implements ISubscriber {
                     Notification nt= new Notification(brisani,NotificationType.DELETE);
                     brisani.removeSubscriber(this);
                     brisani.notifySubscribers(nt);
-                    /*for (ElementPainter ep:painterList) {
-                        if(ep.getDiagramElement().equals(brisani))
-                            painterList.remove(ep);
-                    }*/
                 }
 
                 if(n.getObjectOfNotification() instanceof ElementPainter)
                 {
                     removePainter((ElementPainter) n.getObjectOfNotification());
                 }
-                //removeAll();
                 repaint();
-                //revalidate();
             }
             if(n.getNotificationType() == NotificationType.MOVE)
             {
                 repaint();
             }
-          //ovo je bilo pre
-            //removeAll();
-            //repaint();
-            //revalidate();
+            if(n.getNotificationType() == NotificationType.LOADED_PATTERN)
+            {
+                createElements();
+                repaint();
+            }
         }
     }
 
-    ///* ovo odkomentarisi posle
+    public void saveDiagramAsImage(String filePath) {
+        BufferedImage image = new BufferedImage(getWidth(),getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = image.createGraphics();
+        paint(g2);
+        try{
+            ImageIO.write(image, "png", new File(filePath));
+            ApplicationFramework.getInstance().getMessageGenerator().GenerateMessage("dijagram je sacuvan kao slika, putanja do fajla: " + filePath, MessageType.INFO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //s.paint(g);
         System.out.println("uso da peint component");
         Graphics2D g2=(Graphics2D) g;
 
@@ -387,22 +366,8 @@ public class DiagramView extends JPanel implements ISubscriber {
 
         prevZoomFactor = zoomFactor;
 
-       // at.translate(xOffset,yOffset);
-        //g2.transform(at);
         g2.transform(at);
 
-        //this.setSize(new Dimension((int) (this.getWidth()*zoomFactor), (int) (this.getHeight()*zoomFactor)));
-
-
-
-        //zoomer = false;
-//        if (zoomer) {
-//            AffineTransform at = new AffineTransform();
-//            at.scale(zoomFactor, zoomFactor);
-//            prevZoomFactor = zoomFactor;
-//            g2.transform(at);
-//            zoomer = false;
-//        }
         int fontSize=15;
         g2.setFont(new Font("TimesNewRoman",Font.PLAIN,fontSize));
 
@@ -413,29 +378,18 @@ public class DiagramView extends JPanel implements ISubscriber {
             g2.draw(laso);
         mouseDrag(g2);
 
-        //ovde crta liniju za veze
+        commandManager.dalMozeRedo();
+        commandManager.dalMozeUndo();
 
     }
-//    private void addDiagramChildPainter(DiagramElement de)
-//    {
-//        ElementPainter ep;
-//        if(de instanceof Klasa)
-//            ep = new KlasaPainter(de);
-////        if(de instanceof Interclass)
-////        {
-////
-////        }
-//    }
-
     public void addPainter(ElementPainter painter)
     {
-
         painterList.add(painter);
         painter.addSubscriber(this);
         repaint();
     }
 
-    private void removePainter(ElementPainter painter)
+    public void removePainter(ElementPainter painter)
     {
         painterList.remove(painter);
         repaint();
@@ -444,8 +398,7 @@ public class DiagramView extends JPanel implements ISubscriber {
     public void mouseDrag(Graphics2D g)
     {
         if(p1!=null && p2!=null) {
-            System.out.println("uso u mousedrag u diagramview da crta trenutnu liniju"+p1.toString()+" "+p2.toString());
-
+            //System.out.println("uso u mousedrag u diagramview da crta trenutnu liniju"+p1.toString()+" "+p2.toString());
             g.drawLine(p1.x, p1.y, p2.x, p2.y);
         }
     }
@@ -464,5 +417,9 @@ public class DiagramView extends JPanel implements ISubscriber {
 
     public void setP2(Point p2) {
         this.p2 = p2;
+    }
+
+    public CommandManager getCommandManager() {
+        return commandManager;
     }
 }

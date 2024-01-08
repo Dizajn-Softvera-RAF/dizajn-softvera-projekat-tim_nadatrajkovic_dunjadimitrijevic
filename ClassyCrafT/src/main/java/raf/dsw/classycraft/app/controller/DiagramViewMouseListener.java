@@ -37,12 +37,7 @@ public class DiagramViewMouseListener extends MouseAdapter implements MouseMotio
 
     @Override
     public void mouseClicked(MouseEvent e) {
-//        //OVO JE NIJE BILO IZKOMENTARISANO,  prebacila sam ovo u mousePressed
-//        MainFrame.getInstance().getPackageView().misPritisnutmng(e.getPoint(),diagramView);
-//            //diagramView.update(); (ovo jeste)
-//        diagramView.repaint();
     }
-
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -58,7 +53,6 @@ public class DiagramViewMouseListener extends MouseAdapter implements MouseMotio
             }
         }
         pocetneKoordinate=p;
-        System.out.println("MOUSE PRESSED");
         MainFrame.getInstance().getPackageView().misPritisnutmng(pocetneKoordinate,diagramView);
         diagramView.repaint();
     }
@@ -78,12 +72,7 @@ public class DiagramViewMouseListener extends MouseAdapter implements MouseMotio
             }
         }
         pocetneKoordinate=p;
-
-        System.out.println("MOUSE DRAGGED");
-//
         MainFrame.getInstance().getPackageView().misPovucenmng(pocetneKoordinate,diagramView);
-        //diagramView.update();
-        //diagramView.repaint();
 
     }
     @Override
@@ -100,9 +89,7 @@ public class DiagramViewMouseListener extends MouseAdapter implements MouseMotio
             }
         }
         krajnjeKoordinate=p;
-        System.out.println("MOUSE RELEASED");
         MainFrame.getInstance().getPackageView().misOtpustenmng(krajnjeKoordinate,diagramView);
-
     }
 
     @Override
@@ -124,11 +111,5 @@ public class DiagramViewMouseListener extends MouseAdapter implements MouseMotio
 
     @Override
     public void mouseMoved(MouseEvent e) {
-//        //super.mouseMoved(e);
-//        System.out.println("MOUSE MOVED");
-//        MainFrame.getInstance().getPackageView().misPovucenmng(e.getPoint(),diagramView);
-//        //diagramView.update();
-//        diagramView.repaint();
-//        System.out.println("uso u listener mmoved");
     }
 }

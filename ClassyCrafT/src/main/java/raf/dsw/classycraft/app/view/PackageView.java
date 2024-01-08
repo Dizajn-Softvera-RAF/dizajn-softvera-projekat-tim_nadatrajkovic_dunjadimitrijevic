@@ -5,7 +5,6 @@ import raf.dsw.classycraft.app.Observer.Notification;
 import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.controller.stateSablon.StateManager;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
-import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNodeComposite;
 import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
 import raf.dsw.classycraft.app.model.composite_implementation.Package;
 import raf.dsw.classycraft.app.model.composite_implementation.Project;
@@ -18,13 +17,14 @@ public class PackageView extends JPanel implements ISubscriber {
 
 
     private JPanel desktopinfo;
-    private Label project;
+    private Label projectlbl;
     private Label author;
     private JPanel tabs_panel;
 
     private JTabbedPane tabbedPane;
 
     private Package paket; // paket koji se trenutno prikazuje
+    private Project project;
 
     private StateManager stateManager; //packageView je moderator za state sablon
 
@@ -32,16 +32,13 @@ public class PackageView extends JPanel implements ISubscriber {
 
     private ArrayList<DiagramView> diagramViews;
 
-
-
-
     public PackageView() {
         super();
         desktopinfo = new JPanel();
         desktopinfo.setLayout(new BoxLayout(desktopinfo, BoxLayout.Y_AXIS));
-        project = new Label("Current project: ");
+        projectlbl = new Label("Current project: ");
         author = new Label("Author: ");
-        desktopinfo.add(project);
+        desktopinfo.add(projectlbl);
         desktopinfo.add(author);
 
         this.setLayout(new BorderLayout());
@@ -50,7 +47,6 @@ public class PackageView extends JPanel implements ISubscriber {
         tabs_panel.setLayout(new BorderLayout());
         this.add(tabs_panel, BorderLayout.CENTER);
         tabbedPane = new JTabbedPane(JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT);
-        //tabs.setSize(500,300);
         diagramViews =new ArrayList<DiagramView>();
 
         tabs_panel.add(tabbedPane);
@@ -61,13 +57,21 @@ public class PackageView extends JPanel implements ISubscriber {
         add(desniToolBar, BorderLayout.EAST);
     }
 
-    public Package getPaket() {
-        return paket;
-    }
+//    public Package getPaket() {
+//        return paket;
+//    }
 
     public void setPaket(Package paket) {
         this.paket = paket;
         this.Update(new Notification(paket, NotificationType.SHOW));
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public JTabbedPane getTabbedPane() {
@@ -79,11 +83,11 @@ public class PackageView extends JPanel implements ISubscriber {
     }
 
     public void setProjectNaziv(String naziv) {
-        project.setText("Current project: " + naziv);
+        projectlbl.setText("Current project: " + naziv);
     }
 
     private void showComponents() {
-        project.setVisible(true);
+        projectlbl.setVisible(true);
         author.setVisible(true);
         tabs_panel.setVisible(true);
         tabbedPane.setVisible(true);
@@ -131,15 +135,13 @@ public class PackageView extends JPanel implements ISubscriber {
             if (((Notification) notification).getNotificationType() == NotificationType.SHOW) {
                 MainFrame.getInstance().setPackageView(this);
                 System.out.println(paket.getName());
-                //Package currentPackage = (Package) ((Notification) notification).getObjectOfNotification();
-                //ClassyNode node = (ClassyNode) ((Notification) notification).getObjectOfNotification();
-
-                // Ovde nalazi projekat u kom se paket nalazi
+                // Ovde nalazi projekat u kom se paket nalazi ----------
                 ClassyNode node = (ClassyNode) paket;
 
                 while (!(node instanceof Project)) {
                     node = node.getParent();
                 }
+                project = (Project)node;
                 this.setProjectNaziv(((Project) node).getName());
                 this.setAutor(((Project) node).getImeAutora());
                 node.addSubscriber(this);
@@ -165,34 +167,13 @@ public class PackageView extends JPanel implements ISubscriber {
                         System.out.println("usao u 'jeste se dodalo na otvoreni paket' ");
                         DiagramView dv = new DiagramView(d);
                         diagramViews.add(dv);
-//                        JScrollPane s=new JScrollPane();
-//                        this.setPreferredSize(new Dimension(dv.getSize().width-50, dv.getSize().height-50));
-//                        s.setSize(new Dimension(dv.getSize().width, dv.getSize().height));
-//                        //s.setViewportView(this);
-//
-//                        s.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-//                        s.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-//
-//                        //setPreferredSize(new Dimension(this.getSize().width,this.getSize().height));
-//                        //
-//                        // s.setBounds(0,0, 200,200);
-//
-//                        add(s);
-//                        s.setVisible(true);
-//
-//                        setLayout(null);
 
-
-                        //d.addSubscriber(this);
                         System.out.println(d.getSubscriberList());
                         d.addSubscriber(dv);
                         System.out.println(d.getSubscriberList());
-                        //dv.Update(new Notification(d, NotificationType.SHOWDIAGRAM));
-                        //paket.addSubscriber(dv);
+
                         this.getTabbedPane().addTab(dv.getDiagram().getName(), dv);
                     }
-
-
                 }
             } else if (((Notification) notification).getNotificationType() == NotificationType.DELETE) {
                 if (((Notification) notification).getObjectOfNotification() instanceof Project) {
@@ -219,6 +200,25 @@ public class PackageView extends JPanel implements ISubscriber {
 
         }
 
+    }
+
+    public DiagramView trenutniDv()
+    {
+        DiagramView dv=(DiagramView) tabbedPane.getSelectedComponent();
+        if(dv!=null)
+            return dv;
+        System.out.println("null je");
+        return null;
+    }
+
+    public DiagramView diagramViewOfDiagram(Diagram diagram)
+    {
+        for (DiagramView dv : diagramViews)
+            if(dv.getDiagram().getName().equals(diagram.getName()))
+            {
+                return dv;
+        }
+        return new DiagramView(diagram);
     }
 
     //funkcije za stateManager
@@ -257,6 +257,7 @@ public class PackageView extends JPanel implements ISubscriber {
         stateManager.setZoomOutState();
     }
 
+
     public void misPritisnutmng(Point P, DiagramView dv)
     {
         stateManager.getCurrentState().misPritisnut(P,dv);
@@ -270,5 +271,8 @@ public class PackageView extends JPanel implements ISubscriber {
         stateManager.getCurrentState().misOtpusten(P,dv);
     }
 
-
+    //-----------------------------------------------------------------
+    public StateManager getStateManager() {
+        return stateManager;
+    }
 }
