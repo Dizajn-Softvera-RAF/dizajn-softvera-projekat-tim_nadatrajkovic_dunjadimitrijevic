@@ -2,7 +2,6 @@ package raf.dsw.classycraft.app.commandPattern;
 
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class CommandManager {
             commands.remove(currentCommand);
         commands.add(command);
         doCommand();
-        dajListuKomandi();
+        printListOfCommands();
     }
 
     /*
@@ -47,7 +46,7 @@ public class CommandManager {
         if(currentCommand==commands.size()){
             ApplicationFramework.getInstance().disableRedoAction();
         }
-        dajListuKomandi();
+        printListOfCommands();
     }
 
     /*
@@ -62,10 +61,10 @@ public class CommandManager {
         if(currentCommand==0){
             ApplicationFramework.getInstance().disableUndoAction();
         }
-        dajListuKomandi();
+        printListOfCommands();
     }
 
-    public void dajListuKomandi()
+    private void printListOfCommands()
     {
         System.out.println(currentCommand);
         for (AbstractCommand a:commands) {

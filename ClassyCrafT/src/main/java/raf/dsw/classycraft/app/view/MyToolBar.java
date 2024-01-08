@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.view;
 
+import com.sun.tools.javac.Main;
 import raf.dsw.classycraft.app.controller.ExitAction;
 
 import javax.swing.*;
@@ -19,6 +20,8 @@ public class MyToolBar extends JToolBar {
         add(MainFrame.getInstance().getActionManager().getRedoAction());
         add(MainFrame.getInstance().getActionManager().getSaveAction());
         add(MainFrame.getInstance().getActionManager().getLoadAction());
+        add(MainFrame.getInstance().getActionManager().getSavePatternAction());
+        add(MainFrame.getInstance().getActionManager().getLoadPatternAction());
 
         add(MainFrame.getInstance().getActionManager().getSaveImageAction());
 

@@ -1,7 +1,6 @@
 package raf.dsw.classycraft.app.commandPattern.implementations;
 
 import raf.dsw.classycraft.app.commandPattern.AbstractCommand;
-import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Interclass;
 import raf.dsw.classycraft.app.view.DiagramView;
 import raf.dsw.classycraft.app.view.painteri.ElementPainter;

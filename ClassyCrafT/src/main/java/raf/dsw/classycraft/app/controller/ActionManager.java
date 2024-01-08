@@ -14,6 +14,8 @@ public class ActionManager {
 
     private SaveAction saveAction;
     private LoadAction loadAction;
+    private SavePatternAction savePatternAction;
+    private LoadPatternAction loadPatternAction;
 
     private SaveImageAction saveImageAction;
 
@@ -98,6 +100,15 @@ public class ActionManager {
     public LoadAction getLoadAction() {
         return loadAction;
     }
+
+    public SavePatternAction getSavePatternAction() {
+        return savePatternAction;
+    }
+
+    public LoadPatternAction getLoadPatternAction() {
+        return loadPatternAction;
+    }
+
     public SaveImageAction getSaveImageAction()
     {return saveImageAction;}
 
@@ -110,6 +121,8 @@ public class ActionManager {
         deleteAction = new DeleteAction();
         saveAction = new SaveAction();
         loadAction = new LoadAction();
+        savePatternAction = new SavePatternAction();
+        loadPatternAction = new LoadPatternAction();
         saveImageAction = new SaveImageAction();
 
         undoAction = new UndoAction();

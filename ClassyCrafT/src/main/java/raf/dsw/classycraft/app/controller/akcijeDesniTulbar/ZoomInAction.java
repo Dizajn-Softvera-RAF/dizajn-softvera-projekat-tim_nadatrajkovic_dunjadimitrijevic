@@ -14,9 +14,6 @@ public class ZoomInAction extends AbstractClassyAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //
-        // PackageView statemanager start state
         MainFrame.getInstance().getPackageView().StartZoomInState();
-
     }
 }

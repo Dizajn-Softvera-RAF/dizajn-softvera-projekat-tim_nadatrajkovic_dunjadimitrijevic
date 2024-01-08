@@ -9,7 +9,6 @@ import raf.dsw.classycraft.app.view.MainFrame;
 import raf.dsw.classycraft.app.view.painteri.*;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class AddConnectionCommand extends AbstractCommand {
 
@@ -25,31 +24,11 @@ public class AddConnectionCommand extends AbstractCommand {
 
     @Override
     public void doCommand() {
-
-        /*
-        if(connection instanceof Agregacija)
-        {
-            connectionPainter = new AgregacijaPainter(connection);
-        }
-        if(connection instanceof Zavisnost)
-        {
-            connectionPainter = new ZavisnostPainter(connection);
-        }
-        if(connection instanceof Kompozicija)
-        {
-            connectionPainter = new KompozicijaPainter(connection);
-        }
-        if(connection instanceof Generalizacija)
-        {
-            connectionPainter = new GeneralizacijaPainter(connection);
-        }*/
-
         dv.addPainter(connectionPainter);
         connection.addSubscriber(dv);
 
         ClassyTreeItem item= MainFrame.getInstance().getClassyTree().NadjiClassyTreePrekoClassyNode(dv.getDiagram(),MainFrame.getInstance().getClassyTree().getRoot());
         MainFrame.getInstance().getClassyTree().addDiagramElement(item, connection);
-
     }
 
     @Override
