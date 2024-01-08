@@ -15,7 +15,19 @@ import java.util.ArrayList;
 @JsonTypeName("diagram")
 public class Diagram extends ClassyNodeComposite implements IPublisher {
 
-    public static int brojacDijagrama=1;
+    private static int brojacDijagrama=1;
+
+    public static int getBrojacDijagrama() {
+        return brojacDijagrama;
+    }
+    public static void smanjiBrojac()
+    {
+        brojacDijagrama--;
+    }
+    public static void setBrojacDijagrama(int brojacDijagrama) {
+        Diagram.brojacDijagrama = brojacDijagrama;
+    }
+
     public Diagram(String name, ClassyNode parent) {
         super(name, parent);
     }
@@ -43,10 +55,9 @@ public class Diagram extends ClassyNodeComposite implements IPublisher {
     }
     public void copyPattern(Diagram pattern)
     {
-//        for(var subscriber : pattern.getSubscriberList())
-//        {
-//            // ne znamm
-//        }
-        //for(var )
+        for(var child:pattern.getChildren())
+        {
+            this.addChild(child);
+        }
     }
 }

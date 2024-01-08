@@ -26,5 +26,5 @@ public interface ClassyTree {
     ClassyTreeItem getRoot();
 
     public void loadProject(Project node);
-    //public void loadPattern(Diagram node);
+    public void loadPattern(Diagram node);
 }

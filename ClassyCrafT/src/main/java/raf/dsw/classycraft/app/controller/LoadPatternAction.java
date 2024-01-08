@@ -1,5 +1,7 @@
 package raf.dsw.classycraft.app.controller;
 
+import raf.dsw.classycraft.app.Observer.Notification;
+import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
 import raf.dsw.classycraft.app.model.composite_implementation.Project;
@@ -37,18 +39,20 @@ public class LoadPatternAction extends AbstractClassyAction {
         if (jfc.showOpenDialog(MainFrame.getInstance()) == JFileChooser.APPROVE_OPTION) {
             try {
                 File file = jfc.getSelectedFile();
-                Diagram d = ApplicationFramework.getInstance().getSerializer().loadPattern(file);
-                //MainFrame.getInstance().getClassyTree().loadProject(p);
-
+                Diagram pattern = ApplicationFramework.getInstance().getSerializer().loadPattern(file);
+                Diagram.smanjiBrojac();
+                copyPatternIntoSelectedDiagram(pattern,(Diagram)selected.getClassyNode());
+                SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getClassyTree().getTreeView());
+                MainFrame.getInstance().getClassyTree().loadPattern((Diagram)selected.getClassyNode());
+                selected.getClassyNode().notifySubscribers(new Notification(null, NotificationType.LOADED_PATTERN));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        //FileChooser jfc = new JFileChooser();
     }
 
     private void copyPatternIntoSelectedDiagram(Diagram pattern, Diagram selectedDiagram)
     {
-
+        selectedDiagram.copyPattern(pattern);
     }
 }

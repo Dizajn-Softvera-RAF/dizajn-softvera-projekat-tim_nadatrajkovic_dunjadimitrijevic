@@ -10,7 +10,8 @@ import java.awt.*;
 @JsonTypeName("agregacija")
 public class Agregacija extends Connection {
     public Agregacija(String name, ClassyNode parent, Interclass odInterclass, Interclass doInterclass, Point odTacka, Point doTacka) {
-        super(name, parent, odInterclass, doInterclass, odTacka, doTacka);
+        super(name+brojacVeza, parent, odInterclass, doInterclass, odTacka, doTacka);
+        brojacVeza++;
     }
 
     @JsonCreator

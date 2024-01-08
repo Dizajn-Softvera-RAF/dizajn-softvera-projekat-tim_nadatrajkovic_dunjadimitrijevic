@@ -325,6 +325,11 @@ public class DiagramView extends JPanel implements ISubscriber {
             {
                 repaint();
             }
+            if(n.getNotificationType() == NotificationType.LOADED_PATTERN)
+            {
+                createElements();
+                repaint();
+            }
         }
     }
 

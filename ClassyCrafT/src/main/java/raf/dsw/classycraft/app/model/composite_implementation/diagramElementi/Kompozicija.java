@@ -10,7 +10,8 @@ import java.awt.*;
 @JsonTypeName("kompozicija")
 public class Kompozicija extends Connection {
     public Kompozicija(String name, ClassyNode parent, Interclass odInterclass, Interclass doInterclass, Point odTacka, Point doTacka) {
-        super(name, parent, odInterclass, doInterclass, odTacka, doTacka);
+        super(name+brojacVeza, parent, odInterclass, doInterclass, odTacka, doTacka);
+        brojacVeza++;
     }
 
     @JsonCreator

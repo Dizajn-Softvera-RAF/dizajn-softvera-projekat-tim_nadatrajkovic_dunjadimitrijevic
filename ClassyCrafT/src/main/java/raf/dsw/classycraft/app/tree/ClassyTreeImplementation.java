@@ -171,6 +171,19 @@ public class ClassyTreeImplementation implements ClassyTree{
 //    }
 
     @Override
+    public void loadPattern(Diagram node)
+    {
+        ClassyTreeItem diagramItem = getSelectedNode();
+        prolazDeca(node, diagramItem);
+        ClassyTreeItem root1 = (ClassyTreeItem) (treeModel.getRoot());
+        TreeNode[] nodes=root1.getPath();
+        System.out.println(nodes.toString());
+        TreePath tp=new TreePath(nodes);
+        treeView.expandPath(tp);//treeView.getSelectionPath());
+        SwingUtilities.updateComponentTreeUI(treeView);
+    }
+
+    @Override
     public void loadProject(Project node) {
 
         ClassyTreeItem loadedProject = new ClassyTreeItem(node);

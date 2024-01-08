@@ -24,7 +24,7 @@ public abstract class Connection extends DiagramElement implements ISubscriber {
     Point odTacka;
     Point doTacka;
 
-
+    public static int brojacVeza = 1;
     Interclass interclassOd;
     Interclass interclassDo;
 
@@ -32,9 +32,9 @@ public abstract class Connection extends DiagramElement implements ISubscriber {
     public Connection(String name, ClassyNode parent, Interclass odInterclass,
                       Interclass doInterclass, Point odTacka, Point doTacka) {
         super(name, parent);
-        interclassOd =odInterclass;
+        interclassOd = odInterclass;
         interclassOd.addSubscriber(this);
-        interclassDo =doInterclass;
+        interclassDo = doInterclass;
         interclassDo.addSubscriber(this);
         this.odTacka = odTacka;
         this.doTacka = doTacka;
@@ -59,7 +59,6 @@ public abstract class Connection extends DiagramElement implements ISubscriber {
     @Override
     public void setParent(ClassyNode parent) {
         super.setParent(parent);
-
     }
 
     public Interclass getInterclassOd() {

@@ -10,7 +10,8 @@ import java.awt.*;
 @JsonTypeName("zavisnost")
 public class Zavisnost extends Connection{
     public Zavisnost(String name, ClassyNode parent, Interclass odInterclass, Interclass doInterclass, Point odTacka, Point doTacka) {
-        super(name, parent, odInterclass, doInterclass, odTacka, doTacka);
+        super(name+brojacVeza, parent, odInterclass, doInterclass, odTacka, doTacka);
+        brojacVeza++;
     }
 
     @JsonCreator
