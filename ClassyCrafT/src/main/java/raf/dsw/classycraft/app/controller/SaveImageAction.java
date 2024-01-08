@@ -2,7 +2,6 @@ package raf.dsw.classycraft.app.controller;
 
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
-import raf.dsw.classycraft.app.model.composite_implementation.Project;
 import raf.dsw.classycraft.app.model.message.MessageType;
 import raf.dsw.classycraft.app.view.DiagramView;
 import raf.dsw.classycraft.app.view.MainFrame;

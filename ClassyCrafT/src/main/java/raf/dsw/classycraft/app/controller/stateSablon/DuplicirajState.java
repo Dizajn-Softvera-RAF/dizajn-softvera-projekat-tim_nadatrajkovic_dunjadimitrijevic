@@ -66,48 +66,12 @@ public class DuplicirajState implements State{
 
                     DuplicateCommand duplicateCommand = new DuplicateCommand(dv,novi_element);
                     dv.getCommandManager().addCommand(duplicateCommand);
-
-
-
-                    /*
-                    ClassyTreeItem item= MainFrame.getInstance().getClassyTree().NadjiClassyTreePrekoClassyNode(dv.getDiagram(),MainFrame.getInstance().getClassyTree().getRoot());
-
-                    if(novi_element instanceof Klasa)
-                    {
-                        KlasaPainter klasaPainter=new KlasaPainter(novi_element);
-                        dv.addPainter(klasaPainter);
-                        //novi_element.addSubscriber(dv);
-                        //MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
-                    }
-                    else if(novi_element instanceof Interfejs)
-                    {
-                        InterfejsPainter interfejsPainter=new InterfejsPainter(novi_element);
-                        dv.addPainter(interfejsPainter);
-
-                        //MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
-
-                    }
-                    else if(novi_element instanceof Enumeracija)
-                    {
-                        EnumeracijaPainter enumeracijaPainter = new EnumeracijaPainter(novi_element);
-                        dv.addPainter(enumeracijaPainter);
-
-                        //MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
-                    }
-
-                     */
-                    /*novi_element.addSubscriber(dv);
-                    MainFrame.getInstance().getClassyTree().addDiagramElement(item, novi_element);
-
-                    System.out.println("DUPLICIRAN");*/
                 }
                 else if(rez == 1)
                 {
                     dv.ukloniSveIzSelektovanih();
                 }
-
             }
-
         }
         dv.ukloniSveIzSelektovanih();
     }

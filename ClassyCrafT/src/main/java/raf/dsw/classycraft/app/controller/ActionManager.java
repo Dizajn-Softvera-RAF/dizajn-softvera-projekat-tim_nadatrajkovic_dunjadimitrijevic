@@ -2,8 +2,6 @@ package raf.dsw.classycraft.app.controller;
 
 import raf.dsw.classycraft.app.controller.akcijeDesniTulbar.*;
 
-import javax.swing.*;
-
 public class ActionManager {
 
     private ExitAction exitAction;
@@ -68,10 +66,6 @@ public class ActionManager {
         return exitAction;
     }
     public AboutUsAction getAboutUsAction(){return aboutUsAction;}
-
-//    public PackageChildAction getPackageChildAction() {
-//        return packageChildAction;
-//    }
 
     public AddNodeAction getAddNodeAction() {
         return addNodeAction;

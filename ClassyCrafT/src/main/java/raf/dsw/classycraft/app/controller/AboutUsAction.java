@@ -1,7 +1,6 @@
 package raf.dsw.classycraft.app.controller;
 
 import raf.dsw.classycraft.app.view.AboutUsWindow;
-import raf.dsw.classycraft.app.view.MainFrame;
 
 import javax.swing.*;
 import java.awt.*;
