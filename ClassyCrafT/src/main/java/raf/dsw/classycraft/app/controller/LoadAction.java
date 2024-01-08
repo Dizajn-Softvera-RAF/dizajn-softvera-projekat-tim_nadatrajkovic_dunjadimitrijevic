@@ -1,6 +1,5 @@
 package raf.dsw.classycraft.app.controller;
 
-import raf.dsw.classycraft.app.controller.AbstractClassyAction;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.model.composite_implementation.Project;
 import raf.dsw.classycraft.app.view.MainFrame;
@@ -14,7 +13,6 @@ public class LoadAction extends AbstractClassyAction {
     public LoadAction() {
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
                 KeyEvent.VK_L, ActionEvent.CTRL_MASK));
-        //putValue(SMALL_ICON, loadIcon("/images/plus.png"));
         putValue(NAME, "Open project");
         putValue(SHORT_DESCRIPTION, "Open project");
     }

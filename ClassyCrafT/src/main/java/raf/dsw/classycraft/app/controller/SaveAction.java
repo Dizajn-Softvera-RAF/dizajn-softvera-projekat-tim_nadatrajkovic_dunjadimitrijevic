@@ -15,7 +15,6 @@ public class SaveAction extends AbstractClassyAction{
     public SaveAction() {
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
                 KeyEvent.VK_S, ActionEvent.CTRL_MASK));
-        //putValue(SMALL_ICON, loadIcon("/images/plus.png"));
         putValue(NAME, "Save project");
         putValue(SHORT_DESCRIPTION, "Save project");
     }

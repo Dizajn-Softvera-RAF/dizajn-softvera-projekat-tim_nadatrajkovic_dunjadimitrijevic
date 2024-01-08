@@ -7,8 +7,6 @@ import java.awt.*;
 import java.awt.geom.GeneralPath;
 
 public class KompozicijaPainter extends ConnectionPainter{
-
-
     Point cetvrtaTacka;
     public KompozicijaPainter(DiagramElement diagramElement) {
         super(diagramElement);

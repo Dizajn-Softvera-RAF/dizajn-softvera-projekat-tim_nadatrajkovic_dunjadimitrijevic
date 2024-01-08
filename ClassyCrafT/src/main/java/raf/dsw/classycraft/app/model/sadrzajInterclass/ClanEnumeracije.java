@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.InterclassVidljivost;
 
-import java.util.List;
-
 @JsonTypeName("classContent")
 public class ClanEnumeracije extends ClassContent{
     public ClanEnumeracije(String naziv) {

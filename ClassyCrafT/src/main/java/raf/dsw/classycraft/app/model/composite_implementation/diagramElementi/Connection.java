@@ -46,7 +46,6 @@ public abstract class Connection extends DiagramElement implements ISubscriber {
 
     public void setOdTacka(Point odTacka) {
         this.odTacka = odTacka;
-        //notifySubscribers(new Notification(this, NotificationType.MOVE));
     }
 
     public Point getDoTacka() {

@@ -19,8 +19,6 @@ public class AboutUsWindow extends JFrame {
 
         System.out.println("uso u konstruktor");
 
-
-        // todo nema slike u resources
         URL imageURL = getClass().getResource("/images/slikaAboutUs.jpeg");
         ImageIcon icon = null;
 
@@ -35,9 +33,5 @@ public class AboutUsWindow extends JFrame {
         JLabel labelaSlika = new JLabel("Nada Trajković (levo) i Dunja Dimitrijević (desno)",icon,JLabel.CENTER);
         this.add(labelaSlika);
         labelaSlika.setVisible(true);
-
     }
-
-
-
 }

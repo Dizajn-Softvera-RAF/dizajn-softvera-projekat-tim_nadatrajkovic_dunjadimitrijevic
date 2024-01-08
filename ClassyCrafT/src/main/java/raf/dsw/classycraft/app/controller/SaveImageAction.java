@@ -47,6 +47,5 @@ public class SaveImageAction extends AbstractClassyAction{
 
         dv.saveDiagramAsImage(filePath);
 
-
     }
 }

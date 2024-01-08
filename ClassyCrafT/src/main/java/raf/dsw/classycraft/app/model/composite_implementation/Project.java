@@ -10,13 +10,10 @@ import java.util.ArrayList;
 
 @JsonTypeName("project")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Project extends ClassyNodeComposite { //implements ISubscriber { mozda je on zapravo publisher na settext
-
-
-    //@JsonIgnore
-    /*transient*/ protected String filePath;
+public class Project extends ClassyNodeComposite {
+    protected String filePath;
     @JsonIgnore
-    transient protected boolean changed = true; // todo videti kako ovo da sredimo (ovako se uvek pali JFileChooser)
+    transient protected boolean changed = true;
 
     private String imeAutora;
 
@@ -28,13 +25,6 @@ public class Project extends ClassyNodeComposite { //implements ISubscriber { mo
         imeAutora="";
         brojacProjekata++;
     }
-
-//    @JsonCreator
-//    public Project(@JsonProperty("type") String tip, @JsonProperty("name") String name, @JsonProperty("children") ArrayList<ClassyNode> children, @JsonProperty("imeAutora") String imeAutora) {
-//        super(name, null);
-//        this.setChildren(children);
-//        this.imeAutora=imeAutora;
-//    }
     @JsonCreator
     public Project(@JsonProperty("type") String tip, @JsonProperty("name") String name, @JsonProperty("children") ArrayList<ClassyNode> children, @JsonProperty("imeAutora") String imeAutora, @JsonProperty("filePath") String filePath) {
         super(name, null);
@@ -96,13 +86,4 @@ public class Project extends ClassyNodeComposite { //implements ISubscriber { mo
         this.changed = changed;
     }
 
-    // todo: ne znam da li da ostavim ovu ideju??
-//    @Override
-//    public void Update(Object notification) {
-//        Notification n = (Notification) notification;
-//        if(n.getNotificationType() == NotificationType.CHILD_CHANGED)
-//        {
-//            this.setChanged(true);
-//        }
-//    }
 }

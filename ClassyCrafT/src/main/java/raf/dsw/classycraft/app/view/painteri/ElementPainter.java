@@ -7,7 +7,6 @@ import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.DiagramElement;
 
 import java.awt.*;
-import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,16 +32,6 @@ public abstract class ElementPainter implements ISubscriber, IPublisher {
     public void setSelektovano(boolean selektovano) {
         this.selektovano = selektovano;
     }
-
-//    protected int duzinaReci(String rec, Graphics2D g)
-//    {
-//        int duzina=0;
-//        for(int i=0;i<rec.length();i++) {
-//            int jedan=g.getFontMetrics().charWidth(rec.charAt(i));
-//            duzina+=jedan;
-//        }
-//        return duzina;
-//    }
 
     public DiagramElement getDiagramElement() {
         return diagramElement;

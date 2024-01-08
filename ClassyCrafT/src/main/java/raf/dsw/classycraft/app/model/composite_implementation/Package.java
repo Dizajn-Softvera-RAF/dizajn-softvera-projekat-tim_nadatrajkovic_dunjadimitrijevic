@@ -48,8 +48,6 @@ public class Package extends ClassyNodeComposite {
             this.notifySubscribers(new Notification(d, NotificationType.ADD));
 
         }
-        // notifySubscribers() ...
-        //addSubscriber(child);
     }
 
     @Override
@@ -69,17 +67,4 @@ public class Package extends ClassyNodeComposite {
 
         return (Project)node;
     }
-
-
-    // todo: ne znam da li da ostavim ovu ideju??
-//    @Override
-//    public void Update(Object notification) {
-//        Notification n = (Notification) notification;
-//        if(n.getNotificationType() == NotificationType.CHILD_CHANGED)
-//        {
-//            this.getProject().setChanged(true);
-//        }
-//    }
-
-
 }

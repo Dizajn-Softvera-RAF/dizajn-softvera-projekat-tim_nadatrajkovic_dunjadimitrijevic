@@ -2,12 +2,7 @@ package raf.dsw.classycraft.app.model.sadrzajInterclass;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Enumeracija;
 import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.InterclassVidljivost;
-import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Interfejs;
-import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Klasa;
-
-
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
         include = JsonTypeInfo.As.PROPERTY,

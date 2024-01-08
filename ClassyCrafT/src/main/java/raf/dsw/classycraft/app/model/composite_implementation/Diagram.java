@@ -41,5 +41,12 @@ public class Diagram extends ClassyNodeComposite implements IPublisher {
         super("dijagram"+brojacDijagrama,parent);
         brojacDijagrama++;
     }
-
+    public void copyPattern(Diagram pattern)
+    {
+//        for(var subscriber : pattern.getSubscriberList())
+//        {
+//            // ne znamm
+//        }
+        //for(var )
+    }
 }

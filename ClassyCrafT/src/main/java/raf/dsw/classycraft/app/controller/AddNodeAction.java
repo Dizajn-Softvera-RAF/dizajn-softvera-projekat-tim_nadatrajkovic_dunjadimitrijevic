@@ -14,21 +14,10 @@ import java.awt.event.ActionEvent;
 
 public class AddNodeAction extends AbstractClassyAction{
     private NodeType type;
-    private static boolean closed_window = false;
-
-//    public static boolean isClosed_window() {
-//        return closed_window;
-//    }
-
-//    public static void setClosed_window(boolean closed_window) {
-//        AddNodeAction.closed_window = closed_window;
-//    }
-
     public AddNodeAction() {
         putValue(SMALL_ICON, loadIcon("/images/plus.png"));
         putValue(NAME, "Add");
         putValue(SHORT_DESCRIPTION, "Add node");
-
     }
 
     public NodeType getType() {

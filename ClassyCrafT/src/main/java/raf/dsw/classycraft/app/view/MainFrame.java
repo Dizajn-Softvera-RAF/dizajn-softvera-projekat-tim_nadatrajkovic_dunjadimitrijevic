@@ -1,7 +1,6 @@
 package raf.dsw.classycraft.app.view;
 
 import raf.dsw.classycraft.app.Observer.ISubscriber;
-import raf.dsw.classycraft.app.Observer.Notification;
 import raf.dsw.classycraft.app.controller.ActionManager;
 import raf.dsw.classycraft.app.controller.OpenPackageAction;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
@@ -19,12 +18,6 @@ public class MainFrame extends JFrame implements ISubscriber {
     private ClassyTree classyTree;
 
     private JTree projectExplorer;
-    private JTabbedPane tabs;
-    private JPanel desktopinfo;
-    private Label project;
-    private Label author;
-    private JPanel desktop;
-    private JPanel tabs_panel;
     private JScrollPane scroll;
     private JSplitPane split;
 
@@ -39,7 +32,7 @@ public class MainFrame extends JFrame implements ISubscriber {
         Dimension screenSize = kit.getScreenSize();
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
-        setSize(screenWidth / 2, screenHeight / 2);
+        setSize(screenWidth, screenHeight);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("ClassyCrafT");
@@ -55,24 +48,7 @@ public class MainFrame extends JFrame implements ISubscriber {
 
         classyTree = new ClassyTreeImplementation();
 
-        //System.out.println(ApplicationFramework.getInstance());
-        //System.out.println(ApplicationFramework.getInstance().getClassyRepositoryImplementation());
-        //System.out.println("msg: "+ ApplicationFramework.getInstance().getMessageGenerator());
         projectExplorer = classyTree.generateTree(ApplicationFramework.getInstance().getClassyRepository().getRoot());
-
-//        desktopinfo = new JPanel();
-//        desktopinfo.setLayout(new BoxLayout(desktopinfo, BoxLayout.Y_AXIS));
-//        project = new Label("Current project: ");
-//        author = new Label("Author: ");
-//        desktopinfo.add(project);
-//        desktopinfo.add(author);
-//
-//        desktop = new JPanel();
-//        desktop.setLayout(new BorderLayout());
-//        desktop.add(desktopinfo, BorderLayout.NORTH);
-//        tabs_panel = new JPanel();
-//        tabs_panel.setLayout(new BorderLayout());
-//        desktop.add(tabs_panel,BorderLayout.CENTER);
 
         packageView=new PackageView();
 
@@ -84,11 +60,6 @@ public class MainFrame extends JFrame implements ISubscriber {
         split.setDividerLocation(250);
         split.setOneTouchExpandable(true);
 
-//        tabs = new JTabbedPane(JTabbedPane.TOP,JTabbedPane.SCROLL_TAB_LAYOUT);
-//        //tabs.setSize(500,300);
-//
-//        tabs_panel.add(tabs);
-
         projectExplorer.addMouseListener(new OpenPackageAction());
 
     }
@@ -97,16 +68,8 @@ public class MainFrame extends JFrame implements ISubscriber {
         this.packageView = packageView;
     }
 
-    public JTree getProjectExplorer() {
-        return projectExplorer;
-    }
-
-//    public JTabbedPane getTabs() {
-//        return tabs;
-//    }
-
-//    public void setTabs(JTabbedPane tabs) {
-//        this.tabs = tabs;
+//    public JTree getProjectExplorer() {
+//        return projectExplorer;
 //    }
 
     public ActionManager getActionManager() {

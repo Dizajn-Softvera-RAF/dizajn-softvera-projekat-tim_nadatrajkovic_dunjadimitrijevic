@@ -1,6 +1,5 @@
 package raf.dsw.classycraft.app.controller;
 
-import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.view.MainFrame;
 
 import javax.swing.*;
@@ -21,7 +20,6 @@ public class UndoAction extends AbstractClassyAction{
 
     public void actionPerformed(ActionEvent e) {
         //ovde dobijemo diagramView i pozivamo njegov commandManager i undoCommand
-
         MainFrame.getInstance().getPackageView().trenutniDv().getCommandManager().undoCommand();
     }
 }

@@ -1,7 +1,11 @@
 package raf.dsw.classycraft.app.tree.view;
 
+import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
+import raf.dsw.classycraft.app.model.composite_implementation.Package;
 import raf.dsw.classycraft.app.model.composite_implementation.Project;
 import raf.dsw.classycraft.app.model.composite_implementation.ProjectExplorer;
+import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Connection;
+import raf.dsw.classycraft.app.model.composite_implementation.diagramElementi.Interclass;
 import raf.dsw.classycraft.app.tree.model.ClassyTreeItem;
 
 import javax.swing.*;
@@ -15,14 +19,18 @@ public class ClassyTreeCellRenderer extends DefaultTreeCellRenderer {
         super.getTreeCellRendererComponent(tree, value, sel,expanded, leaf, row, hasFocus);
         URL imageURL = null;
 
-        // todo staviti ikonice za cvorove u stablu
-//        if (((ClassyTreeItem)value).getClassyNode() instanceof ProjectExplorer) {
-//            imageURL = getClass().getResource("/images/tdiagram.gif");
-//        }
-//        else if (((ClassyTreeItem)value).getClassyNode() instanceof Project) {
-//            imageURL = getClass().getResource("/images/tproject.gif");
-//        }
-
+        if (((ClassyTreeItem)value).getClassyNode() instanceof ProjectExplorer) {
+            imageURL = getClass().getResource("/images/pink_folder.png");
+        }
+        else if (((ClassyTreeItem)value).getClassyNode() instanceof Project) {
+            imageURL = getClass().getResource("/images/blue_folder.png");
+        }
+        else if (((ClassyTreeItem)value).getClassyNode() instanceof Package) {
+            imageURL = getClass().getResource("/images/green_folder.png");
+        }
+        else if (((ClassyTreeItem)value).getClassyNode() instanceof Diagram) {
+            imageURL = getClass().getResource("/images/orange_folder.png");
+        }
         Icon icon = null;
         if (imageURL != null)
             icon = new ImageIcon(imageURL);

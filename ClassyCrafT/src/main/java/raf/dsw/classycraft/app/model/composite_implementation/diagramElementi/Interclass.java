@@ -51,34 +51,18 @@ public abstract class Interclass extends DiagramElement {
         dodajConnectonPoints();
     }
 
-    private void dodajConnectonPoints()
-    {
+    private void dodajConnectonPoints() {
         connectionPoints.clear();
-        int xSkok=width/4;
-        int ySkok=height/4;
+        int xSkok = width / 4;
+        int ySkok = height / 4;
 
-        for(int i=0;i<=4;i++)
-        {
-            for(int j=0;j<=4;j++)
-            {
-                if(!(j==1 && i==1))
-                    connectionPoints.add(new Point(pocetnaTacka.x+i*xSkok,pocetnaTacka.y+j*ySkok));
+        for (int i = 0; i <= 4; i++) {
+            for (int j = 0; j <= 4; j++) {
+                if (!(j == 1 && i == 1))
+                    connectionPoints.add(new Point(pocetnaTacka.x + i * xSkok, pocetnaTacka.y + j * ySkok));
             }
         }
     }
-
-//    public Interclass(String name, ClassyNode parent, InterclassVidljivost vidljivost, Point pocetnaTacka) {
-//        super(name, parent);
-//        this.vidljivost=vidljivost;
-//        sadrzaj=new ArrayList<>();
-//        this.pocetnaTacka = pocetnaTacka;
-//    }
-
-//    @Override
-//    protected Object clone() throws CloneNotSupportedException {
-//        return super.clone();
-//    }
-
     public void addClassContent(ClassContent classContent)
     {
         sadrzaj.add(classContent);
@@ -110,7 +94,7 @@ public abstract class Interclass extends DiagramElement {
         this.height = height;
     }
 
-    public Point getKrajnjaTacka() { // todo videti kako width, heigth i krajnju tacku resiti u peinteru
+    public Point getKrajnjaTacka() {
         return krajnjaTacka;
     }
 
@@ -136,12 +120,8 @@ public abstract class Interclass extends DiagramElement {
     public void setSadrzaj(List<ClassContent> sadrzaj) {
         this.sadrzaj = sadrzaj;
     }
-    //public abstract void changeClassContent(ClassContent classContentkoji, ClassContent novi);
 
     //geteri i seteri za ostala polja treba zbog serijalizacije
-    /*public List<ClassContent> getSadrzaj() {
-        return sadrzaj;
-    }*/
 
     public void setKrajnjaTacka(Point krajnjaTacka) {
         this.krajnjaTacka = krajnjaTacka;

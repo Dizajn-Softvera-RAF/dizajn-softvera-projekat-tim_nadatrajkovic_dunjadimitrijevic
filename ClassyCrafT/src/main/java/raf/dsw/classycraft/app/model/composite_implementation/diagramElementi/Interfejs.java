@@ -28,8 +28,4 @@ public class Interfejs extends Interclass {
         this.setWidth(width);
         this.setHeight(height);
     }
-
-//    public Interfejs(String name, ClassyNode parent, InterclassVidljivost vidljivost) {
-//        super(name, parent, vidljivost);
-//    }
 }

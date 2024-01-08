@@ -3,7 +3,6 @@ package raf.dsw.classycraft.app.tree.model;
 import raf.dsw.classycraft.app.model.composite_abstraction.ClassyNode;
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.MutableTreeNode;
 
 public class ClassyTreeItem extends DefaultMutableTreeNode {
     private ClassyNode classyNode;

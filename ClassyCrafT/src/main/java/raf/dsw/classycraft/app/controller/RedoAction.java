@@ -18,9 +18,6 @@ public class RedoAction extends AbstractClassyAction{
     }
 
     public void actionPerformed(ActionEvent e) {
-        //ovde dobijemo diagramView i pozivamo njegov commandManager i doCommand
-
-        //ApplicationFramework.getInstance().getCommandManager().doCommand();
         MainFrame.getInstance().getPackageView().trenutniDv().getCommandManager().doCommand();
     }
 

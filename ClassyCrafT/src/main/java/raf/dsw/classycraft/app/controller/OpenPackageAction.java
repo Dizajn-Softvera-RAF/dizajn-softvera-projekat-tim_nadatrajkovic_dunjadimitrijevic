@@ -17,39 +17,8 @@ public class OpenPackageAction implements MouseListener {
         if(e.getClickCount() == 2) {
             ClassyTreeItem selected = (ClassyTreeItem) MainFrame.getInstance().getClassyTree().getSelectedNode();
             if (selected.getClassyNode() instanceof Package) {
-                //selected.openPackage();
-
-////                ArrayList<ClassyNode> package_children = new ArrayList<>();
-////                MainFrame.getInstance().getPackageView().getTabs().removeAll();
-////
-////                package_children = ((Package) selected.getClassyNode()).getChildren();
-////                ClassyNode node = selected.getClassyNode();
-////                while (!(node instanceof Project)) {
-////                    node = node.getParent();
-////                }
-//
-//                node.addSubscriber(MainFrame.getInstance().getPackageView()); // jel ok ovo ovako da uradimo?
-//                node.notifySubscribers(node.getName());
-//                node.notifySubscribers(new Pair("", ((Project) node).getImeAutora()));
-
                 MainFrame.getInstance().getPackageView().setPaket((Package)(selected.getClassyNode()));
                 selected.getClassyNode().addSubscriber(MainFrame.getInstance().getPackageView());
-
-//                if(package_children.isEmpty())
-//                {
-//                    return;
-//                }
-
-//                for (ClassyNode child : package_children) {
-//                    if (child instanceof Diagram) {
-//
-//                        DiagramView dw = new DiagramView((Diagram)child);
-//                        selected.getClassyNode().notifySubscribers(child); // sluzi da se doda novi DW u PakcageViewu u TabbedPaneu
-//                        //MainFrame.getInstance().getPackageView().getTabs().addTab(child.getName(), dw);
-//                        child.addSubscriber(dw);
-//                    }
-//                }
-                //selected.getClassyNode().notifySubscribers(new Notification((Package)selected.getClassyNode(), NotificationType.SHOW)); // ovo ne ovde, nego npr u addChild u Package
             }
         }
     }

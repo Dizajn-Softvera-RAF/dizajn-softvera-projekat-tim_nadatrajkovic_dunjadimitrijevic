@@ -14,7 +14,7 @@ public class Metoda extends ClassContent{
     private List<Atribut> parametriFunkcije;
     public Metoda(String naziv, InterclassVidljivost vidljivost, String tip) {
         super(naziv, vidljivost, tip);
-        parametriFunkcije = new ArrayList<>(); //jel su ovo parametri?
+        parametriFunkcije = new ArrayList<>();
     }
     @JsonCreator
     public Metoda(@JsonProperty("type") String type,@JsonProperty("naziv") String naziv,@JsonProperty("vidljivost") InterclassVidljivost vidljivost,

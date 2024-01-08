@@ -37,13 +37,18 @@ public class LoadPatternAction extends AbstractClassyAction {
         if (jfc.showOpenDialog(MainFrame.getInstance()) == JFileChooser.APPROVE_OPTION) {
             try {
                 File file = jfc.getSelectedFile();
-                Project p = ApplicationFramework.getInstance().getSerializer().loadProject(file);
-                MainFrame.getInstance().getClassyTree().loadProject(p);
+                Diagram d = ApplicationFramework.getInstance().getSerializer().loadPattern(file);
+                //MainFrame.getInstance().getClassyTree().loadProject(p);
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         //FileChooser jfc = new JFileChooser();
+    }
+
+    private void copyPatternIntoSelectedDiagram(Diagram pattern, Diagram selectedDiagram)
+    {
+
     }
 }

@@ -19,23 +19,4 @@ public class Agregacija extends Connection {
         super(name, null, odakle,dokle,odTacka,doTacka);
 
     }
-
-    /*
-    * "type":"zavisnost",
-                     "name":"zavisnost",
-                     "odTacka":{
-                        "x":370.0,
-                        "y":162.0
-                     },
-                     "doTacka":{
-                        "x":461.0,
-                        "y":102.0
-                     },
-                     "interclassOd":{
-                        "
-                     },
-                     "interclassDo":{
-
-                     }
-    * */
 }

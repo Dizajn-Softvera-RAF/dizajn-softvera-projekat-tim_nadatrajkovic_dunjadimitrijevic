@@ -17,7 +17,6 @@ public class SavePatternAction extends AbstractClassyAction {
     public SavePatternAction() {
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(
                 KeyEvent.VK_S, ActionEvent.CTRL_MASK));
-        //putValue(SMALL_ICON, loadIcon("/images/save_as_img.png"));
         putValue(NAME, "Save diagram");
         putValue(SHORT_DESCRIPTION, "Save diagram as a pattern");
     }

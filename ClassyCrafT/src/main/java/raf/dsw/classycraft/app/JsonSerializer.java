@@ -26,6 +26,19 @@ public class JsonSerializer implements Serializer {
     }
 
     @Override
+    public Diagram loadPattern(File file) {
+        ObjectMapper objectMapper=new ObjectMapper();
+        objectMapper.disable(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE);
+
+        try {
+            Diagram diagram=objectMapper.readValue(file,Diagram.class);
+            return diagram;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public void saveProject(Project node,File projectFile) {
 
         ObjectMapper objectMapper=new ObjectMapper();
