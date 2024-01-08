@@ -26,6 +26,7 @@ public class Project extends ClassyNodeComposite { //implements ISubscriber { mo
     public Project(String name, ClassyNode parent) {
         super(name, parent);
         imeAutora="";
+        brojacProjekata++;
     }
 
 //    @JsonCreator
@@ -40,6 +41,7 @@ public class Project extends ClassyNodeComposite { //implements ISubscriber { mo
         this.setChildren(children);
         this.imeAutora=imeAutora;
         this.filePath = filePath;
+        brojacProjekata++;
     }
 
     public Project(ClassyNode parent)
@@ -93,4 +95,14 @@ public class Project extends ClassyNodeComposite { //implements ISubscriber { mo
     public void setChanged(boolean changed) {
         this.changed = changed;
     }
+
+    // todo: ne znam da li da ostavim ovu ideju??
+//    @Override
+//    public void Update(Object notification) {
+//        Notification n = (Notification) notification;
+//        if(n.getNotificationType() == NotificationType.CHILD_CHANGED)
+//        {
+//            this.setChanged(true);
+//        }
+//    }
 }

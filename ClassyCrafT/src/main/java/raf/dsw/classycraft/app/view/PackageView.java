@@ -17,13 +17,14 @@ public class PackageView extends JPanel implements ISubscriber {
 
 
     private JPanel desktopinfo;
-    private Label project;
+    private Label projectlbl;
     private Label author;
     private JPanel tabs_panel;
 
     private JTabbedPane tabbedPane;
 
     private Package paket; // paket koji se trenutno prikazuje
+    private Project project;
 
     private StateManager stateManager; //packageView je moderator za state sablon
 
@@ -38,9 +39,9 @@ public class PackageView extends JPanel implements ISubscriber {
         super();
         desktopinfo = new JPanel();
         desktopinfo.setLayout(new BoxLayout(desktopinfo, BoxLayout.Y_AXIS));
-        project = new Label("Current project: ");
+        projectlbl = new Label("Current project: ");
         author = new Label("Author: ");
-        desktopinfo.add(project);
+        desktopinfo.add(projectlbl);
         desktopinfo.add(author);
 
         this.setLayout(new BorderLayout());
@@ -69,6 +70,14 @@ public class PackageView extends JPanel implements ISubscriber {
         this.Update(new Notification(paket, NotificationType.SHOW));
     }
 
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
     public JTabbedPane getTabbedPane() {
         return tabbedPane;
     }
@@ -78,11 +87,11 @@ public class PackageView extends JPanel implements ISubscriber {
     }
 
     public void setProjectNaziv(String naziv) {
-        project.setText("Current project: " + naziv);
+        projectlbl.setText("Current project: " + naziv);
     }
 
     private void showComponents() {
-        project.setVisible(true);
+        projectlbl.setVisible(true);
         author.setVisible(true);
         tabs_panel.setVisible(true);
         tabbedPane.setVisible(true);
@@ -139,6 +148,7 @@ public class PackageView extends JPanel implements ISubscriber {
                 while (!(node instanceof Project)) {
                     node = node.getParent();
                 }
+                project = (Project)node;
                 this.setProjectNaziv(((Project) node).getName());
                 this.setAutor(((Project) node).getImeAutora());
                 node.addSubscriber(this);

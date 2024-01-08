@@ -21,6 +21,7 @@ public class Package extends ClassyNodeComposite {
     public Package(@JsonProperty("type") String type, @JsonProperty("name") String name, @JsonProperty("children") ArrayList<ClassyNode> children) {
         super(name, null);
         this.setChildren(children);
+        brojacPaketa++;
     }
 
     public Package(ClassyNode parent)
@@ -58,9 +59,27 @@ public class Package extends ClassyNodeComposite {
         notifySubscribers(new Notification(child, NotificationType.DELETE));
     }
 
-//    public void openPackage()
-//    {
-//
+    private Project getProject()
+    {
+        ClassyNode node = this;
+
+        while (!(node instanceof Project)) {
+            node = node.getParent();
+        }
+
+        return (Project)node;
+    }
+
+
+    // todo: ne znam da li da ostavim ovu ideju??
+//    @Override
+//    public void Update(Object notification) {
+//        Notification n = (Notification) notification;
+//        if(n.getNotificationType() == NotificationType.CHILD_CHANGED)
+//        {
+//            this.getProject().setChanged(true);
+//        }
 //    }
+
 
 }

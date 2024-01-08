@@ -1,6 +1,7 @@
 package raf.dsw.classycraft.app.commandPattern;
 
 import raf.dsw.classycraft.app.core.ApplicationFramework;
+import raf.dsw.classycraft.app.view.MainFrame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class CommandManager {
             commands.remove(currentCommand);
         commands.add(command);
         doCommand();
+        MainFrame.getInstance().getPackageView().getProject().setChanged(true);
         printListOfCommands();
     }
 

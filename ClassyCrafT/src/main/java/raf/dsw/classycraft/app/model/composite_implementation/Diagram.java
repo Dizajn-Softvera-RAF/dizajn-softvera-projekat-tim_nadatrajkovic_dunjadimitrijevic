@@ -24,6 +24,7 @@ public class Diagram extends ClassyNodeComposite implements IPublisher {
     public Diagram(@JsonProperty("type") String type, @JsonProperty("name") String name, @JsonProperty("children") ArrayList<ClassyNode> children) {
         super(name, null);
         this.setChildren(children);
+        brojacDijagrama++;
     }
 
     @Override

@@ -4,6 +4,7 @@ package raf.dsw.classycraft.app.model.composite_abstraction;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import raf.dsw.classycraft.app.Observer.ISubscriber;
 import raf.dsw.classycraft.app.Observer.Notification;
 import raf.dsw.classycraft.app.Observer.NotificationType;
 import raf.dsw.classycraft.app.model.composite_implementation.Diagram;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
         @JsonSubTypes.Type(value = ProjectExplorer.class, name = "projectExplorer"),
 })
 @JsonTypeName("classyNodeComposite")
-public abstract class ClassyNodeComposite extends ClassyNode{
+public abstract class ClassyNodeComposite extends ClassyNode /*implements ISubscriber*/ {
 
 
     private ArrayList<ClassyNode> children;
@@ -60,4 +61,6 @@ public abstract class ClassyNodeComposite extends ClassyNode{
     {
         this.getChildren().remove(child);
     }
+
+
 }
